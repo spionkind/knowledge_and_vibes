@@ -5,10 +5,29 @@
 Eight battle-tested tools that give AI coding agents what they've been missing: persistent memory, task tracking, multi-agent coordination, quality assurance, and real-time knowledge. This is the infrastructure that turns Claude Code from a helpful assistant into an autonomous engineering force.
 
 > **New here?** Point your agent at this repo and say: "Set up Knowledge & Vibes for my project using the SETUP_GUIDE.md"
->
-> **For Agents**: You're the primary user. See [Quick Start for Agents](#quick-start-for-agents).
->
-> **For Operators**: You configure and monitor. See [Operator Guide](#operator-guide).
+
+---
+
+## Table of Contents
+
+- [Quick Start for Agents](#quick-start-for-agents)
+- [The Toolkit](#the-toolkit)
+- [Tool Reference](#tool-reference)
+  - [Beads (Task Tracking)](#beads-task-tracking)
+  - [Beads Viewer (Graph Analysis)](#beads-viewer-graph-analysis)
+  - [CASS (Session Search)](#cass-session-search)
+  - [cass-memory (Cross-Agent Learning)](#cass-memory-cross-agent-learning)
+  - [UBS (Bug Scanner)](#ubs-bug-scanner)
+  - [Agent Mail (Multi-Agent Coordination)](#agent-mail-multi-agent-coordination)
+  - [Warp-Grep (Parallel Code Search)](#warp-grep-parallel-code-search)
+  - [Exa (AI Web & Code Search)](#exa-ai-web--code-search)
+- [Operator Guide](#operator-guide)
+  - [Installation](#installation)
+  - [Project Setup](#project-setup)
+  - [MCP Servers](#mcp-servers)
+  - [Health Checks](#health-checks)
+- [Documentation](#documentation)
+- [Troubleshooting](#troubleshooting)
 
 ---
 
@@ -17,29 +36,20 @@ Eight battle-tested tools that give AI coding agents what they've been missing: 
 ### The Three Commands You Need
 
 ```bash
-# 1. What should I work on?
-bd ready --json
-
-# 2. What do I already know about this?
-cm context "your task here" --json
-
-# 3. Is my code safe to commit?
-ubs --staged
+bd ready --json              # 1. What should I work on?
+cm context "task" --json     # 2. What do I already know?
+ubs --staged                 # 3. Is my code safe to commit?
 ```
 
-That's it. Everything else is optional.
-
-### Start Every Session
+### Session Workflow
 
 ```bash
+# Start
 bd ready --json                              # See available tasks
 bd update bd-123 --status in_progress        # Claim one
 cm context "implement feature X" --json      # Get relevant context
-```
 
-### End Every Session
-
-```bash
+# End
 ubs --staged                                 # Scan for bugs
 bd close bd-123 --reason "Implemented X"     # Complete task
 git add -A && git commit && git push         # Save everything
@@ -53,26 +63,26 @@ bv --robot-priority                          # Get recommendations
 # Use Exa MCP for current docs/APIs          # Real-time web search
 ```
 
-### What NOT to Do
+### Rules
 
-- **Never** run `bv` or `cass` without `--robot` or `--json` flags (interactive TUIs will hang)
+- **Always** use `--robot` or `--json` flags with `bv` and `cass` (TUIs will hang)
 - **Never** delete files without explicit user approval
 - **Never** run destructive git commands (`--force`, `--hard`)
 
 ---
 
-## What's in the Toolkit
+## The Toolkit
 
-| Tool | What It Does | Interface |
-|------|--------------|-----------|
-| **Beads** | Track tasks across sessions | `bd` CLI |
-| **Beads Viewer** | Analyze task dependencies | `bv --robot-*` CLI |
-| **CASS** | Search past AI sessions | `cass` CLI |
-| **cass-memory** | Learn from past sessions | `cm` CLI |
-| **UBS** | Scan code for 1000+ bug patterns | `ubs` CLI |
-| **Agent Mail** | Coordinate multiple agents | MCP server |
-| **Warp-Grep** | 8× parallel codebase search | MCP server |
-| **Exa** | Real-time web & code search | MCP server |
+| Tool | Purpose | Interface |
+|------|---------|-----------|
+| [Beads](#beads-task-tracking) | Task tracking across sessions | `bd` CLI |
+| [Beads Viewer](#beads-viewer-graph-analysis) | Dependency graph analysis | `bv --robot-*` CLI |
+| [CASS](#cass-session-search) | Search past AI sessions | `cass` CLI |
+| [cass-memory](#cass-memory-cross-agent-learning) | Learn from past sessions | `cm` CLI |
+| [UBS](#ubs-bug-scanner) | Scan for 1000+ bug patterns | `ubs` CLI |
+| [Agent Mail](#agent-mail-multi-agent-coordination) | Multi-agent coordination | MCP server |
+| [Warp-Grep](#warp-grep-parallel-code-search) | Parallel codebase search | MCP server |
+| [Exa](#exa-ai-web--code-search) | Real-time web & code search | MCP server |
 
 ---
 
@@ -97,9 +107,11 @@ bd doctor --fix                    # Health check
 bd sync                            # Force sync
 ```
 
-Types: `bug`, `feature`, `task`, `epic`, `chore`
-Priority: `0` (critical) to `4` (backlog)
-Child beads: `bd-a1b2.1`, `bd-a1b2.3.1`
+| Concept | Values |
+|---------|--------|
+| Types | `bug`, `feature`, `task`, `epic`, `chore` |
+| Priority | `0` (critical) → `4` (backlog) |
+| Child beads | `bd-a1b2.1`, `bd-a1b2.3.1` |
 
 **Rule**: Always commit `.beads/` with your code changes.
 
@@ -150,13 +162,12 @@ ubs --only=typescript .            # Language filter
 ubs . --format=sarif               # GitHub Code Scanning format
 ```
 
-Languages: javascript, typescript, python, c, c++, rust, go, java, ruby
-
-Suppress false positives: `// ubs:ignore`
+| Feature | Details |
+|---------|---------|
+| Languages | javascript, typescript, python, c, c++, rust, go, java, ruby |
+| Suppress | `// ubs:ignore` |
 
 ### Agent Mail (Multi-Agent Coordination)
-
-When multiple agents work on the same project:
 
 ```python
 # Register yourself
@@ -170,12 +181,8 @@ renew_file_reservations(project_key, agent_name, extend_seconds=1800)
 # Communicate with other agents
 send_message(project_key, sender_name, to=["OtherAgent"],
              subject="...", body_md="...", importance="high")
-reply_message(project_key, message_id, sender_name, body_md="...")
-
-# Check inbox and search
 fetch_inbox(project_key, agent_name, urgent_only=True)
 search_messages(project_key, query="authentication")
-summarize_thread(project_key, thread_id="bd-123")
 
 # Build coordination
 acquire_build_slot(project_key, agent_name, slot="main")
@@ -184,9 +191,6 @@ release_build_slot(project_key, agent_name, slot="main")
 # Quick start macro
 macro_start_session(human_key="/path", program="claude-code", model="opus-4.5",
                     file_reservation_paths=["src/**"])
-
-# Release when done
-release_file_reservations(project_key, agent_name)
 ```
 
 Web UI: http://127.0.0.1:8765/mail
@@ -195,12 +199,14 @@ Web UI: http://127.0.0.1:8765/mail
 
 MCP tool that runs 8 parallel searches per turn. Activates automatically for natural language code questions.
 
-**When to use**: "How does X work?", data flow analysis, cross-cutting concerns
-**When NOT to use**: Known function names (use `rg`), known files (just open them)
+| Use Case | Tool |
+|----------|------|
+| "How does X work?" | Warp-Grep |
+| Data flow analysis | Warp-Grep |
+| Known function name | `rg` (ripgrep) |
+| Known file path | Just open it |
 
 ### Exa (AI Web & Code Search)
-
-MCP tools for real-time web search and code context:
 
 ```
 web_search_exa        # Real-time web search
@@ -209,8 +215,12 @@ deep_search_exa       # Deep research with query expansion
 crawling              # Extract content from specific URLs
 ```
 
-**When to use**: Current documentation, latest API changes, code examples
-**When NOT to use**: Information in codebase (use CASS), historical context (use cm)
+| Use Case | Tool |
+|----------|------|
+| Current documentation | Exa |
+| Latest API changes | Exa |
+| Info in codebase | CASS |
+| Historical context | cass-memory |
 
 ---
 
@@ -231,7 +241,7 @@ curl -fsSL https://raw.githubusercontent.com/Dicklesworthstone/coding_agent_sess
 curl -fsSL https://raw.githubusercontent.com/Dicklesworthstone/ultimate_bug_scanner/master/install.sh | bash -s -- --easy-mode
 ```
 
-### Initialize a Project
+### Project Setup
 
 ```bash
 cd your-project
@@ -240,19 +250,11 @@ cp /path/to/knowledge_and_vibes/AGENTS_TEMPLATE.md ./AGENTS.md
 # Edit AGENTS.md for your project
 ```
 
-### Health Checks
+Or tell your agent: `"Set up Knowledge & Vibes for my project using SETUP_GUIDE.md"`
 
-```bash
-bd doctor                            # Beads health
-ubs doctor                           # UBS health
-cm doctor                            # cass-memory health
-curl http://127.0.0.1:8765/health    # Agent Mail health
-cass health                          # CASS health
-```
+### MCP Servers
 
-### MCP Server Setup
-
-**Warp-Grep** (requires Morph API key):
+**Warp-Grep** (requires [Morph API key](https://morphllm.com)):
 ```bash
 claude mcp add morph-fast-tools -s user \
   -e MORPH_API_KEY=your-key \
@@ -260,50 +262,55 @@ claude mcp add morph-fast-tools -s user \
   -- npx -y @morphllm/morphmcp
 ```
 
-**Exa** (requires Exa API key from dashboard.exa.ai):
+**Exa** (requires [Exa API key](https://dashboard.exa.ai)):
 ```bash
 claude mcp add exa -s user \
   -e EXA_API_KEY=your-key \
   -- npx -y @anthropic-labs/exa-mcp-server
 ```
 
-### Multi-Agent Setup
-
-1. Start Agent Mail: `am`
-2. Each agent registers via MCP tools
-3. Agents reserve files before editing
-4. Agents communicate via messages/threads
-
-### Configuration
-
-cass-memory config: `~/.cass-memory/config.json`
-```json
-{
-  "provider": "anthropic",
-  "cassPath": "cass",
-  "validationEnabled": true
-}
+**Agent Mail**:
+```bash
+am  # Start the server
+# Web UI at http://127.0.0.1:8765/mail
 ```
 
-Set API key: `export ANTHROPIC_API_KEY="sk-ant-..."`
+### Health Checks
+
+```bash
+bd doctor              # Beads
+ubs doctor             # UBS
+cm doctor              # cass-memory
+cass health            # CASS
+curl localhost:8765/health  # Agent Mail
+```
 
 ---
 
-## Repository Structure
+## Documentation
 
-```
-knowledge_and_vibes/
-├── kv                       # Interactive CLI installer
-├── install-kv.sh            # Curl-able installer
-├── AGENTS_TEMPLATE.md       # Template for your projects
-├── TUTORIAL.md              # Detailed workflow guide
-├── patches/                 # Upstream bug fixes
-│   └── fix-cass-memory.sh   # Until PRs merged
-├── cass_memory_system/      # Patched cass-memory (included)
-│   ├── AGENTS.md            # Excellent AGENTS.md example
-│   └── src/                 # Source with patches applied
-└── */README.md              # Per-tool documentation
-```
+### Philosophy & Approach
+| Document | Description |
+|----------|-------------|
+| [PHILOSOPHY.md](./PHILOSOPHY.md) | The 4-phase framework: Requirements → Plan → Implement → Reflect |
+| [CODEMAPS_TEMPLATE.md](./CODEMAPS_TEMPLATE.md) | Architecture documentation templates for AI agents |
+
+### Planning & Decomposition
+| Document | Description |
+|----------|-------------|
+| [DECOMPOSITION.md](./DECOMPOSITION.md) | Breaking work into beads + 5 planning patterns |
+| [TUTORIAL.md](./TUTORIAL.md) | Complete workflow walkthrough |
+
+### Setup & Templates
+| Document | Description |
+|----------|-------------|
+| [SETUP_GUIDE.md](./SETUP_GUIDE.md) | Agent-driven setup instructions |
+| [AGENTS_TEMPLATE.md](./AGENTS_TEMPLATE.md) | Template for your projects |
+
+### Examples
+| Document | Description |
+|----------|-------------|
+| [cass_memory_system/AGENTS.md](./cass_memory_system/AGENTS.md) | Comprehensive AGENTS.md example |
 
 ---
 
@@ -321,62 +328,18 @@ knowledge_and_vibes/
 
 ---
 
-## Agent Onboarding
-
-For agents setting up this toolkit in a new project:
-
-### Quick Setup
-
-Tell your agent:
-```
-"Set up Knowledge & Vibes for my project using SETUP_GUIDE.md"
-```
-
-The agent will:
-1. Install all tools
-2. Configure MCP servers (asks for API keys)
-3. Initialize your project with Beads
-4. Create AGENTS.md
-5. Index past sessions
-6. Help create your initial task backlog
-
-### Creating Implementation Plans
-
-For large features, use the `/plan` slash command or tell your agent:
-```
-"Create an implementation plan for [feature] and convert it to beads"
-```
-
-The agent will:
-1. Gather context from codebase and past sessions
-2. Create a detailed phased plan
-3. Decompose into atomic beads (~500 lines each)
-4. Set up dependencies
-5. Commit the backlog
-
-See [DECOMPOSITION.md](./DECOMPOSITION.md) for guidelines on breaking work into beads.
-
-### Slash Commands (if configured)
+## Repository Structure
 
 ```
-/onboard   # Full setup wizard
-/plan      # Create plan and convert to beads
+knowledge_and_vibes/
+├── kv                       # Interactive CLI installer
+├── install-kv.sh            # Curl-able installer
+├── PHILOSOPHY.md            # 4-phase development framework
+├── DECOMPOSITION.md         # Task breakdown + planning patterns
+├── CODEMAPS_TEMPLATE.md     # Architecture documentation
+├── AGENTS_TEMPLATE.md       # Template for your projects
+├── SETUP_GUIDE.md           # Agent-driven setup
+├── TUTORIAL.md              # Detailed workflow guide
+├── patches/                 # Upstream bug fixes
+└── cass_memory_system/      # Patched cass-memory
 ```
-
----
-
-## Links
-
-### Core Guides
-- [PHILOSOPHY.md](./PHILOSOPHY.md) - The 4-phase framework (Requirements → Plan → Implement → Reflect)
-- [DECOMPOSITION.md](./DECOMPOSITION.md) - Breaking work into beads + planning patterns
-- [CODEMAPS_TEMPLATE.md](./CODEMAPS_TEMPLATE.md) - Architecture documentation for AI agents
-
-### Setup & Reference
-- [SETUP_GUIDE.md](./SETUP_GUIDE.md) - Agent-driven setup instructions
-- [AGENTS_TEMPLATE.md](./AGENTS_TEMPLATE.md) - Copy to your projects
-- [TUTORIAL.md](./TUTORIAL.md) - Full workflow walkthrough
-
-### Examples
-- [cass_memory_system/AGENTS.md](./cass_memory_system/AGENTS.md) - Comprehensive AGENTS.md example
-- [patches/README.md](./patches/README.md) - Upstream bug tracking
