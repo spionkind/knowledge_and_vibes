@@ -202,6 +202,7 @@ bd init
 | **Beads Viewer** | Can't see task dependencies/impact | `bv` |
 | **Agent Mail** | Multiple agents overwrite each other | MCP server |
 | **CASS** | Lost knowledge from past sessions | `cass` |
+| **cass-memory** | Agents don't learn from past sessions | `cm` |
 | **UBS** | AI-generated code has bugs | `ubs` |
 | **Warp-Grep** | Serial search is slow, pollutes context | MCP server |
 
@@ -259,8 +260,12 @@ bv --robot-priority
 bd update bd-a1b2 --status in_progress
 ```
 
-**4. Search Past Sessions (if needed)**
+**4. Get Context from Past Sessions**
 ```bash
+# Quick context with playbook rules + history
+cm context "your task here" --json
+
+# Or direct search
 cass search "similar problem" --robot --limit 5
 ```
 
@@ -482,8 +487,11 @@ Now `bd ready` shows tasks from all repos.
 | **Beads Viewer** | [beads_viewer/README.md](./beads_viewer/README.md) | [github.com/Dicklesworthstone/beads_viewer](https://github.com/Dicklesworthstone/beads_viewer) |
 | **Agent Mail** | [mcp_agent_mail/README.md](./mcp_agent_mail/README.md) | [github.com/Dicklesworthstone/mcp_agent_mail](https://github.com/Dicklesworthstone/mcp_agent_mail) |
 | **CASS** | [coding_agent_session_search/README.md](./coding_agent_session_search/README.md) | [github.com/Dicklesworthstone/coding_agent_session_search](https://github.com/Dicklesworthstone/coding_agent_session_search) |
+| **cass-memory** | [cass_memory_system/README.md](./cass_memory_system/README.md) | Patched fork (upstream bugs) |
 | **UBS** | [ultimate_bug_scanner/README.md](./ultimate_bug_scanner/README.md) | [github.com/Dicklesworthstone/ultimate_bug_scanner](https://github.com/Dicklesworthstone/ultimate_bug_scanner) |
 | **Warp-Grep** | [warp_grep/README.md](./warp_grep/README.md) | [morphllm.com](https://morphllm.com) |
+
+> **Note**: The [cass_memory_system/AGENTS.md](./cass_memory_system/AGENTS.md) is an excellent example of a comprehensive AGENTS.md file for your own projects.
 
 **→** [Back to Menu](#main-menu)
 
@@ -542,24 +550,33 @@ knowledge_and_vibes/
 ├── TUTORIAL.md                  ← Complete workflow tutorial
 ├── AGENTS_TEMPLATE.md           ← Full AGENTS.md template
 │
+├── patches/                     ← Upstream bug fixes
+│   ├── README.md                ← When to remove patches
+│   └── fix-cass-memory.sh       ← cass-memory search fix
+│
+├── cass_memory_system/          ← Patched cass-memory (INCLUDED)
+│   ├── README.md                ← cass-memory documentation
+│   ├── AGENTS.md                ← EXCELLENT template for your projects
+│   └── src/                     ← Source with our patches applied
+│
 ├── beads/
-│   ├── beads/                   ← Cloned repo
+│   ├── beads/                   ← Cloned repo (gitignored)
 │   └── README.md                ← Beads documentation
 │
 ├── beads_viewer/
-│   ├── beads_viewer/            ← Cloned repo
+│   ├── beads_viewer/            ← Cloned repo (gitignored)
 │   └── README.md                ← Beads Viewer documentation
 │
 ├── mcp_agent_mail/
-│   ├── mcp_agent_mail/          ← Cloned repo
+│   ├── mcp_agent_mail/          ← Cloned repo (gitignored)
 │   └── README.md                ← Agent Mail documentation
 │
 ├── coding_agent_session_search/
-│   ├── coding_agent_session_search/  ← Cloned repo
+│   ├── coding_agent_session_search/  ← Cloned repo (gitignored)
 │   └── README.md                ← CASS documentation
 │
 ├── ultimate_bug_scanner/
-│   ├── ultimate_bug_scanner/    ← Cloned repo
+│   ├── ultimate_bug_scanner/    ← Cloned repo (gitignored)
 │   └── README.md                ← UBS documentation
 │
 └── warp_grep/
