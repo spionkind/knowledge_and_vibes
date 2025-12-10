@@ -33,6 +33,7 @@ AI coding agents are powerful, but they have problems:
 | **No visibility** | Can't see dependencies or impact | **Beads Viewer** - graph intelligence |
 | **Conflicts** | Multiple agents overwrite each other | **Agent Mail** - file locks + messaging |
 | **Lost knowledge** | Past solutions disappear | **CASS** - search all past sessions |
+| **No learning** | Same mistakes repeated across sessions | **cass-memory** - distill lessons into rules |
 | **Bugs slip through** | AI-generated code has issues | **UBS** - 1000+ bug pattern scanner |
 | **Slow search** | Serial search pollutes context | **Warp-Grep** - 8× parallel search |
 | **Outdated knowledge** | Agent doesn't know current APIs/docs | **Exa MCP** - AI web & code search |
@@ -113,6 +114,46 @@ cass search "authentication error" --robot --fields minimal --limit 5
 # Token-efficient output
 cass search "query" --robot --max-tokens 2000
 ```
+
+### cass-memory (`cm`) - Cross-Agent Learning
+
+**What it is**: A procedural memory system that learns from your past sessions. It maintains a playbook of rules and patterns, automatically extracting lessons from successful (and failed) approaches.
+
+**Why you need it**: CASS finds raw sessions. cass-memory goes further - it distills those sessions into actionable rules: "When doing X, always do Y" or "Never do Z because it causes W."
+
+**Key insight**: This is the difference between remembering a conversation and learning from it. cass-memory builds a knowledge base that improves over time.
+
+**For humans**: It's like having a team knowledge base that automatically captures best practices from every coding session.
+
+**For agents**:
+```bash
+# Start EVERY non-trivial task with this
+cm context "implement user authentication" --json
+
+# Returns:
+# - Relevant rules from the playbook
+# - Historical context from similar past work
+# - Anti-patterns to avoid
+# - Suggested CASS searches for more context
+
+# Health check
+cm doctor
+```
+
+**What you get back**:
+```json
+{
+  "rules": [
+    {"pattern": "authentication", "rule": "Always use bcrypt with cost factor >= 12"},
+    {"pattern": "JWT", "rule": "Store refresh tokens in httpOnly cookies, not localStorage"}
+  ],
+  "history": [...],
+  "antipatterns": ["Don't store passwords in plaintext - session abc123 failed"],
+  "suggested_searches": ["cass search 'bcrypt implementation' --robot"]
+}
+```
+
+**Automation note**: You don't need to run `cm reflect` - the system learns automatically from your sessions.
 
 ### UBS - Bug Scanner
 
@@ -214,15 +255,35 @@ This analyzes the graph and returns:
 
 **Why this matters**: Not all tasks are equal. This tells you which one has the biggest impact.
 
-#### Step 3: Search for prior solutions
+#### Step 3: Get context from past learning
+
+```bash
+cm context "login validation" --json
+```
+
+This returns distilled knowledge from past sessions:
+```json
+{
+  "rules": [
+    {"rule": "Always validate email format before database lookup"},
+    {"rule": "Use parameterized queries to prevent SQL injection"}
+  ],
+  "antipatterns": ["Don't use regex for email validation - use a library"],
+  "suggested_searches": ["cass search 'login form validation' --robot"]
+}
+```
+
+**Why this matters**: This isn't just past sessions - it's lessons learned. The system has already done the work of extracting what matters.
+
+#### Step 4: Search for specific solutions (if needed)
 
 ```bash
 cass search "login validation" --robot --fields summary --limit 5
 ```
 
-**Why this matters**: Maybe you solved this last month. Don't reinvent the wheel.
+**Why this matters**: If `cm context` suggested searches or you need more detail, dig into specific past sessions.
 
-#### Step 4: Claim the task
+#### Step 5: Claim the task
 
 ```bash
 bd update bd-a1b2 --status in_progress
@@ -490,7 +551,8 @@ This shows tasks that became "ready" because of your work.
 ```bash
 bd ready --json
 bv --robot-priority
-cass search "problem" --robot --fields minimal --limit 5
+cm context "your task description" --json    # Get distilled knowledge
+cass search "problem" --robot --limit 5       # If cm suggests or you need more
 bd update bd-XXX --status in_progress
 ```
 
@@ -520,19 +582,21 @@ release_file_reservations(project_key, agent_name)
 ### For Agents: Critical Rules
 
 1. **NEVER run `bv` without `--robot-*` flags** - TUI will hang your session
-2. **ALWAYS use `--robot` with CASS** - for machine-readable output
-3. **ALWAYS register before messaging** - `ensure_project` + `register_agent` first
-4. **ALWAYS `bd sync && git push` before ending** - don't lose your work
-5. **ALWAYS run `ubs --staged` before commits** - catch bugs early
-6. **ALWAYS release file reservations when done** - don't block other agents
+2. **ALWAYS use `--robot` or `--json` with CASS/cm** - for machine-readable output
+3. **ALWAYS run `cm context` before non-trivial tasks** - get distilled knowledge first
+4. **ALWAYS register before messaging** - `ensure_project` + `register_agent` first
+5. **ALWAYS `bd sync && git push` before ending** - don't lose your work
+6. **ALWAYS run `ubs --staged` before commits** - catch bugs early
+7. **ALWAYS release file reservations when done** - don't block other agents
 
 ### For Humans: What to Remember
 
 1. **Start with `bd ready`** - see what's actually ready to work on
 2. **Use `bv` for priority** - it knows which task matters most
-3. **Search with `cass` first** - don't reinvent the wheel
-4. **Run `ubs` before commits** - catch bugs before they're merged
-5. **Sync before you leave** - `bd sync && git push`
+3. **Run `cm context` first** - get distilled lessons from past sessions
+4. **Search with `cass` for details** - when you need specific past solutions
+5. **Run `ubs` before commits** - catch bugs before they're merged
+6. **Sync before you leave** - `bd sync && git push`
 
 ---
 
@@ -544,6 +608,7 @@ release_file_reservations(project_key, agent_name)
 | `bv` hangs | You forgot `--robot-*` flag. Kill and restart with flag |
 | Agent Mail errors | Run `am` to start server first |
 | CASS finds nothing | Run `cass index --full` to rebuild |
+| `cm context` returns empty | Check CASS is indexed, run `cm doctor` |
 | UBS module errors | Run `ubs doctor --fix` |
 | File reservation conflict | Wait for TTL expiry or coordinate with holder |
 
@@ -561,7 +626,10 @@ bv --robot-priority
 # Pick task bd-a1b2
 bd update bd-a1b2 --status in_progress
 
-# Search for similar past work
+# Get context - this is the key step!
+cm context "fix login validation bug" --json
+
+# If cm suggests more research or you need specifics
 cass search "related problem" --robot --limit 3
 
 # ... do the work ...
