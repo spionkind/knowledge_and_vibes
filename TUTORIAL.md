@@ -495,7 +495,83 @@ Commit message:   Fixes bd-a1b2
 
 ### Phase 3: During Work
 
-#### Check your inbox periodically
+This is where the real coding happens. Here's how to use the tools effectively.
+
+#### Understanding the codebase with Warp-Grep
+
+When you need to understand how something works, use Warp-Grep (it activates automatically for natural language questions):
+
+```
+"How does the authentication flow work?"
+"Where is user input validated?"
+"What functions call the database?"
+"Show me all API endpoints that handle payments"
+```
+
+**Warp-Grep runs 8 parallel searches**, so asking broad questions is efficient. It returns focused, relevant code snippets.
+
+**When to use it**:
+- You're new to a codebase section
+- You need to understand data flow
+- You're looking for all usages of a pattern
+
+**When NOT to use it** (use regular tools instead):
+- You know the exact function name → use `rg` or Grep
+- You know the exact file → just Read it
+
+#### Looking up current documentation with Exa
+
+When you need information that might have changed since training:
+
+```
+# Check current API documentation
+web_search_exa("NextJS 14 app router middleware documentation 2024")
+
+# Find code examples
+get_code_context_exa("React server components data fetching patterns")
+
+# Research best practices
+deep_search_exa("OAuth 2.0 PKCE flow implementation security best practices")
+
+# Get specific page content
+crawling("https://docs.stripe.com/api/payment-intents")
+```
+
+**When to use Exa**:
+- Library versions or deprecation notices (things change!)
+- Current API documentation
+- Security advisories
+- Code examples from GitHub/StackOverflow
+- "What's the recommended way to do X in 2024?"
+
+**When NOT to use Exa**:
+- The answer is in your codebase → use CASS or Warp-Grep
+- Historical context from past sessions → use `cm context`
+- Task information → use Beads
+
+**Example workflow combining tools**:
+
+```
+1. Task: "Add OAuth login with Google"
+
+2. Check past learning:
+   cm context "OAuth Google authentication" --json
+   → Returns: "Use PKCE flow, store tokens in httpOnly cookies"
+
+3. Search codebase for existing auth:
+   Warp-Grep: "How does the current login system work?"
+   → Returns: existing auth flow in src/auth/
+
+4. Get current Google OAuth docs:
+   web_search_exa("Google OAuth 2.0 API documentation 2024")
+   → Returns: current endpoints, required scopes
+
+5. Find implementation examples:
+   get_code_context_exa("Google OAuth PKCE NextJS implementation")
+   → Returns: code snippets from GitHub
+```
+
+#### Check your inbox periodically (multi-agent)
 
 ```python
 messages = fetch_inbox(
@@ -678,6 +754,22 @@ cass search "problem" --robot --limit 5       # If cm suggests or you need more
 bd update bd-XXX --status in_progress
 ```
 
+**During Work:**
+```
+# Understand codebase (Warp-Grep - automatic for natural language)
+"How does the payment processing work?"
+"Where are API routes defined?"
+
+# Look up current docs (Exa MCP tools)
+web_search_exa("library-name latest API documentation 2024")
+get_code_context_exa("pattern implementation examples")
+crawling("https://docs.example.com/api")
+
+# If stuck on implementation
+cass search "similar problem" --robot
+cm context "what I'm trying to do" --json
+```
+
 **Multi-Agent (if needed):**
 ```python
 ensure_project(project_key="/abs/path")
@@ -756,7 +848,19 @@ cm context "fix login validation bug" --json
 
 # If cm suggests more research or you need specifics
 cass search "related problem" --robot --limit 3
+```
 
+```
+# Understand existing code (Warp-Grep activates automatically)
+"How does the current login validation work?"
+"Where is user input sanitized in the codebase?"
+
+# Check if there are new best practices (Exa)
+web_search_exa("input validation security best practices 2024")
+get_code_context_exa("XSS prevention input sanitization")
+```
+
+```bash
 # ... do the work ...
 
 # Before committing
