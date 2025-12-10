@@ -14,6 +14,7 @@ curl -fsSL https://raw.githubusercontent.com/Dicklesworthstone/mcp_agent_mail/ma
 curl -fsSL https://raw.githubusercontent.com/Dicklesworthstone/coding_agent_session_search/main/install.sh | bash -s -- --easy-mode
 
 # cass-memory (cross-agent learning) - separate from CASS
+# Note: This is for Apple Silicon. For Intel/Linux see: https://github.com/Dicklesworthstone/cass_memory_system
 curl -L https://github.com/Dicklesworthstone/cass_memory_system/releases/latest/download/cass-memory-darwin-arm64 -o ~/.local/bin/cm && chmod +x ~/.local/bin/cm
 
 # UBS (bug scanner)
