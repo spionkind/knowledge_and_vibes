@@ -1,6 +1,6 @@
 # Patches Directory
 
-This directory contains patches for upstream bugs that break the kv toolkit.
+This directory contains patches for upstream bugs that break Knowledge & Vibes tools.
 
 ## Current Patches
 
@@ -52,4 +52,4 @@ cd /tmp/cm-test && bun install && bun run build
 2. Report upstream → Link GitHub issue in script header
 3. Check periodically → When issue closed, test fresh install
 4. If works → Delete patch script, update this README
-5. Update kv → The installer auto-skips missing patch scripts
+5. Done → Update this README to note the fix is upstream

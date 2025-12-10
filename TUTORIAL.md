@@ -818,7 +818,7 @@ release_file_reservations(project_key, agent_name)
 
 | Problem | Solution |
 |---------|----------|
-| `bd: command not found` | Run `kv install` or check PATH |
+| `bd: command not found` | Add `~/.local/bin` to PATH or reinstall via agent-mail installer |
 | `bv` hangs | You forgot `--robot-*` flag. Kill and restart with flag |
 | Agent Mail errors | Run `am` to start server first |
 | CASS finds nothing | Run `cass index --full` to rebuild |

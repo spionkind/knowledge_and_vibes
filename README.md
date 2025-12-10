@@ -352,7 +352,6 @@ curl localhost:8765/health  # Agent Mail
 **Critical**: These tools have TUI modes that will hang AI agents:
 - `bv` → Always use `bv --robot-*` flags
 - `cass` → Always use `cass --robot` or `--json` flags
-- `kv` → Removed (was TUI-only, use SETUP_GUIDE.md instead)
 
 ### Health Checks
 
