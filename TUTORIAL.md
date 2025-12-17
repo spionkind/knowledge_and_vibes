@@ -54,7 +54,7 @@ These tools work together as a complete system. Let's learn how.
 
 **For humans**: Think of it as a todo list that understands "I can't do X until Y is done."
 
-**For agents**: Always start sessions with `bd ready --json` to get unblocked work. End sessions by committing/pushing `.beads/issues.jsonl` (optionally run `bd sync` first to flush immediately).
+**For agents**: Always start sessions with `bd ready --json` to get unblocked work. End sessions by committing/pushing `.beads/issues.jsonl` with your code changes.
 
 **Advanced features**:
 ```bash
@@ -726,7 +726,6 @@ send_message(
 **Never skip this:**
 
 ```bash
-bd sync  # optional: flush immediately
 git add -A && git commit && git push
 ```
 
@@ -788,7 +787,6 @@ ubs --staged --fail-on-warning  # Must exit 0
 **Session End:**
 ```bash
 bd close bd-XXX --reason "Completed: summary"
-bd sync  # optional: flush immediately
 git add -A && git commit && git push
 ```
 ```python
@@ -801,7 +799,7 @@ release_file_reservations(project_key, agent_name)
 2. **ALWAYS use `--robot` or `--json` with CASS/cm** - for machine-readable output
 3. **ALWAYS run `cm context` before non-trivial tasks** - get distilled knowledge first
 4. **ALWAYS register before messaging** - `ensure_project` + `register_agent` first
-5. **ALWAYS commit/push `.beads/issues.jsonl` before ending** (run `bd sync` first if you want zero-lag flush)
+5. **ALWAYS commit/push `.beads/issues.jsonl` before ending** (included in `git add -A`)
 6. **ALWAYS run `ubs --staged` before commits** - catch bugs early
 7. **ALWAYS release file reservations when done** - don't block other agents
 
@@ -812,7 +810,7 @@ release_file_reservations(project_key, agent_name)
 3. **Run `cm context` first** - get distilled lessons from past sessions
 4. **Search with `cass` for details** - when you need specific past solutions
 5. **Run `ubs` before commits** - catch bugs before they're merged
-6. **Sync before you leave** - commit/push (run `bd sync` first if you want)
+6. **Commit before you leave** - `git add -A && git commit && git push`
 
 ---
 
@@ -875,7 +873,6 @@ git add . && git commit -m "Feature X - Fixes bd-a1b2"
 
 # End session
 bd close bd-a1b2 --reason "Completed"
-bd sync  # optional: flush immediately
 git add -A && git commit && git push
 ```
 

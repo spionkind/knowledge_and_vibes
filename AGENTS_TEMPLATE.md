@@ -132,7 +132,6 @@ bd doctor                          # Health check
 bd doctor --fix                    # Auto-fix issues
 bd compact --analyze --json        # Analyze for compaction
 bd --readonly list                 # Safe read-only mode
-bd sync                            # Optional: flush/import immediately (git is still the transport)
 ```
 
 **Types**: `bug`, `feature`, `task`, `epic`, `chore`
@@ -161,7 +160,7 @@ bd sync                            # Optional: flush/import immediately (git is 
 11. **Release file reservations**
 12. Commit `.beads/` in the same commit as code changes: `git add -A && git commit`
 
-**Note:** `bd sync` only flushes/imports bead state locally; you still share it via normal git commits (include `.beads/issues.jsonl` with your code changes).
+**Note:** Beads auto-exports to JSONL after each command. Just include `.beads/` in your normal git commits.
 
 Never:
 - Use markdown TODO lists
@@ -405,7 +404,7 @@ Before running `bd ready`, check your inbox for recent `[CLAIMED]` messages.
 □ 8. `git push`
 ```
 
-**Note:** `bd sync` is optional and only flushes/imports bead state locally; sharing happens via normal git commits of `.beads/issues.jsonl`.
+**Note:** Beads auto-exports to JSONL. Share via normal git commits (include `.beads/issues.jsonl` with code changes).
 
 ---
 
@@ -601,7 +600,7 @@ git add -A && git commit && git push   # .beads/ included automatically
 release_file_reservations(...)     # If multi-agent
 ```
 
-**Note:** `bd sync` is optional; it does not push. Commit/push your changes normally (including `.beads/issues.jsonl`).
+**Note:** Commit/push your changes normally (include `.beads/issues.jsonl` with code changes).
 
 ---
 

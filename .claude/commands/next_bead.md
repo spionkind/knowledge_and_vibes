@@ -93,7 +93,7 @@ release_file_reservations(
    )
    ```
 
-**Note:** `bd sync` is optional; it only flushes/imports locally. Sharing happens via normal git commits of `.beads/issues.jsonl`.
+**Note:** Beads auto-exports to JSONL. Share via normal git commits (include `.beads/issues.jsonl` with code changes).
 
 If you don't have an in_progress task, proceed to Step 3.
 

@@ -133,7 +133,6 @@ bd blocked                         # What's waiting?
 
 # Maintenance
 bd doctor --fix                    # Health check
-bd sync                            # Optional: flush/import immediately (git is still the transport)
 ```
 
 | Concept | Values |
@@ -341,7 +340,7 @@ Before running `bd ready`, check your inbox for recent `[CLAIMED]` messages.
 □ 8. `git push`
 ```
 
-**Note:** `bd sync` is optional and only flushes/imports bead state locally; sharing happens via normal git commits of `.beads/issues.jsonl`.
+**Note:** Beads auto-exports to JSONL. Share via normal git commits (include `.beads/issues.jsonl` with code changes).
 
 ### Warp-Grep (Parallel Code Search)
 
@@ -499,7 +498,7 @@ Included commands in this repo (copy into your project):
 | UBS module errors | Run `ubs doctor --fix` |
 | Warp-Grep not working | Check `/mcp` shows morph-fast-tools, verify MORPH_API_KEY |
 | Exa not working | Check `/mcp` shows exa, verify EXA_API_KEY |
-| `git push` conflicts on `.beads/issues.jsonl` | Run `bd sync` (optional), then resolve the git conflict like any other text merge (the conflict is from concurrent pushes, not `bd sync`) |
+| `git push` conflicts on `.beads/issues.jsonl` | Resolve like any text merge conflict, then `bd sync --import-only` to reload |
 | Permission denied on install | Use `~/.local/bin` instead of `/usr/local/bin`, or use `sudo` |
 | `ntm: command not found` | Run installer or add to PATH: `export PATH="$HOME/.local/bin:$PATH"` |
 | NTM can't find tmux | Install tmux: `brew install tmux` (macOS) or `apt install tmux` (Linux) |

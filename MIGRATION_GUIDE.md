@@ -549,7 +549,6 @@ cat > .claude/settings.local.json << 'EOF'
       "Bash(bd list:*)",
       "Bash(bd close:*)",
       "Bash(bd show:*)",
-      "Bash(bd sync:*)",
       "Bash(bd create:*)",
       "Bash(bv:*)",
       "Bash(cass:*)",
@@ -642,8 +641,7 @@ bd info
 
 1. **Always commit `.beads/`** with code changes
 2. **Never edit `.beads/*.jsonl`** directly - only via `bd` commands
-3. **Use `bd sync` (optional)** to flush/import immediately before committing
-4. **Use `bd doctor --fix`** if issues arise
+3. **Use `bd doctor --fix`** if issues arise
 
 ---
 
