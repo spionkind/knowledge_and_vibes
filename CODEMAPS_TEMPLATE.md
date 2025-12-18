@@ -30,7 +30,7 @@ The LLM doesn't—unless you tell it.
 
 ## Template: Module Codemap
 
-```markdown
+````markdown
 # [Module Name] Codemap
 
 ## Purpose
@@ -67,13 +67,13 @@ Input → Validation → Processing → Output
 ## Gotchas
 - [Thing that trips people up]
 - [Non-obvious behavior]
-```
+````
 
 ---
 
 ## Template: API Codemap
 
-```markdown
+````markdown
 # API Codemap
 
 ## Base Structure
@@ -119,13 +119,13 @@ Request
 3. Add route in `routes/[resource].ts`
 4. Register route in `routes/index.ts`
 5. Add tests in `__tests__/api/[resource].test.ts`
-```
+````
 
 ---
 
 ## Template: Database Codemap
 
-```markdown
+````markdown
 # Database Codemap
 
 ## Technology
@@ -181,13 +181,13 @@ LIMIT 20
 - Config: `DATABASE_URL` in `.env`
 - Pool: `src/db/pool.ts`
 - Max connections: 20 (configurable)
-```
+````
 
 ---
 
 ## Template: Auth Codemap
 
-```markdown
+````markdown
 # Auth Codemap
 
 ## Method
@@ -244,13 +244,13 @@ app.use('/api/admin/*', authMiddleware, requireRole('admin'))
 - Refresh tokens: Long-lived (7 days), httpOnly cookie
 - Password: bcrypt with cost factor 12
 - Rate limiting: 5 login attempts per minute per IP
-```
+````
 
 ---
 
 ## Template: Frontend Codemap
 
-```markdown
+````markdown
 # Frontend Codemap
 
 ## Stack
@@ -303,7 +303,7 @@ const { data, isLoading } = useUsers()
 2. Add layout if needed in `app/[route]/layout.tsx`
 3. Create feature components in `components/features/[Feature]/`
 4. Add data hooks in `hooks/queries/use[Feature].ts`
-```
+````
 
 ---
 
@@ -358,7 +358,7 @@ Use the old AuthController (note: this was replaced 6 months ago)
 
 For smaller projects, a single file may suffice:
 
-```markdown
+````markdown
 # Project Codemap
 
 ## Stack
@@ -385,7 +385,7 @@ prisma/        → Schema and migrations
 pnpm dev       → Start dev server
 pnpm db:push   → Push schema to db
 pnpm db:studio → Open Prisma Studio
-```
+````
 
 ---
 

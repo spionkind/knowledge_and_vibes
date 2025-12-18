@@ -326,7 +326,7 @@ Check for issues.
 ### Example Command
 
 **`.claude/commands/audit-style.md`**:
-```markdown
+````markdown
 ---
 description: Audit code against style standards
 allowed-tools: Read, Grep, Glob
@@ -357,7 +357,7 @@ Audit: $ARGUMENTS
 ## Passed
 - {check name}
 ```
-```
+````
 
 ---
 
