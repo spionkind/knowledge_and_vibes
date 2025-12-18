@@ -531,7 +531,7 @@ Your tests need to be the gatekeeper for your agent to build against. PAY ATTENT
 ## 1. Context & Motivation
 
 ### WHY This Exists
-Authentication is required before users can create strategies...
+Authentication is required before users can access protected resources...
 
 ### What Happens If Built Wrong
 - Security vulnerabilities (token theft)
@@ -539,7 +539,7 @@ Authentication is required before users can create strategies...
 - System instability (session management bugs)
 
 ### User Value
-Users can securely access their accounts and manage strategies...
+Users can securely access their accounts and manage their data...
 
 ## 2. Architecture Decision Record
 
@@ -653,9 +653,9 @@ def test_valid_emails_accepted(email):
 ## 9. Cross-References
 
 - **Depends On:** Phase 1 (Database Setup)
-- **Enables:** Phase 3 (Strategy CRUD)
-- **Backend Beads:** lbe-hex.2.1, lbe-hex.2.2
-- **Frontend Beads:** lfe-bbi.2.1
+- **Enables:** Phase 3 (Core Features)
+- **Backend Beads:** proj-auth.2.1, proj-auth.2.2
+- **Frontend Beads:** proj-fe.2.1
 
 ## 10. Acceptance Criteria
 
@@ -689,24 +689,24 @@ After creating a phase document, verify:
 
 ```
 Phase 0: Foundation (Database + Auth)
-  - User model with proxy wallet
+  - User model and profiles
   - API credential storage
   - Authentication endpoints
 
-Phase 1: Core Kernel (Pure Evaluation)
-  - Strategy manifest schema
-  - Condition DSL parser
-  - Pure evaluation functions
+Phase 1: Core Domain (Business Logic)
+  - Domain models and schemas
+  - Validation rules
+  - Pure business functions
 
-Phase 2: Risk Layer (Governor)
-  - Position limits
-  - Loss thresholds
+Phase 2: Safety Layer (Guards)
+  - Input validation
   - Rate limiting
+  - Error boundaries
 
-Phase 3: Execution (Trading)
-  - Order placement
-  - Fill tracking
-  - Position reconciliation
+Phase 3: Integration (External APIs)
+  - Third-party API clients
+  - Webhook handlers
+  - Data synchronization
 ```
 
 ---

@@ -23,8 +23,12 @@ This command is part of a larger planning workflow:
 
 ```
 1. IDEATION
-   └─ Use frontier reasoning models (Opus, o1, etc.) with thinking cranked up
-   └─ Go from idea → massive, fully fleshed out plan
+   └─ Use frontier reasoning models with thinking cranked up:
+      - Claude Opus 4.5 (ultrathink mode)
+      - GPT 5.2 Xtra High (high reasoning effort)
+      - Gemini 3 Pro (thinking mode)
+   └─ Multiple iterative sessions: explore → debate → research → specify
+   └─ Go from idea → massive, fully fleshed out plan (3,000-5,000+ lines)
 
 2. PHASE BREAKDOWN (Human)
    └─ YOU break the massive plan into phases

@@ -42,12 +42,16 @@ Every task, every feature, every bug fix follows this loop:
 **Goal**: Create a detailed plan BEFORE writing any code.
 
 ```
-1. Use frontier reasoning models (Opus, o1, o3) with thinking cranked up
-2. Go from idea → massive, fully fleshed out plan
-3. Human breaks the plan into phases (logical chunks, 1-2 weeks each)
-4. Use /decompose-task to turn each phase into beads + sub-beads
-5. Ground the plan with real documentation (Exa MCP)
-6. Review for architectural fit before implementation
+1. Use frontier reasoning models with thinking cranked up:
+   - Claude Opus 4.5 (ultrathink mode)
+   - GPT 5.2 Xtra High (high reasoning effort)
+   - Gemini 3 Pro (thinking mode)
+2. Multiple iterative sessions: explore → debate → research → specify
+3. Go from idea → massive, fully fleshed out plan (3,000-5,000+ lines)
+4. Human breaks the plan into phases (logical chunks, 1-2 weeks each)
+5. Use /decompose-task to turn each phase into beads + sub-beads
+6. Ground the plan with real documentation (Exa MCP)
+7. Review for architectural fit before implementation
 ```
 
 **Our tools for this**:
@@ -274,7 +278,7 @@ describe('processPayment', () => {
 
 ### The Problem
 
-Sometimes you need heavy reasoning from frontier models (o1, o3, Claude with extended thinking) before implementation. That reasoning lives in a chat interface, not your codebase.
+Sometimes you need heavy reasoning from frontier models (Claude Opus 4.5 ultrathink, GPT 5.2 Xtra High, Gemini 3 Pro) before implementation. That reasoning lives in a chat interface, not your codebase.
 
 ### The Solution: csctf
 

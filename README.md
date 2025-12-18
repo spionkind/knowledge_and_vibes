@@ -2,8 +2,6 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-# Knowledge & Vibes
-
 This repository is my **personal source of truth** for building software with AI coding agents.  
 It contains the exact tools, workflows, patterns, and rules I use across *every* project — and I keep it continuously updated as I discover better ways to work.
 
