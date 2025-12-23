@@ -106,7 +106,7 @@ flowchart TB
 
 ## The Research Behind It
 
-Every protocol is backed by research. 73 papers distilled into actionable practices:
+Every protocol is backed by research. 50+ papers distilled into actionable practices:
 
 - Why TDD produces better outcomes with AI
 - Why long context degrades reasoning

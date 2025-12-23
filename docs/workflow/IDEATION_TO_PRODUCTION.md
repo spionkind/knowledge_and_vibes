@@ -1,4 +1,10 @@
+<div align="center">
+
 # Ideation → Shipped Product
+
+### Complete end-to-end pipeline from idea to ship
+
+</div>
 
 The complete end-to-end pipeline from idea to shipped product. This is the single-page reference for the full lifecycle.
 
@@ -86,7 +92,7 @@ Each stage has:
 - **Agent output artifacts** (what must exist on disk)
 - **Gate** (what must be true before moving on)
 
-### Stage 0 ,  Set the Rigor Mode (Context drives process)
+### Stage 0 — Set the Rigor Mode (Context drives process)
 
 **Operator job**
 - Choose the build profile + rigor tier in the North Star Card.
@@ -102,7 +108,7 @@ Each stage has:
 
 ---
 
-### Stage 1 ,  Requirements That “Compile” (REQ/AC as the operator interface)
+### Stage 1 — Requirements That "Compile" (REQ/AC as the operator interface)
 
 **Operator job**
 - Answer clarifying questions about outcomes and constraints (not architecture).
@@ -123,7 +129,7 @@ Each stage has:
 
 ---
 
-### Stage 2 ,  Requirements QA Pass (ISO‑style “make ambiguity expensive”)
+### Stage 2 — Requirements QA Pass (ISO‑style "make ambiguity expensive")
 
 **Operator job**
 - Review and approve requirement rewrites when the LLM flags ambiguity.
@@ -143,7 +149,7 @@ Each stage has:
 
 ---
 
-### Stage 3 ,  Decision Search (multiple viable plans, then select)
+### Stage 3 — Decision Search (multiple viable plans, then select)
 
 **Operator job**
 - Choose between options based on tradeoffs you understand (cost/speed/risk/UX/security), not implementation details.
@@ -163,7 +169,7 @@ Each stage has:
 
 ---
 
-### Stage 4 ,  Risk‑Driven Spikes (collapse uncertainty before committing)
+### Stage 4 — Risk‑Driven Spikes (collapse uncertainty before committing)
 
 **Operator job**
 - Approve which unknowns matter most (top 5–10).
@@ -182,7 +188,7 @@ Each stage has:
 
 ---
 
-### Stage 5 ,  Plan Pack Assembly (turn decisions into lossless specs)
+### Stage 5 — Plan Pack Assembly (turn decisions into lossless specs)
 
 **Operator job**
 - Confirm the plan matches the North Star and constraints.
@@ -205,7 +211,7 @@ At minimum (folder or single master file):
 
 ---
 
-### Stage 6 ,  Phase Breakdown (short-context planning to avoid omission)
+### Stage 6 — Phase Breakdown (short-context planning to avoid omission)
 
 **Operator job**
 - Approve phase boundaries and calibration points (where you want a “hard stop”).
@@ -222,7 +228,7 @@ At minimum (folder or single master file):
 
 ---
 
-### Stage 7 ,  Bead Decomposition (convert phases to executable task units)
+### Stage 7 — Bead Decomposition (convert phases to executable task units)
 
 **Operator job**
 - Approve bead titles and ordering (you don’t need to judge code).
@@ -241,7 +247,7 @@ At minimum (folder or single master file):
 
 ---
 
-### Stage 8 ,  Execution Loops (generate → run → fix, not “think harder”)
+### Stage 8 — Execution Loops (generate → run → fix, not "think harder")
 
 **Operator job**
 - Only intervene when agents hit Stop/Ask (intent ambiguity) or when calibration requests a decision.
@@ -261,7 +267,7 @@ Per bead:
 
 ---
 
-### Stage 9 ,  /calibrate (search controller + drift correction)
+### Stage 9 — /calibrate (search controller + drift correction)
 
 **Operator job**
 - Choose between evidence-backed branches, approve plan changes.
@@ -278,7 +284,7 @@ Per bead:
 
 ---
 
-### Stage 10 ,  Release Readiness (make “done” real)
+### Stage 10 — Release Readiness (make "done" real)
 
 **Operator job**
 - Confirm the product meets your success metrics and acceptable risk level.

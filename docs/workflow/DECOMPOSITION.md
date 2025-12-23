@@ -1,4 +1,10 @@
+<div align="center">
+
 # Decomposition
+
+### Breaking plans into executable phases and beads
+
+</div>
 
 How to break a completed plan into phases and beads that AI agents can execute without losing requirements.
 
@@ -182,7 +188,7 @@ Each task bead should include:
 - **grounding policy** (what must be verified vs what is an assumption)
 - **handoff safety** (another agent can finish this)
 
-If you can't write tests, you don't have a task bead yet ,  you have a guess.
+If you can't write tests, you don't have a task bead yet — you have a guess.
 
 ---
 
@@ -268,4 +274,4 @@ Before closing:
 
 ## NLU (No Longer Used)
 
-- NLU/DECOMPOSITION_LEGACY.md ,  legacy version kept for reference.
+- NLU/DECOMPOSITION_LEGACY.md — legacy version kept for reference.

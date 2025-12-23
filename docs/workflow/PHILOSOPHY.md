@@ -1,4 +1,12 @@
-# Philosophy: Make It Hard To Be Wrong
+<div align="center">
+
+# Philosophy
+
+### Make It Hard To Be Wrong
+
+</div>
+
+---
 
 ## The Gap Nobody Talks About
 

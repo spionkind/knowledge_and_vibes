@@ -1,6 +1,12 @@
+<div align="center">
+
 # Evidence-Backed Protocols
 
-19 short, repeatable procedures that turn AI-assisted work into verifiable progress. Each protocol exists because skipping it causes predictable failures.
+### 19 repeatable procedures for verifiable progress
+
+</div>
+
+Each protocol exists because skipping it causes predictable failures.
 
 **How to use:** Each protocol is a "card" with Why, Inputs, Outputs, Gate, and Evidence. Gates are mandatory.
 
@@ -80,7 +86,7 @@ Protocols prevent these failures by enforcing gates that catch problems early.
 
 ---
 
-## P0 ,  North Star (Ground Truth)
+## P0 — North Star (Ground Truth)
 
 **Why:** drift is the default; you need an explicit tradeoff policy.  
 **Inputs:** operator intent + context/stakes.  
@@ -90,7 +96,7 @@ Protocols prevent these failures by enforcing gates that catch problems early.
 
 ---
 
-## P1 ,  Requirements That “Compile” (`REQ-*` / `AC-*`)
+## P1 — Requirements That "Compile" (`REQ-*` / `AC-*`)
 
 **Why:** “correct” must be checkable by tests, not vibe.  
 **Inputs:** North Star Card.  
@@ -100,7 +106,7 @@ Protocols prevent these failures by enforcing gates that catch problems early.
 
 ---
 
-## P2 ,  Requirements QA (Ambiguity is expensive)
+## P2 — Requirements QA (Ambiguity is expensive)
 
 **Why:** ambiguity becomes rework; QA early is leverage.  
 **Template:** `templates/REQUIREMENTS_QA_TEMPLATE.md`  
@@ -110,7 +116,7 @@ Protocols prevent these failures by enforcing gates that catch problems early.
 
 ---
 
-## P3 ,  Grounding (Where does the truth live?)
+## P3 — Grounding (Where does the truth live?)
 
 **Why:** API hallucinations and outdated patterns are common.  
 **Use:**
@@ -123,7 +129,7 @@ Protocols prevent these failures by enforcing gates that catch problems early.
 
 ---
 
-## P4 ,  Decision Search (A/B/C, then select)
+## P4 — Decision Search (A/B/C, then select)
 
 **Why:** single‑path planning is fragile; search improves outcomes.  
 **Template:** `templates/DECISIONS_ADRS_TEMPLATE.md`  
@@ -137,7 +143,7 @@ Protocols prevent these failures by enforcing gates that catch problems early.
 
 ---
 
-## P5 ,  Risks & Spikes (Evidence production, not features)
+## P5 — Risks & Spikes (Evidence production, not features)
 
 **Why:** collapse uncertainty before committing to long sequences.  
 **Template:** `templates/RISKS_AND_SPIKES_TEMPLATE.md`  
@@ -146,7 +152,7 @@ Protocols prevent these failures by enforcing gates that catch problems early.
 
 ---
 
-## P6 ,  Phase Chunking (Short context, lossless)
+## P6 — Phase Chunking (Short context, lossless)
 
 **Why:** long context causes silent omission.  
 **Output:** phase docs sized for reliable agent execution (coarse heuristic guardrail: ~500–1000 lines).  
@@ -155,7 +161,7 @@ Protocols prevent these failures by enforcing gates that catch problems early.
 
 ---
 
-## P7 ,  Bead Packaging (TDD-First, Reduce Guessing)
+## P7 — Bead Packaging (TDD-First, Reduce Guessing)
 
 **Why:** "task quality" determines execution quality. TDD yields 45.97% pass@1 improvement.
 **Template:** `.claude/templates/beads/bead-structure.md`
@@ -171,7 +177,7 @@ Protocols prevent these failures by enforcing gates that catch problems early.
 
 ---
 
-## P8 ,  Adaptive Decomposition (ADaPT: Split Only When Execution Fails)
+## P8 — Adaptive Decomposition (ADaPT: Split Only When Execution Fails)
 
 **Why:** rigid decomposition overfits to guesses; execution reveals reality. Over-decomposing upfront wastes effort on problems that don't exist.
 
@@ -201,7 +207,7 @@ Protocols prevent these failures by enforcing gates that catch problems early.
 
 ---
 
-## P9 ,  Execution Loop (Generate → Run → Repair, HARD LIMIT: 3 Iterations)
+## P9 — Execution Loop (Generate → Run → Repair, HARD LIMIT: 3 Iterations)
 
 **Why:** disciplined execution feedback beats "think harder." But debugging capability decays exponentially.
 
@@ -217,13 +223,13 @@ At iteration 3: 20-40% capability
 At iteration 4+: ACTIVELY HARMFUL (introduces more bugs than it fixes)
 ```
 
-### HARD LIMIT: 3 Iterations ,  NO EXCEPTIONS
+### HARD LIMIT: 3 Iterations — NO EXCEPTIONS
 
 **Rules:**
 - Every iteration must cite **new external evidence** (failing test/log/trace)
-- **Iteration tracking is MANDATORY** ,  log "Attempt {n}/3" after each try
+- **Iteration tracking is MANDATORY** — log "Attempt {n}/3" after each try
 - `ubs --staged` must pass before any bead closes
-- **NEVER self-assess** ,  "are you sure?" patterns overturn 58% of correct answers
+- **NEVER self-assess** — "are you sure?" patterns overturn 58% of correct answers
 
 ### Correction Flow (External Feedback Only)
 
@@ -243,7 +249,7 @@ WRONG (DO NOT DO):
 **Gate:** no bead closes without verification passing AND `ubs` clean.
 
 **If still failing after 3 iterations:**
-1. **STOP IMMEDIATELY** ,  do not try "one more time"
+1. **STOP IMMEDIATELY** — do not try "one more time"
 2. Spawn spike bead to investigate root cause (ADaPT)
 3. Notify operator via Agent Mail with `importance: high`
 4. Fresh context for new attempt
@@ -254,7 +260,7 @@ WRONG (DO NOT DO):
 
 ---
 
-## P10 ,  Calibration (Between phases, hard stop)
+## P10 — Calibration (Between phases, hard stop)
 
 **Why:** drift compounds; calibration is the search controller (branch/prune/pivot).
 **Command:** `/calibrate`
@@ -264,7 +270,7 @@ WRONG (DO NOT DO):
 
 ---
 
-## P10a ,  Test-Based Disagreement Resolution (Replaces Rhetorical Debate)
+## P10a — Test-Based Disagreement Resolution (Replaces Rhetorical Debate)
 
 **Why:** Rhetorical debate produces persuasive noise. Tests produce verifiable truth. Voting alone beats extended debate.
 
@@ -289,7 +295,7 @@ WRONG (DO NOT DO):
 
 ---
 
-## P11 ,  Traceability (Coverage map)
+## P11 — Traceability (Coverage map)
 
 **Why:** agents work locally; you need a global coverage map to prevent gaps.  
 **Template:** `templates/TRACEABILITY_TEMPLATE.md`  
@@ -298,7 +304,7 @@ WRONG (DO NOT DO):
 
 ---
 
-## P12 ,  Release Readiness (Rigor‑tier gate)
+## P12 — Release Readiness (Rigor-tier gate)
 
 **Why:** "passes tests" is not always "safe to ship."
 **Output:** release checklist tied to rigor tier (tests, observability, rollback, security posture).
@@ -308,7 +314,7 @@ WRONG (DO NOT DO):
 
 ---
 
-## P13 ,  Security Gate (Mandatory, Language-Aware)
+## P13 — Security Gate (Mandatory, Language-Aware)
 
 **Why:** ~40% of LLM-generated code contains vulnerabilities. Security is not optional.
 **Tool:** `ubs --staged` (1000+ vulnerability patterns)
@@ -360,7 +366,7 @@ Research shows significant variance by language:
 
 ---
 
-## P14 ,  Human Verification Gate (Operator Checkpoint)
+## P14 — Human Verification Gate (Operator Checkpoint)
 
 **Why:** AI helps most when the human already understands the domain. Verification catches mistakes before they compound.
 
@@ -393,7 +399,7 @@ If "no" to any: request walkthrough before approval.
 
 ---
 
-## P15 ,  Task Complexity Assessment (Before Execution)
+## P15 — Task Complexity Assessment (Before Execution)
 
 **Why:** Task complexity determines verification requirements. Multi-file, cross-cutting changes need more scrutiny than single-file edits.
 
@@ -456,7 +462,7 @@ AMBIGUITY:
 
 ---
 
-## P16 ,  AI Code Review (Two-Stage)
+## P16 — AI Code Review (Two-Stage)
 
 **Why:** 14.9% of PRs now involve AI review (14x growth since 2024). Two-stage review (detect + verify) is most effective.
 
@@ -527,7 +533,7 @@ cursor.execute(query, (id,))
 
 ---
 
-## P17 ,  Extended Thinking (For Critical Tasks)
+## P17 — Extended Thinking (For Critical Tasks)
 
 **Why:** Extended thinking gives Claude internal reasoning space before responding. Research shows +9.7% improvement on complex control flow and reasoning tasks.
 
@@ -551,10 +557,10 @@ cursor.execute(query, (id,))
 ### Thinking Budget Guidelines
 
 ```
-10,000 tokens ,  Standard complex task
-16,000 tokens ,  Multi-source synthesis, challenge resolution
-20,000 tokens ,  Architectural decisions (highest stakes)
-32,000 tokens ,  Maximum (rarely needed)
+10,000 tokens — Standard complex task
+16,000 tokens — Multi-source synthesis, challenge resolution
+20,000 tokens — Architectural decisions (highest stakes)
+32,000 tokens — Maximum (rarely needed)
 ```
 
 ### Integration with DDI
