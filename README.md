@@ -2,231 +2,88 @@
 
 # Knowledge & Vibes
 
-### The production-grade framework for multi-agent AI development
+### A framework for building software with AI
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Research-Backed](https://img.shields.io/badge/Research-73%20Papers-green.svg)](./research/README.md)
-[![Claude Code](https://img.shields.io/badge/Built%20for-Claude%20Code-blueviolet.svg)](https://claude.ai)
-
----
-
-**Build real software with AI—reliably.**
-
-This framework turns AI-assisted coding from a gamble into a repeatable process.<br>
-Every protocol is research-backed. Every tool catches a specific failure mode.<br>
-The result: **a system where it's hard to be wrong.**
-
-[Get Started](#-quick-start) · [Documentation](#-documentation) · [Research](./research/README.md) · [Follow @YachtsmanCap](https://x.com/YachtsmanCap)
 
 </div>
 
 ---
 
-## 🎯 What You Get
+## What This Is
 
-| Challenge | Solution |
-|:----------|:---------|
-| Keeping AI aligned with your intent | **North Star Cards** anchor goals before coding starts |
-| Tracking complex, multi-step work | **Beads** manage tasks with dependencies and verification |
-| Coordinating multiple agents | **Agent Mail** prevents conflicts with reservations and messaging |
-| Catching security issues | **UBS** scans every commit automatically |
-| Proving things actually work | **TDD-first protocol** with mandatory test coverage |
-| Maintaining context across sessions | **CASS** searches past solutions; **cm** retrieves patterns |
+This is a system for building real software with AI assistance. Not chatting with a model and hoping for the best—but a structured workflow where plans are explicit, work is tracked, and verification is mandatory.
 
-> **Workflow beats prompting.** You can't prompt your way to reliability—but you can build a system where failures get caught before they matter.
+The core insight: **truth lives outside the model.** The AI's confident output is not truth. Truth is tests that pass, code that compiles, documentation that exists. Everything else is a hypothesis requiring verification.
+
+This framework enforces that distinction.
 
 ---
 
-## 🚀 Quick Start
+## The Problem It Solves
 
-### 1. Install the Tools
+AI-assisted development tends to fail in predictable ways:
 
-See the **[Setup Guide](./docs/guides/SETUP_GUIDE.md)** for complete installation instructions for all tools and MCP servers.
+- **The AI builds the wrong thing** — because goals weren't explicit
+- **Requirements vanish mid-project** — because context windows have limits
+- **Multiple agents conflict** — because there's no coordination protocol
+- **Bugs compound silently** — because there are no verification gates
+- **"It works" isn't evidence** — because confidence doesn't equal correctness
 
-### 2. Initialize a Project
-
-```bash
-cd your-project
-bd init
-curl -o AGENTS.md https://raw.githubusercontent.com/Mburdo/knowledge_and_vibes/main/templates/AGENTS_TEMPLATE.md
-git add .beads/ AGENTS.md && git commit -m "Initialize Knowledge & Vibes"
-```
-
-### 3. Run a Session
-
-```bash
-/prime              # Register agent, check inbox, discover tasks
-/next-bead          # Claim work, reserve files, announce [CLAIMED]
-# ... implement with TDD ...
-ubs --staged        # Security scan (mandatory)
-bd close <id>       # Complete task, release files, announce [CLOSED]
-/calibrate          # Between phases: check for drift
-```
+You can't prompt your way out of these problems. You need a system where failures get caught before they matter.
 
 ---
 
-## 💡 The Core Idea
+## How It Works
 
-> **Truth lives outside the model.**
+### 1. Plan Explicitly
 
-The AI's confident output is not truth. Truth is tests that pass, code that compiles, documentation that exists. Everything else is a hypothesis requiring verification.
+Before anyone writes code, the goal is pinned down. A North Star Card captures what success looks like, what's out of scope, and when the AI should stop and ask. Requirements are written in testable terms. Decisions are recorded so they're not relitigated.
 
-This framework enforces that distinction through:
+### 2. Track Everything
 
-| Principle | Implementation |
-|:----------|:---------------|
-| **Explicit artifacts** | North Star, requirements, decisions recorded *before* coding |
-| **Mandatory verification** | Tests before implementation, security scans before commit |
-| **Structured coordination** | File reservations, claim/close announcements, calibration gates |
-| **Bounded iteration** | Max 3 repair attempts, then decompose or escalate |
+Work is broken into **beads**—tasks with dependencies, status, and verification requirements. Nothing gets forgotten. Nothing falls through the cracks. The graph of work is explicit and queryable.
 
----
+### 3. Coordinate Agents
 
-## 📚 Documentation
+When multiple AI agents work simultaneously, they need a protocol. File reservations prevent conflicts. Claim/close announcements tell everyone what's taken. Calibration checkpoints catch drift before it compounds.
 
-<table>
-<tr>
-<td width="33%" valign="top">
+### 4. Verify Continuously
 
-### Start Here
-
-| Doc | Learn |
-|:----|:------|
-| [**Setup Guide**](./docs/guides/SETUP_GUIDE.md) | Install & configure |
-| [**START_HERE**](./START_HERE.md) | Reading order |
-| [**Glossary**](./GLOSSARY.md) | Terms defined |
-
-</td>
-<td width="33%" valign="top">
-
-### The Workflow
-
-| Doc | Learn |
-|:----|:------|
-| [**Evidence-Based Guide**](./docs/workflow/EVIDENCE_BASED_GUIDE.md) | 10-stage pipeline |
-| [**Protocols**](./docs/workflow/PROTOCOLS.md) | 18 procedures |
-| [**Decomposition**](./docs/workflow/DECOMPOSITION.md) | Task breakdown |
-
-</td>
-<td width="33%" valign="top">
-
-### Going Deeper
-
-| Doc | Learn |
-|:----|:------|
-| [**Planning Deep Dive**](./docs/workflow/PLANNING_DEEP_DIVE.md) | Idea → plan |
-| [**Philosophy**](./docs/workflow/PHILOSOPHY.md) | Why it works |
-| [**Research**](./research/README.md) | 73 papers |
-
-</td>
-</tr>
-</table>
+Tests are written before implementation (TDD). Security scans run before every commit. If something fails after three attempts, it gets decomposed or escalated—not retried indefinitely.
 
 ---
 
-## 🛠 The Toolkit
+## The Research Behind It
 
-### CLI Tools
+This isn't theory. Every protocol is backed by research—73 papers distilled into actionable practices:
 
-| Tool | Purpose | Key Command |
-|:-----|:--------|:------------|
-| **Beads** (`bd`) | Task tracking with dependencies | `bd ready --json` |
-| **Beads Viewer** (`bv`) | Graph analysis, recommendations | `bv --robot-next` |
-| **UBS** | Security scanner | `ubs --staged` |
-| **CASS** | Session search | `cass search "query" --robot` |
-| **cm** | Context memory | `cm context "task" --json` |
+- Why TDD produces better outcomes with AI
+- Why long context degrades reasoning
+- Why orchestrator-worker patterns outperform single agents
+- Why extended self-correction makes things worse
+- Why tests should adjudicate disagreements, not rhetoric
 
-### MCP Servers
-
-| Server | Purpose |
-|:-------|:--------|
-| **Agent Mail** | Multi-agent coordination, file reservations, messaging |
-| **Warp-Grep** | Fast parallel codebase search |
-| **Exa** | Web search for current documentation |
+See the [Research summaries](./research/README.md) for the full collection.
 
 ---
 
-## 📋 Templates
+## What's In This Repository
 
-| Template | When to Use |
-|:---------|:------------|
-| [**North Star Card**](./templates/NORTH_STAR_CARD_TEMPLATE.md) | Start of every project |
-| [**Requirements**](./templates/REQUIREMENTS_TEMPLATE.md) | Defining what to build |
-| [**Decisions (ADRs)**](./templates/DECISIONS_ADRS_TEMPLATE.md) | Recording architectural choices |
-| [**AGENTS.md**](./templates/AGENTS_TEMPLATE.md) | Agent instructions for your repo |
+| Section | What You'll Find |
+|:--------|:-----------------|
+| [**Setup Guide**](./docs/guides/SETUP_GUIDE.md) | How to install and configure the toolchain |
+| [**Evidence-Based Guide**](./docs/workflow/EVIDENCE_BASED_GUIDE.md) | The complete 10-stage pipeline |
+| [**Protocols**](./docs/workflow/PROTOCOLS.md) | 18 repeatable procedures for common situations |
+| [**Templates**](./TEMPLATES.md) | North Star cards, requirements, ADRs, and more |
+| [**Glossary**](./GLOSSARY.md) | Every term defined |
 
-📖 **Complete index:** [TEMPLATES.md](./TEMPLATES.md)
-
----
-
-## 👥 Multi-Agent Coordination
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                     ORCHESTRATOR                                │
-│   Assigns work · Resolves conflicts · Triggers calibration      │
-└─────────────────────────┬───────────────────────────────────────┘
-                          │
-          ┌───────────────┼───────────────┐
-          ▼               ▼               ▼
-    ┌──────────┐    ┌──────────┐    ┌──────────┐
-    │ Worker A │    │ Worker B │    │ Worker C │
-    │ Track 1  │    │ Track 2  │    │ Track 3  │
-    └──────────┘    └──────────┘    └──────────┘
-          │               │               │
-          └───────────────┼───────────────┘
-                          ▼
-                   Agent Mail
-            (reservations, messages)
-```
-
-**The Protocol:**
-
-1. **Reserve files before editing** — `file_reservation_paths()` prevents conflicts
-2. **Announce claims** — `[CLAIMED] bd-123` tells others what's taken
-3. **Announce completions** — `[CLOSED] bd-123` releases work
-4. **Check inbox before claiming** — Avoid duplicate effort
-5. **Calibrate between phases** — Catch drift before it compounds
-
-📖 **Full pattern:** [Orchestrator-Worker Guide](./docs/guides/ORCHESTRATOR_SUBAGENT_PATTERN.md)
+Start with [**START_HERE.md**](./START_HERE.md) for the recommended reading order.
 
 ---
 
-## 🔧 Troubleshooting
-
-| Problem | Solution |
-|:--------|:---------|
-| `bd: command not found` | `export PATH="$HOME/.local/bin:$PATH"` |
-| `bv` hangs | Use `--robot-*` flags (never bare `bv`) |
-| CASS finds nothing | `cass index --full` |
-| UBS errors | `ubs doctor --fix` |
-
-**Health check:**
-```bash
-bd doctor && cm doctor && ubs doctor && cass health
-```
-
----
-
-## 📁 Repository Structure
-
-```
-knowledge_and_vibes/
-├── docs/
-│   ├── guides/           # Setup, tutorial, migration
-│   └── workflow/         # Protocols, planning, philosophy
-├── templates/            # North Star, requirements, ADRs
-├── research/             # 73 paper summaries
-└── .claude/
-    ├── commands/         # /prime, /calibrate, /next-bead
-    ├── rules/            # Safety guardrails
-    ├── skills/           # On-demand playbooks
-    └── templates/        # Runtime templates
-```
-
----
-
-## 👤 About
+## About
 
 This framework is the distillation of three years of building with AI—starting from zero.
 
@@ -249,8 +106,6 @@ This framework is everything I've learned, systematized. The protocols that prev
 **[Follow my work →](https://x.com/YachtsmanCap)**
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/YachtsmanCap?style=social)](https://x.com/YachtsmanCap)
-
----
 
 MIT License
 
