@@ -5,7 +5,7 @@
 ### A framework for building software with AI
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Research-Backed](https://img.shields.io/badge/Research-73%20Papers-green.svg)](./research/README.md)
+[![Research-Backed](https://img.shields.io/badge/Research-50%2B%20Papers-green.svg)](./research/README.md)
 
 </div>
 
