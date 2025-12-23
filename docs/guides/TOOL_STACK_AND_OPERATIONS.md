@@ -14,6 +14,7 @@ This guide explains what **you** do vs what **the agent** does behind the scenes
 **Slash Commands**
 - [/prime ,  Session Startup](#prime--session-startup)
 - [/next-bead ,  Find and Claim Work](#next-bead--find-and-claim-work)
+- [/execute ,  Parallel Execution](#execute--parallel-execution)
 - [/decompose-task ,  Break Down Work](#decompose-task--break-down-work)
 - [/calibrate ,  Hard Stop and Realign](#calibrate--hard-stop-and-realign)
 - [/resolve ,  Disagreement Resolution](#resolve--disagreement-resolution)
@@ -63,6 +64,7 @@ Skills are located in `.claude/skills/`. Each defines agent behavior for specifi
 |-------|------|----------|
 | **prime** | `.claude/skills/prime/SKILL.md` | `/prime`, "startup", new session |
 | **next-bead** | `.claude/skills/next-bead/SKILL.md` | `/next-bead`, "next task", "what's next" |
+| **execute** | `.claude/skills/execute/SKILL.md` | `/execute`, parallel execution |
 | **bead-workflow** | `.claude/skills/bead-workflow/SKILL.md` | Claiming, closing, bead lifecycle |
 | **decompose-task** | `.claude/skills/decompose-task/SKILL.md` | `/decompose-task`, phase breakdown |
 | **calibrate** | `.claude/skills/calibrate/SKILL.md` | `/calibrate`, phase boundaries |
@@ -301,6 +303,81 @@ Step 4: CLAIM
 ## Ready to Work
 [Agent reads bead description and states plan]
 ```
+
+---
+
+### `/execute` ,  Parallel Execution
+
+**Skill:** `.claude/skills/execute/SKILL.md`
+
+#### What YOU Do
+
+1. Type `/execute` (or "execute", "run the beads", "start working")
+2. Review the discovered beads and computed tracks
+3. Watch progress as parallel agents work
+4. Review calibration results at phase boundaries
+5. Handle any blocked beads that need attention
+
+#### What the AGENT Does (Behind the Scenes)
+
+```
+Step 1: DISCOVERY
+├── bd ready --json (find ready beads)
+├── bv --robot-triage (graph analysis)
+└── Identify phases from dependency structure
+
+Step 2: TRACK COMPUTATION
+├── Extract file scope from each bead
+├── Group beads with non-overlapping files
+└── Each group = one parallel track
+
+Step 3: SPAWN WORKERS
+├── For each track, spawn worker agent (Task tool, background)
+├── Each worker gets: track name, bead IDs, file scope
+└── Workers run /prime → /next-bead loop
+
+Step 4: MONITOR
+├── Watch Agent Mail for [TRACK COMPLETE], [BLOCKED]
+├── Update progress display
+└── Handle issues as they arise
+
+Step 5: PHASE BOUNDARY
+├── All tracks complete → run /calibrate
+├── Calibration passed → spawn next phase workers
+└── Calibration failed → create fix beads, re-run
+
+Step 6: COMPLETION
+├── All phases done
+├── Send [EXECUTION COMPLETE]
+└── Prompt for /release
+```
+
+#### Output You'll See
+
+```markdown
+## Execution Progress
+
+**Phase:** 2 of 4
+**Tracks:** 4 active
+
+| Track | Agent | Beads | Progress |
+|-------|-------|-------|----------|
+| A: Auth | BlueLake | bd-101, bd-102 | 2/2 ✓ |
+| B: API | GreenCastle | bd-103, bd-104 | 1/2 |
+| C: Models | RedStone | bd-105 | 0/1 |
+
+### Next
+Waiting for Tracks B, C...
+Then: Calibration → Phase 3
+```
+
+#### Options
+
+| Flag | Description |
+|------|-------------|
+| `--dry-run` | Show plan without spawning agents |
+| `--agents N` | Limit parallel agents |
+| `--phase N` | Execute specific phase only |
 
 ---
 

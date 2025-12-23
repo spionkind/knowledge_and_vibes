@@ -376,6 +376,7 @@ MCP tool for web search. Use to verify documentation, find best practices, resea
 |:--------|:--------|
 | `/prime` | Start a new session. Registers with Agent Mail, checks inbox, discovers tasks. |
 | `/next-bead` | Claim the next task. Handles: close current, discover, claim, reserve files, announce. |
+| `/execute` | Parallel execution. Spawns worker agents for each track, monitors progress, runs calibration at phase boundaries. |
 | `/calibrate` | Run a calibration checkpoint. Checks coverage, detects drift, resolves disagreements with tests. |
 | `/decompose-task` | Break a phase into beads and sub-beads. Creates the task graph for execution. |
 | `/ground` | Verify claims against real sources before making decisions. |
