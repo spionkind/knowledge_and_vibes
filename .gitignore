@@ -18,6 +18,10 @@ warp_grep/warp_grep/
 !.claude/commands/*.md
 !.claude/rules/
 !.claude/rules/*.md
+!.claude/templates/
+!.claude/templates/**/*.md
+!.claude/skills/
+!.claude/skills/**/*.md
 .cursor/
 .gemini/
 .codex/
