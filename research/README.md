@@ -57,15 +57,6 @@ Research papers read in full and summarized with practical implications for the 
 | 047 | [HumanEval Pro / MBPP Pro](047-humaneval-pro.md) | Strong drops on progressive “reuse” tasks | Justify between-phase calibration + stronger invariants |
 | 048 | [EG‑CFG](048-eg-cfg.md) | Execution-guided decoding improves code gen | Favor small validated steps + frequent execution |
 | 049 | [Code‑Form Planning](049-codeform-planning.md) | Structured pseudocode plans improve reasoning | Require structured plans for complex logic beads |
-
----
-
-## 2025 Critical Updates (Read These First)
-
-These papers fundamentally changed our understanding of AI-assisted development:
-
-| # | Paper | Key Finding | Implication |
-|---|-------|-------------|-------------|
 | 050 | [SWE-Bench Pro](050-swe-bench-pro.md) | Best models solve only ~23% of realistic tasks | Don't assume AI will reliably succeed; verify everything |
 | 051 | [METR RCT](051-metr-rct.md) | Experienced devs 19% slower with AI on unfamiliar code | AI helps most when human understands the domain; verify P0 requirements |
 | 052 | [LLM Security Vulnerabilities](052-llm-security-vulnerabilities.md) | ~40% of LLM-generated code has vulnerabilities | `ubs --staged` is mandatory, not optional |

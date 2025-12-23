@@ -1,62 +1,91 @@
-# North Star Card (Template)
+# North Star Card
 
-Use this template at the very top of your master plan. It is the anchor for:
-- requirements (`REQ-*` / `AC-*`)
-- architectural decisions (ADRs)
-- phase breakdown + bead decomposition
-- calibration (`/calibrate`) checkpoints
+The North Star Card anchors everything. Before anyone writes code, this document pins down what success looks like, what's out of scope, and when to stop and ask.
 
 If the North Star is vague, agents will drift.
 
 ---
 
-## Build Profile Presets (Pick One)
+## Build Profile (Pick One)
 
-This is the fastest way to make your intent “honest” to the system. The same feature can be built with very different rigor depending on why you’re building it.
-
-| Preset | Typical context | Default rigor tier | What “good” looks like |
-|--------|------------------|--------------------|------------------------|
-| Personal / Hobby | Solo, low stakes, learning | 1 | Fast iteration, minimal architecture, smoke tests on core flows |
-| Startup MVP | Early product, speed with guardrails | 2 | Critical-path tests, clear boundaries, pragmatic security |
-| Internal Tool (Business-Critical) | Used by a team/company; real impact | 2–3 | Strong correctness on workflows, integration tests, observability, access control |
-| Enterprise / Regulated | Compliance/audit; high stakes | 3 | Traceability, threat modeling, hardened ops, formal change control |
+| Profile | Context | Rigor | What "Good" Looks Like |
+|:--------|:--------|:------|:-----------------------|
+| **Personal / Hobby** | Solo, low stakes, learning | Tier 1 | Fast iteration, minimal architecture, smoke tests |
+| **Startup MVP** | Early product, speed matters | Tier 2 | Critical-path tests, clear boundaries, pragmatic security |
+| **Business Tool** | Used by a team, real impact | Tier 2-3 | Strong correctness, integration tests, observability |
+| **Enterprise** | Compliance, audits, high stakes | Tier 3 | Traceability, threat modeling, formal change control |
 
 ---
 
-## Rigor Tiers (Pick 1–3)
+## Rigor Tiers
 
-| Tier | Focus | Minimum bar |
-|------|-------|-------------|
-| 1 (Speed-First) | Learn fast, ship quickly | Smoke tests + basic sanity checks for critical paths |
-| 2 (Balanced) | Build right without over-process | Unit + integration on critical paths, ADRs for major decisions |
-| 3 (High Assurance) | Correctness, security, auditability | Full test matrix for P0s, threat model, observability, traceability |
+| Tier | Focus | Minimum Bar |
+|:-----|:------|:------------|
+| **1** | Speed | Smoke tests on critical paths |
+| **2** | Balanced | Unit + integration tests, ADRs for major decisions |
+| **3** | Assurance | Full test matrix, threat model, traceability |
 
 ---
 
 ## Template
 
+Copy this into your project as `PLAN/00_north_star.md`:
+
 ```markdown
-## North Star Card
-- Desired end state (one sentence, concrete):
-- Primary user + core problem:
-- Context & stakes (e.g., F500 internal tool, regulated, public SaaS, personal hobby):
-- Build profile preset (choose one, and why):
-- Success metrics (observable, ranked):
-- Rigor tier (1-3) + rationale:
-- Maintenance horizon (weeks/months/years):
-- Risk tolerance (low/med/high):
-- Non-goals (explicitly out of scope):
-- Must-not-violate invariants (hard constraints):
-- Priority order for decisions (e.g., Safety > Correctness > UX > Speed):
-- Constraints (time, budget, tech, compliance):
-- Source of truth (docs/owner of truth):
-- Stop/ask rule (when to pause and ask user):
-- Open questions (clarifiers outstanding):
+# North Star Card
+
+## The Goal
+What does success look like? (One sentence, concrete)
+
+## Who It's For
+Primary user and the core problem you're solving.
+
+## Context
+What kind of project is this? (Startup MVP, internal tool, hobby project, etc.)
+
+## Build Profile
+Which profile from the table above? Why?
+
+## Rigor Tier
+1, 2, or 3? Why this level?
+
+## Success Metrics
+How will you know it worked? (Observable, ranked)
+
+## Non-Goals
+What are you explicitly NOT building?
+
+## Constraints
+Time, budget, tech stack, compliance requirements.
+
+## Stop/Ask Rules
+When should agents pause and ask instead of guessing?
+
+## Open Questions
+What still needs to be clarified?
 ```
 
 ---
 
-## Notes
+## Agent Prompt
 
-- “Build profile preset” and “Rigor tier” drive the minimum bar for testing, architecture, and operational discipline.
-- “Stop/ask rule” is mandatory: it prevents silent guessing when the correct answer depends on user intent.
+Use this to have an agent help draft your North Star Card:
+
+```
+Help me create a North Star Card for my project.
+
+Here's what I'm trying to build:
+[describe your project]
+
+Here's the context:
+[who it's for, why you're building it, any constraints]
+
+Create a North Star Card that includes:
+- A concrete one-sentence goal
+- The build profile and rigor tier (with rationale)
+- Success metrics I can actually measure
+- Non-goals to prevent scope creep
+- Stop/ask rules so agents know when to pause
+
+Be direct. If something is unclear, ask me.
+```

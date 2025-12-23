@@ -2,7 +2,7 @@
 
 **Token-aware architecture documentation for AI agents.**
 
-Codemaps are concise Markdown files that give AI agents the context they need to work effectively in your codebase. They're not comprehensive documentation—they're navigation aids.
+Codemaps are concise Markdown files that give AI agents the context they need to work effectively in your codebase. They're navigation aids, not comprehensive documentation.
 
 ---
 
@@ -15,7 +15,7 @@ You know:
 - Which databases talk to which services
 - What patterns the team prefers
 
-The LLM doesn't—unless you tell it.
+The LLM doesn't. Not unless you tell it.
 
 ---
 

@@ -1,24 +1,37 @@
-# Traceability Matrix (Template)
+# Traceability Matrix Template
 
-**Purpose:** Maintain a single, explicit map from the North Star to phases, beads, tests, and acceptance criteria. This prevents drift and makes gaps obvious.
+A traceability matrix maps requirements to implementation. It prevents drift and makes gaps obvious.
 
-**Agent-native workflow:** Agents update this file during decomposition, implementation, and calibration. The user is not expected to manage it.
-
-**Why this matters:** Without explicit traceability, requirements get "lost in the middle" as context grows. A single coverage map catches gaps before they become bugs.
+Without explicit traceability, requirements get lost as context grows. A single coverage map catches gaps before they become bugs.
 
 ---
 
 ## Conventions
 
-- **IDs:** `NS-#` (North Star items), `REQ-#` (requirements), `AC-#` (acceptance criteria)
-- **Beads:** use bead IDs (e.g., `bd-123.2`)
-- **Tests:** use file paths or test identifiers
-- **Status:** `planned` → `in_progress` → `code_done` → `tests_done` → `accepted`
-- **Evidence:** test runs, file paths, commits, or calibration summary links
+- `NS-#` for North Star items
+- `REQ-#` for requirements
+- `AC-#` for acceptance criteria
+- Beads use bead IDs (e.g., `bd-123.2`)
+- Tests use file paths or test identifiers
+- Status: `planned` > `in_progress` > `code_done` > `tests_done` > `accepted`
 
 ---
 
-## Traceability Matrix
+## Template
+
+Copy this into your project as `PLAN/05_traceability.md`:
+
+```markdown
+# Traceability Matrix
+
+## Scope
+- Project:
+- Date:
+- Rigor Tier:
+
+---
+
+## Coverage Matrix
 
 | ID | Requirement | Phase | Beads | Tests | Acceptance | Status | Evidence |
 |----|-------------|-------|-------|-------|------------|--------|----------|
@@ -27,51 +40,51 @@
 
 ---
 
+## Gap Check
+
+| Pattern | Symptom | Fix |
+|---------|---------|-----|
+| Orphan requirement | REQ with no beads | Create bead or mark REQ as deferred |
+| Untested bead | Bead with no tests | Add tests before closing |
+| Unverified AC | AC with no evidence | Run verification, add evidence |
+| Scope creep | Bead not linked to any REQ | Either link to REQ or question if needed |
+| Missing P0 coverage | P0 REQ without `accepted` status | Block release until verified |
+```
+
+---
+
 ## When to Update
 
 | Trigger | Action |
 |---------|--------|
-| **After `/decompose-task`** | Add bead IDs to REQ rows |
-| **After creating tests** | Add test paths to bead rows |
-| **After closing a bead** | Update Status + Evidence |
-| **During `/calibrate`** | Scan for gaps (see below) |
-| **After requirements change** | Add new rows, mark old as deprecated |
+| After `/decompose-task` | Add bead IDs to REQ rows |
+| After creating tests | Add test paths to bead rows |
+| After closing a bead | Update Status + Evidence |
+| During `/calibrate` | Scan for gaps |
+| After requirements change | Add new rows, mark old as deprecated |
 
 ---
 
-## Workflow (Agent Use)
+## Agent Prompt
 
-1. **Planning:** Add rows for each North Star bullet and requirement.
-2. **Decomposition:** Assign trace IDs to beads and fill the **Beads** column.
-3. **Implementation:** Fill the **Tests** column with test identifiers (file path + test name where helpful).
-4. **Bead Close:** Update **Status** and **Evidence**.
-5. **Calibration:** Scan for gaps (no beads, no tests, missing acceptance).
+Use this to have an agent check traceability:
 
----
-
-## Common Drift Patterns (Check During Calibration)
-
-| Pattern | Symptom | Fix |
-|---------|---------|-----|
-| **Orphan requirement** | REQ with no beads | Create bead or mark REQ as deferred |
-| **Untested bead** | Bead with no tests | Add tests before closing |
-| **Unverified AC** | AC with no evidence | Run verification, add evidence |
-| **Scope creep** | Bead not linked to any REQ | Either link to REQ or question if needed |
-| **Stale status** | Status says "in_progress" but work finished | Update status + evidence |
-| **Missing P0 coverage** | P0 REQ without `accepted` status | Block release until verified |
-
----
-
-## Trace Tagging Examples
-
-Trace tags are optional. They can make future automation easier (e.g., auto‑generating a trace report by scanning tests), but the traceability matrix itself is the source of truth.
-
-**Bead description:**
 ```
-Trace: REQ-3, REQ-5
-```
+Review the traceability between my requirements and implementation:
 
-**Test comment:**
-```
-# Trace: REQ-3
+Requirements: [paste or reference PLAN/01_requirements.md]
+Beads: [paste bd list output or reference .beads/]
+Tests: [describe test coverage or list test files]
+
+For each requirement:
+1. Is there a bead that implements it?
+2. Is there a test that verifies it?
+3. Is there evidence the test passed?
+
+Flag any gaps:
+- Requirements without implementation
+- Implementation without tests
+- Tests without passing evidence
+
+Output a gap report with specific fixes for each issue.
 ```

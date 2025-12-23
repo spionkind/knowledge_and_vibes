@@ -5,9 +5,9 @@ Use this after drafting `REQ-*` / `AC-*`. The goal is to remove ambiguity and ma
 **Why this matters:** Requirements quality is the highest-leverage intervention. Ambiguity in requirements becomes divergent implementations. Fix it early when it's cheap.
 
 **Evidence base:**
-- `research/036-requirements-qa-iso-29148.md` — LLMs can QA requirements effectively
-- `research/033-requirements-to-code.md` — Requirements quality is decisive
-- `research/037-requirements-to-code-practices.md` — Practitioners must decompose into concrete tasks
+- `research/036-requirements-qa-iso-29148.md`: LLMs can QA requirements effectively
+- `research/033-requirements-to-code.md`: Requirements quality is decisive
+- `research/037-requirements-to-code-practices.md`: Practitioners must decompose into concrete tasks
 
 ---
 

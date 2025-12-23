@@ -1,87 +1,74 @@
-# Decisions / ADRs (Template)
+# Decisions Template (ADRs)
 
-Use this to record architecturally significant decisions so agents don’t silently pick defaults.
+ADRs (Architecture Decision Records) capture significant decisions so they don't get relitigated later.
 
-New to the repo? Start with:
-- `START_HERE.md`
-
-Evidence-backed workflow context:
-- `docs/workflow/EVIDENCE_BASED_GUIDE.md` (Stage 3: decision search)
-- `docs/workflow/PROTOCOLS.md` (P4)
-
----
-
-## Conventions
-
-- ADR IDs: `ADR-001`, `ADR-002`, …
-- Status: `proposed` → `accepted` → `superseded`
-- Every ADR should include:
-  - A/B/C options
-  - tradeoffs grounded in the North Star priority order
-  - “what would change our mind” (reversal triggers)
-  - verification hooks (tests/experiments) when possible
+The goal is to record what you decided, what the alternatives were, and what would make you change your mind.
 
 ---
 
 ## Template
 
+Copy this into your project as `PLAN/02_decisions.md`:
+
 ```markdown
-# Decisions / ADR Log
+# Decisions
 
-## ADR-001: <title>
+## ADR-001: [Decision Title]
 
-Status: proposed / accepted / superseded
-Date:
-Owner:
+**Status:** proposed / accepted / superseded
+**Date:**
 
-Context (what problem are we solving?):
-- <constraints, assumptions, relevant REQ/AC>
+### Context
+What problem are we solving? What constraints apply?
 
-Decision (what we chose):
-- <choice>
+### Options
 
-Options (A/B/C):
+| Option | Summary | Pros | Cons |
+|:-------|:--------|:-----|:-----|
+| A | ... | ... | ... |
+| B | ... | ... | ... |
+| C | ... | ... | ... |
 
-| Option | Summary | Pros | Cons | Risks | Complexity | Notes |
-|--------|---------|------|------|-------|------------|-------|
-| A | ... | ... | ... | ... | low/med/high | ... |
-| B | ... | ... | ... | ... | low/med/high | ... |
-| C | ... | ... | ... | ... | low/med/high | ... |
+### Decision
+Which option did we choose?
 
-Rationale (why this choice wins under the North Star):
-- <tie to priority order + context/stakes>
+### Rationale
+Why this option? How does it align with the North Star?
 
-Consequences (what this implies downstream):
-- <what changes in design, testing, ops, cost, maintenance>
+### Consequences
+What does this decision imply for the rest of the system?
 
-Reversal Triggers (what evidence would make us change course?):
-- <metric, test failure, spike result, scale threshold, security finding>
+### Reversal Triggers
+What would make us reconsider? (Metrics, test failures, new information)
 
-Verification Hooks (how we prove it works):
-- <tests, experiments, benchmarks, grounded doc links>
+---
 
-Open Questions / Follow-ups:
-- <spikes to run, unknowns to resolve>
+## ADR-002: [Decision Title]
+
+...
 ```
 
 ---
 
-## Agent Prompt (Recommended)
+## Agent Prompt
 
-```markdown
-We need an ADR. Provide A/B/C options and help us select using the North Star.
+Use this when you need help making a decision:
 
-Rules:
-1) Don’t argue by rhetoric. Ground facts or label assumptions (HIGH/MED/LOW).
-2) Tie tradeoffs to the North Star priority order.
-3) Provide reversal triggers and verification hooks (tests/experiments).
-4) If the right answer depends on user intent, apply stop/ask and write the exact question(s).
+```
+I need to make a decision about:
+[describe the decision]
 
-Input:
-- North Star Card: <paste>
-- Relevant REQ/AC: <paste>
-- Decision to make: <paste>
+Context:
+[relevant constraints, requirements, or background]
 
-Output:
-- ADR entry in the template format
+North Star priority order:
+[e.g., Safety > Correctness > UX > Speed]
+
+Help me think through this:
+1. What are 2-3 realistic options?
+2. What are the tradeoffs of each?
+3. Which option best fits my priorities?
+4. What would make us reconsider this decision later?
+
+If you need more information to give good options, ask me.
 ```

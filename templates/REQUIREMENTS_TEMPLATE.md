@@ -1,31 +1,22 @@
-# Requirements (REQ/AC) Template
+# Requirements Template
 
-Use this after the North Star Card is pinned. Requirements are the operator-facing interface: **outcomes and constraints**, not solutions.
+Requirements define what must be true when you're done. They describe outcomes and constraints, not solutions.
 
-If you’re new to the repo, start with:
-- `START_HERE.md`
-
-Evidence-backed workflow context:
-- `docs/workflow/EVIDENCE_BASED_GUIDE.md` (pipeline + gates)
-- `docs/workflow/PROTOCOLS.md` (P1 / P2)
+If you can't test it, it's not a requirement. It's a wish.
 
 ---
 
 ## Conventions
 
-- `REQ-*` = observable requirement / outcome / constraint
-- `AC-*` = acceptance criteria that proves the requirement is true (ideally “test-shaped”)
-- Priority: `P0` / `P1` / `P2`
-- Confidence labels for assumptions: `HIGH` / `MED` / `LOW`
-
-Rules:
-- If it can’t be falsified, it isn’t a requirement yet.
-- If it changes architecture/security, it must be grounded or labeled as an assumption.
-- Every `P0` `REQ-*` must have at least one measurable `AC-*`.
+- `REQ-001`, `REQ-002`, etc. for requirements
+- `AC-001.1`, `AC-001.2`, etc. for acceptance criteria
+- `P0` = must have, `P1` = should have, `P2` = nice to have
 
 ---
 
 ## Template
+
+Copy this into your project as `PLAN/01_requirements.md`:
 
 ```markdown
 # Requirements
@@ -33,60 +24,57 @@ Rules:
 ## Scope
 - Project:
 - Date:
-- Rigor tier:
-- Owner of truth (who decides intent disputes):
+- Rigor Tier:
 
-## Glossary (Optional)
-- Term:
-- Term:
+---
 
-## Requirements List
+## REQ-001 (P0): [Short title]
 
-### REQ-1 (P0): <short title>
+**What must be true:**
+[Observable outcome or constraint]
 
-Requirement (what must be true):
-- <observable outcome or constraint>
+**Acceptance Criteria:**
+- AC-001.1: [How you'll prove it's true]
+- AC-001.2: [Another way to prove it]
 
-Acceptance Criteria (proof it’s true):
-- AC-1: <falsifiable check>
-- AC-2: <falsifiable check>
+**Assumptions:**
+- [Any assumptions, labeled HIGH/MED/LOW confidence]
 
-Notes / Assumptions (must be labeled):
-- ASSUMPTION (HIGH/MED/LOW): <...>
+**Dependencies:**
+- [External systems, APIs, data sources]
 
-Dependencies / Integrations:
-- <external system, API, policy, data source>
+---
 
-Non-Goals / Out of Scope (if specific to this REQ):
-- <...>
+## REQ-002 (P1): [Short title]
 
-### REQ-2 (P1): <short title>
-...
+**What must be true:**
+[Observable outcome or constraint]
 
-## Open Questions (Stop/Ask List)
-- Q1:
-- Q2:
+**Acceptance Criteria:**
+- AC-002.1: [How you'll prove it's true]
+
+---
+
+## Open Questions
+- [Things that still need clarification]
 ```
 
 ---
 
-## Agent Prompt (Recommended)
+## Agent Prompt
 
-Send this to a planning agent:
+Use this to have an agent draft requirements from your North Star:
 
-```markdown
-You are drafting REQ/AC requirements.
+```
+Draft requirements for my project based on this North Star Card:
+
+[paste your North Star Card]
 
 Rules:
-1) Requirements must be outcomes/constraints, not solutions.
-2) Each P0 REQ must have at least one falsifiable AC.
-3) Mark any non-trivial claim that depends on external truth as either grounded (cite) or ASSUMPTION (HIGH/MED/LOW).
-4) If the correct answer depends on user intent, apply stop/ask and write the exact clarifying question(s).
+1. Requirements describe outcomes, not solutions
+2. Every P0 requirement needs at least one testable acceptance criterion
+3. If something is an assumption, label it (HIGH/MED/LOW confidence)
+4. If you need clarification to write a requirement, ask me
 
-Input:
-- North Star Card: <paste>
-
-Output:
-- `REQ-*` list with `AC-*`
-- open questions (operator confirmations needed)
+Output a requirements list using the REQ/AC format.
 ```

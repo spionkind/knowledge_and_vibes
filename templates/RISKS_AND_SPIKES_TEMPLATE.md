@@ -1,54 +1,79 @@
-# Risks & Spikes (Template)
+# Risks & Spikes Template
 
-Use this to collapse uncertainty **before** you commit to architecture or long sequences of implementation beads.
+Spikes are timeboxed investigations that produce evidence. They're not features. They exist to reduce uncertainty before you commit to a path.
 
-The output is a list of **spike beads** whose job is to produce evidence (docs, prototypes, measurements) that unlocks decisions.
-
-Evidence base:
-- Flow engineering + execution feedback loops: `research/031-alphacodium.md`, `research/032-tdd-code-generation.md`
-- Adaptive planning / derived obligations: `research/014-codeplan.md`
-- “Requirements first” reduces downstream guesswork: `research/033-requirements-to-code.md`
+A spike ends with a decision, not code.
 
 ---
 
 ## Template
 
+Copy this into your project as `PLAN/06_risks_and_spikes.md`:
+
 ```markdown
 # Risks & Spikes
 
-## Scope
-- Project:
-- Date:
-- Rigor tier:
-- Owner:
+## Top Risks
 
-## Top Risks / Unknowns
+What could cause rework, failure, or unexpected cost?
 
-List the top uncertainties that could cause rework, failure, or major cost.
+| Risk | Why It Matters | Likelihood | Impact | How to Resolve |
+|:-----|:---------------|:-----------|:-------|:---------------|
+| [Risk 1] | ... | L/M/H | L/M/H | Spike / Research / Accept |
+| [Risk 2] | ... | L/M/H | L/M/H | Spike / Research / Accept |
 
-| ID | Risk / Unknown | Why It Matters | Likelihood | Impact | Evidence Needed | Decision Unblocked |
-|----|----------------|----------------|------------|--------|-----------------|-------------------|
-| RISK-1 | ... | ... | L/M/H | L/M/H | docs / spike / benchmark | ADR-? |
+---
 
-## Spike Beads
+## Spikes
 
-Each spike must have explicit outputs and a “done” definition.
+### SPIKE-001: [Title]
 
-| Spike | Goal | Inputs | Steps | Outputs (Evidence) | Timebox | Owner |
-|------|------|--------|-------|---------------------|---------|-------|
-| SPIKE-1 | Prove X works | repo + docs | 1) … 2) … | links, logs, prototype, numbers | 1–4h | Agent |
+**Goal:** What question are we trying to answer?
 
-## Rules
-- A spike is not a feature. It is evidence.
-- Spikes may be thrown away; keep outputs and conclusions.
-- Spikes must end with one of:
-  - ✅ Decision can be made
-  - ⚠️ Decision still ambiguous (explain what’s missing)
-  - ❌ Approach rejected (why)
+**Timebox:** 1-4 hours
 
-## Integration With Plan
-- Update ADRs based on spike outcomes
-- Convert confirmed work into normal beads
-- Schedule a `/calibrate` after the spike sprint
+**Steps:**
+1. ...
+2. ...
+3. ...
+
+**Output:** What evidence will this produce? (Docs, prototype, measurements)
+
+**Decision it unlocks:** Which ADR or requirement does this inform?
+
+---
+
+### SPIKE-002: [Title]
+
+...
 ```
 
+---
+
+## Spike Outcomes
+
+A spike must end with one of:
+- **Decision can be made** (evidence is sufficient)
+- **Still ambiguous** (what's missing?)
+- **Approach rejected** (why?)
+
+---
+
+## Agent Prompt
+
+Use this to identify risks and plan spikes:
+
+```
+Review my project plan and identify the top risks:
+
+North Star: [paste or summarize]
+Requirements: [paste or summarize]
+Proposed approach: [describe]
+
+For each risk:
+1. Why does it matter?
+2. How likely is it?
+3. Can we resolve it with a spike? If so, what would the spike look like?
+
+Focus on things that could cause significant rework if we get them wrong.
+```

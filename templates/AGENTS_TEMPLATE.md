@@ -10,18 +10,18 @@
 
 ---
 
-## Workflow Baseline (Evidence‑Backed)
+## Workflow Baseline (Evidence-Backed)
 
 If this project is using the Knowledge & Vibes workflow, align to:
-- `docs/workflow/EVIDENCE_BASED_GUIDE.md` (end‑to‑end gates + artifacts)
+- `docs/workflow/EVIDENCE_BASED_GUIDE.md` (end-to-end gates + artifacts)
 - `docs/workflow/PROTOCOLS.md` (protocol cards)
-- `/calibrate` between phases (hard stop; evidence‑grounded plan control)
+- `/calibrate` between phases (hard stop; evidence-grounded plan control)
 
 If those files do not exist in this repo, ask the user where the canonical workflow docs live.
 
 ---
 
-## RULE 1 – ABSOLUTE (DO NOT EVER VIOLATE THIS)
+## RULE 1: ABSOLUTE (DO NOT EVER VIOLATE THIS)
 
 You may NOT delete any file or directory unless the user explicitly gives the exact command **in this session**.
 
@@ -75,7 +75,7 @@ Your configuration is split across these locations:
 ### Rules (Auto-Loaded)
 
 Rules in `.claude/rules/*.md` are automatically enforced. Check what's there:
-- `safety.md` — File deletion, destructive commands
+- `safety.md`: File deletion, destructive commands
 - [Add your rules here]
 
 ### Skills (On-Demand)
@@ -85,18 +85,18 @@ Skills in `.claude/skills/*/SKILL.md` provide detailed guidance. Use them when:
 - You need detailed patterns or examples
 
 Available skills:
-- [List your skills here, e.g., `style-guide` — Code conventions]
+- [List your skills here, e.g., `style-guide`: Code conventions]
 
 ### Commands (User-Triggered)
 
 Slash commands in `.claude/commands/*.md`:
 - Recommended defaults (copy from `knowledge_and_vibes`):
-- `/prime [task_focus]` — New agent startup checklist
-- `/next-bead [focus_area]` — Find/verify/claim next work safely
-- `/ground [question-or-task]` — Decide whether to use Warp-Grep vs Exa vs CASS/cm
-- `/decompose-task [phase]` — Turn a phase from your plan into beads and sub-beads
-- `/calibrate [phase_or_milestone]` — Pause all agents and realign plan via roundtable
-- [Add your commands here, e.g., `/audit-style <path>` — Check code style]
+- `/prime [task_focus]`: New agent startup checklist
+- `/next-bead [focus_area]`: Find/verify/claim next work safely
+- `/ground [question-or-task]`: Decide whether to use Warp-Grep vs Exa vs CASS/cm
+- `/decompose-task [phase]`: Turn a phase from your plan into beads and sub-beads
+- `/calibrate [phase_or_milestone]`: Pause all agents and realign plan via roundtable
+- [Add your commands here, e.g., `/audit-style <path>`: Check code style]
 
 ---
 
@@ -221,7 +221,7 @@ bv --check-update && bv --update --yes
 
 ---
 
-## CASS — Cross-Agent Search
+## CASS: Cross-Agent Search
 
 `cass` indexes prior agent conversations so we can reuse solved problems.
 
@@ -262,7 +262,7 @@ cass index --full                  # Rebuild index (if search returns nothing)
 
 ---
 
-## cass-memory — Cross-Agent Learning
+## cass-memory: Cross-Agent Learning
 
 Before starting any non-trivial task:
 
@@ -289,7 +289,7 @@ The system learns from your sessions automatically.
 
 ---
 
-## UBS — Bug Scanner
+## UBS: Bug Scanner
 
 ### Pre-Commit (Required)
 
@@ -435,7 +435,7 @@ Before running `bd ready`, check your inbox for recent `[CLAIMED]` messages.
 
 ---
 
-## MCP Agent Mail — Multi-Agent Coordination
+## MCP Agent Mail: Multi-Agent Coordination
 
 Agent Mail is available as an MCP server for coordinating multiple agents.
 
@@ -530,7 +530,7 @@ Common pitfalls:
 
 ---
 
-## Warp-Grep — Parallel Code Search
+## Warp-Grep: Parallel Code Search
 
 Warp-Grep runs 8 parallel searches per turn. It's an MCP tool, not a CLI command.
 
@@ -548,7 +548,7 @@ The tool activates automatically for natural language code questions.
 
 ---
 
-## Exa MCP — AI Web & Code Search
+## Exa MCP: AI Web & Code Search
 
 Exa provides real-time web search and code context retrieval.
 
