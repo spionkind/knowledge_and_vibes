@@ -8,10 +8,10 @@ How to organize agent instructions using Claude Code's official configuration sy
 
 1. [The Configuration Layers](#the-configuration-layers)
 2. [Recommended Structure](#recommended-structure)
-3. [CLAUDE.md — Project Context](#claudemd--project-context)
-4. [Rules — Constraints & Conventions](#rules--constraints--conventions)
-5. [Skills — Packaged Capabilities](#skills--packaged-capabilities)
-6. [Commands — Slash Commands](#commands--slash-commands)
+3. [CLAUDE.md ,  Project Context](#claudemd--project-context)
+4. [Rules ,  Constraints & Conventions](#rules--constraints--conventions)
+5. [Skills ,  Packaged Capabilities](#skills--packaged-capabilities)
+6. [Commands ,  Slash Commands](#commands--slash-commands)
 7. [What Goes Where](#what-goes-where)
 8. [Setup Checklist](#setup-checklist)
 
@@ -65,7 +65,7 @@ your-project/
 
 ---
 
-## CLAUDE.md — Project Context
+## CLAUDE.md ,  Project Context
 
 **Official feature.** Automatically loaded at startup.
 
@@ -95,7 +95,7 @@ See the API documentation: @docs/api.md
 
 ---
 
-## Rules — Constraints & Conventions
+## Rules ,  Constraints & Conventions
 
 **Official feature.** Rules are short, direct constraints that always apply (or apply to specific file paths).
 
@@ -133,9 +133,9 @@ paths:
 ```
 
 Supported patterns:
-- `**/*.ts` — all TypeScript files
-- `src/**/*` — all files under src/
-- `{src,lib}/**/*.ts` — multiple directories
+- `**/*.ts` ,  all TypeScript files
+- `src/**/*` ,  all files under src/
+- `{src,lib}/**/*.ts` ,  multiple directories
 
 ### Example Rules
 
@@ -168,7 +168,7 @@ paths: **/*.ts
 
 ---
 
-## Skills — Packaged Capabilities
+## Skills ,  Packaged Capabilities
 
 **Official feature.** Skills are capabilities that Claude discovers and invokes automatically based on the task.
 
@@ -202,11 +202,11 @@ Content here...
 ```
 
 **Required frontmatter:**
-- `name` — lowercase, numbers, hyphens only, max 64 chars
-- `description` — max 1024 chars, **critical for discovery**
+- `name` ,  lowercase, numbers, hyphens only, max 64 chars
+- `description` ,  max 1024 chars, **critical for discovery**
 
 **Optional frontmatter:**
-- `allowed-tools` — restrict which tools the skill can use
+- `allowed-tools` ,  restrict which tools the skill can use
 
 ### Tool Restrictions
 
@@ -272,7 +272,7 @@ allowed-tools: Read, Grep, Glob, Edit
 
 ---
 
-## Commands — Slash Commands
+## Commands ,  Slash Commands
 
 **Official feature.** User-triggered workflows invoked with `/command-name`.
 

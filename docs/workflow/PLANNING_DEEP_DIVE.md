@@ -52,12 +52,12 @@ This guide exists because **the quality of your plan determines the quality of t
 ## Prerequisites
 
 Before using this guide, read:
-- `START_HERE.md` — System overview
-- `EVIDENCE_BASED_GUIDE.md` — The full 10-stage pipeline
-- `PROTOCOLS.md` — Protocol cards
+- `START_HERE.md` ,  System overview
+- `EVIDENCE_BASED_GUIDE.md` ,  The full 10-stage pipeline
+- `PROTOCOLS.md` ,  Protocol cards
 
 For execution after planning, see:
-- `IDEATION_TO_PRODUCTION.md` — Full end-to-end pipeline
+- `IDEATION_TO_PRODUCTION.md` ,  Full end-to-end pipeline
 
 ---
 
@@ -84,12 +84,12 @@ At the end, you have a **Plan Pack** that contains only what's needed for the pr
 - **Decision log** (ADRs with alternatives + rationale)
 
 **Include when complexity demands (adaptive):**
-- **System map** (components + data flows + boundaries) — when >2 components
-- **Data model** (types + validation + constraints + examples) — when persistence exists
-- **API contracts + error model** — when external interfaces exist
-- **Failure modes + recovery** — for P0 requirements
-- **Ops + security** — for production deployments
-- **Dependencies + phases** — when parallel execution is needed
+- **System map** (components + data flows + boundaries) ,  when >2 components
+- **Data model** (types + validation + constraints + examples) ,  when persistence exists
+- **API contracts + error model** ,  when external interfaces exist
+- **Failure modes + recovery** ,  for P0 requirements
+- **Ops + security** ,  for production deployments
+- **Dependencies + phases** ,  when parallel execution is needed
 
 > **Key principle (Anthropic Context Engineering, 2025):** "The smallest set of high-signal tokens that enables correct behavior." Plan size should match project complexity. A 200-line script doesn't need a 50-page plan.
 
@@ -124,7 +124,7 @@ This process deliberately recreates the outputs you’d expect inside strong eng
 | Operational readiness review | logs/metrics/alerts/rollout/rollback | ops/observability + rollout steps |
 | Project plan / milestone plan | ordering + dependencies | `PLAN/10_dependencies_and_phases.md` |
 
-The key difference: agents execute the plan, but only after the plan is **lossless** enough to minimize guessing—though execution still requires verification, security gates, and human oversight for critical paths.
+The key difference: agents execute the plan, but only after the plan is **lossless** enough to minimize guessing, though execution still requires verification, security gates, and human oversight for critical paths.
 
 > **"Lossless" means no guessing, not "huge."** A lossless plan for a CLI tool might be 50 lines. A lossless plan for a payment system might be 500. The goal is: another agent could implement without asking clarifying questions about intent. If you're adding detail "just in case," you're adding noise, not signal.
 
@@ -328,7 +328,7 @@ We need to decide <decision>. Provide A/B/C options.
 
 Output format:
 1) Options table (pros/cons/risks)
-2) **Tests that discriminate** — write tests that PASS for your preferred option and FAIL for alternatives
+2) **Tests that discriminate** ,  write tests that PASS for your preferred option and FAIL for alternatives
 3) Failure modes + mitigations
 4) Grounded evidence (doc links, code references)
 5) Recommendation OR stop/ask (what must user decide)
@@ -365,7 +365,7 @@ Evidence: `research/003-debate-or-vote.md` (voting beats debate), `research/041-
 
 ---
 
-## Step 0 — North Star (Ground Truth)
+## Step 0 ,  North Star (Ground Truth)
 
 Start by writing the North Star Card using `templates/NORTH_STAR_CARD_TEMPLATE.md`.
 
@@ -377,7 +377,7 @@ Start by writing the North Star Card using `templates/NORTH_STAR_CARD_TEMPLATE.m
 
 ---
 
-## Step 1 — Requirements (Outcomes, Not Solutions)
+## Step 1 ,  Requirements (Outcomes, Not Solutions)
 
 Convert the North Star into:
 - `REQ-*`: observable outcomes / constraints
@@ -387,7 +387,7 @@ If you can’t test or falsify it, it isn’t a requirement yet.
 
 ---
 
-## Step 2 — Run Threads (Repeat Until “No Guessing”)
+## Step 2 ,  Run Threads (Repeat Until “No Guessing”)
 
 Planning quality comes from **how you run threads**.
 
@@ -454,7 +454,7 @@ You should expect to run multiple sessions per thread.
 
 ---
 
-## Step 3 — Compile the Master Plan (Lossless)
+## Step 3 ,  Compile the Master Plan (Lossless)
 
 After threads converge, compile everything into `PLAN/10_dependencies_and_phases.md` (or `MASTER_PLAN.md`).
 
@@ -466,7 +466,7 @@ After threads converge, compile everything into `PLAN/10_dependencies_and_phases
 
 ---
 
-## Step 4 — Audit (Adversarial Pass)
+## Step 4 ,  Audit (Adversarial Pass)
 
 Run an audit session whose only job is to find gaps.
 
@@ -496,10 +496,10 @@ Once the plan is complete:
 - run `/calibrate` **after a phase is implemented** (between phases) to prevent drift
 
 Planning reduces execution risk significantly. But even with a complete plan, execution requires:
-- **TDD-first** (tests before implementation—45.97% improvement per `research/054-tdd-ai-code-gen.md`)
-- **Security gates** (`ubs --staged` mandatory—~40% of LLM code has vulnerabilities)
-- **Iteration caps** (max 3 repair attempts per bead—security degrades with more)
-- **Human verification** (operator review for P0 requirements—AI helps most when you understand the domain)
+- **TDD-first** (tests before implementation, 45.97% improvement per `research/054-tdd-ai-code-gen.md`)
+- **Security gates** (`ubs --staged` mandatory, ~40% of LLM code has vulnerabilities)
+- **Iteration caps** (max 3 repair attempts per bead, security degrades with more)
+- **Human verification** (operator review for P0 requirements, AI helps most when you understand the domain)
 
 ---
 

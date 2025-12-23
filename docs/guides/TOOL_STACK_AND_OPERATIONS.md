@@ -12,13 +12,13 @@ This guide explains what **you** do vs what **the agent** does behind the scenes
 - [Orchestrator-Subagent Pattern](#orchestrator-subagent-pattern)
 
 **Slash Commands**
-- [/prime — Session Startup](#prime--session-startup)
-- [/next-bead — Find and Claim Work](#next-bead--find-and-claim-work)
-- [/decompose-task — Break Down Work](#decompose-task--break-down-work)
-- [/full-pipeline — Complete 10-Stage Pipeline](#full-pipeline--complete-10-stage-pipeline)
-- [/calibrate — Hard Stop and Realign](#calibrate--hard-stop-and-realign)
-- [/resolve — Disagreement Resolution](#resolve--disagreement-resolution)
-- [/ground — Verify External Claims](#ground--verify-external-claims)
+- [/prime ,  Session Startup](#prime--session-startup)
+- [/next-bead ,  Find and Claim Work](#next-bead--find-and-claim-work)
+- [/decompose-task ,  Break Down Work](#decompose-task--break-down-work)
+- [/full-pipeline ,  Complete 10-Stage Pipeline](#full-pipeline--complete-10-stage-pipeline)
+- [/calibrate ,  Hard Stop and Realign](#calibrate--hard-stop-and-realign)
+- [/resolve ,  Disagreement Resolution](#resolve--disagreement-resolution)
+- [/ground ,  Verify External Claims](#ground--verify-external-claims)
 
 **Coordination**
 - [The Agent Mail System](#the-agent-mail-system)
@@ -164,7 +164,7 @@ Each slash command triggers a skill. Here's exactly what **you** do and what **t
 
 ---
 
-### `/prime` — Session Startup
+### `/prime` ,  Session Startup
 
 **Skill:** `.claude/skills/prime/SKILL.md`
 
@@ -236,7 +236,7 @@ Step 7: SUMMARIZE
 
 ---
 
-### `/next-bead` — Find and Claim Work
+### `/next-bead` ,  Find and Claim Work
 
 **Skill:** `.claude/skills/next-bead/SKILL.md`
 **Also uses:** `.claude/skills/bead-workflow/SKILL.md`
@@ -306,7 +306,7 @@ Step 4: CLAIM
 
 ---
 
-### `/decompose-task` — Break Down Work
+### `/decompose-task` ,  Break Down Work
 
 **Skill:** `.claude/skills/decompose-task/SKILL.md`
 
@@ -362,7 +362,7 @@ Step 5: VALIDATE
 
 ---
 
-### `/full-pipeline` — Complete 10-Stage Pipeline
+### `/full-pipeline` ,  Complete 10-Stage Pipeline
 
 **Skill:** `.claude/skills/full-pipeline/SKILL.md`
 **Pattern:** Orchestrator-Subagent with Parallel Execution
@@ -485,7 +485,7 @@ Waiting for all tracks to complete...
 
 ---
 
-### `/calibrate` — Hard Stop and Realign
+### `/calibrate` ,  Hard Stop and Realign
 
 **Skill:** `.claude/skills/calibrate/SKILL.md`
 **Pattern:** Orchestrator-Subagent (5 phases, each with fresh context)
@@ -530,11 +530,11 @@ ORCHESTRATOR (manages session, TodoWrite, passes summaries)
 
 #### Key Insight
 
-**This is NOT a debate.** When agents disagree, the Challenge Agent writes discriminating tests. Test results adjudicate—rhetoric does not.
+**This is NOT a debate.** When agents disagree, the Challenge Agent writes discriminating tests. Test results adjudicate, rhetoric does not.
 
 ---
 
-### `/resolve` — Disagreement Resolution
+### `/resolve` ,  Disagreement Resolution
 
 **Skill:** `.claude/skills/disagreement-resolution/SKILL.md`
 **Pattern:** Orchestrator-Subagent (4 phases, test-based adjudication)
@@ -585,7 +585,7 @@ Discriminating Tests:
   T3: test_offline_validation     → A: PASS, B: FAIL
 
 Result: A wins 2-1 → Decision: Use JWT
-Preserved dissent: "Revocation concern valid—use short expiry"
+Preserved dissent: "Revocation concern valid, use short expiry"
 ```
 
 #### Key Insight
@@ -594,7 +594,7 @@ Preserved dissent: "Revocation concern valid—use short expiry"
 
 ---
 
-### `/ground` — Verify External Claims
+### `/ground` ,  Verify External Claims
 
 **Skill:** Uses `.claude/skills/warp-grep/SKILL.md` and `.claude/skills/exa-search/SKILL.md`
 
@@ -644,7 +644,7 @@ Step 4: MARK ASSUMPTIONS
 
 **Skill:** `.claude/skills/agent-mail/SKILL.md`
 
-Agent Mail is the coordination layer that prevents multi-agent chaos. **You don't interact with it directly**—the agent uses it behind the scenes when you run slash commands.
+Agent Mail is the coordination layer that prevents multi-agent chaos. **You don't interact with it directly**, the agent uses it behind the scenes when you run slash commands.
 
 ### What It Provides
 
@@ -911,7 +911,7 @@ bd close <id> --reason "Completed: ..."            # Then parent
 
 ### What YOU Do
 
-1. **Nothing during normal flow** — Agent runs `ubs --staged` automatically before commits
+1. **Nothing during normal flow** ,  Agent runs `ubs --staged` automatically before commits
 2. **If findings reported:** Review severity and decide whether to fix or document
 3. **CRITICAL/HIGH findings:** Must approve the fix before proceeding
 
@@ -1051,7 +1051,7 @@ ubs --staged                     # Manual security check
 
 ## See Also
 
-- `START_HERE.md` — System overview
-- `PROTOCOLS.md` — Protocol reference
-- `EVIDENCE_BASED_GUIDE.md` — Full pipeline
-- `.claude/skills/` — Individual skill documentation
+- `START_HERE.md` ,  System overview
+- `PROTOCOLS.md` ,  Protocol reference
+- `EVIDENCE_BASED_GUIDE.md` ,  Full pipeline
+- `.claude/skills/` ,  Individual skill documentation

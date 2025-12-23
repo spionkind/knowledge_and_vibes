@@ -47,7 +47,7 @@ This document traces each protocol back to the research that justifies it. Use t
 
 ### 2025 Reality Checks (Critical Updates)
 
-- **That AI assistance always improves productivity:** It doesn't for experienced devs on unfamiliar code—19% slower (`research/051-metr-rct.md`).
+- **That AI assistance always improves productivity:** It doesn't for experienced devs on unfamiliar code, 19% slower (`research/051-metr-rct.md`).
 - **That best models are highly reliable:** They solve only ~23% of realistic tasks (`research/050-swe-bench-pro.md`).
 - **That more iterations improve code:** Security degrades with repeated self-correction (`research/053-feedback-loop-security.md`).
 - **That LLM code is reasonably safe:** ~40% has vulnerabilities; security scanning is mandatory (`research/052-llm-security-vulnerabilities.md`).

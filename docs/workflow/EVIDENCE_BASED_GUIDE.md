@@ -6,7 +6,7 @@
 
 </div>
 
-The operational manual for Knowledge & Vibes—a gated, artifact-driven pipeline that maximizes the probability of correct outcomes.
+The operational manual for Knowledge & Vibes, a gated, artifact-driven pipeline that maximizes the probability of correct outcomes.
 
 > **Evidence-based means:** Every stage is justified by research. Every gate exists because skipping it causes predictable issues.
 
@@ -62,7 +62,7 @@ When agents disagree, the answer is not more debate.
 
 ### 4. Minimal Plans Beat Massive Plans
 
-> "The smallest set of high-signal tokens that enables correct behavior." — Anthropic
+> "The smallest set of high-signal tokens that enables correct behavior." ,  Anthropic
 
 **Implication:** Plan size matches project complexity. "Lossless" = no guessing, not "huge."
 
@@ -164,7 +164,7 @@ Each tool addresses a specific concern:
 
 ---
 
-### Stage 0 — North Star (Ground Truth)
+### Stage 0 ,  North Star (Ground Truth)
 
 | | |
 |:--|:--|
@@ -180,7 +180,7 @@ Each tool addresses a specific concern:
 
 ---
 
-### Stage 1 — Requirements That "Compile" (REQ/AC)
+### Stage 1 ,  Requirements That "Compile" (REQ/AC)
 
 | | |
 |:--|:--|
@@ -190,15 +190,15 @@ Each tool addresses a specific concern:
 | **Gate** | Every P0 requirement has at least one falsifiable AC |
 
 **Contains:**
-- `REQ-*` — Observable outcomes or constraints
-- `AC-*` — Acceptance criteria (ideally test-shaped)
+- `REQ-*` ,  Observable outcomes or constraints
+- `AC-*` ,  Acceptance criteria (ideally test-shaped)
 - Priority (P0/P1/P2)
 
-> If you can't test it, it's not a requirement—it's a wish.
+> If you can't test it, it's not a requirement, it's a wish.
 
 ---
 
-### Stage 2 — Requirements QA
+### Stage 2 ,  Requirements QA
 
 | | |
 |:--|:--|
@@ -209,7 +209,7 @@ Each tool addresses a specific concern:
 
 ---
 
-### Stage 3 — Decision Search
+### Stage 3 ,  Decision Search
 
 | | |
 |:--|:--|
@@ -226,7 +226,7 @@ Each tool addresses a specific concern:
 
 ---
 
-### Stage 4 — Risks & Spikes
+### Stage 4 ,  Risks & Spikes
 
 | | |
 |:--|:--|
@@ -237,7 +237,7 @@ Each tool addresses a specific concern:
 
 ---
 
-### Stage 5 — Plan Pack (Lossless Specs)
+### Stage 5 ,  Plan Pack (Lossless Specs)
 
 | | |
 |:--|:--|
@@ -256,7 +256,7 @@ Each tool addresses a specific concern:
 
 ---
 
-### Stage 6 — Phase Breakdown
+### Stage 6 ,  Phase Breakdown
 
 | | |
 |:--|:--|
@@ -267,7 +267,7 @@ Each tool addresses a specific concern:
 
 ---
 
-### Stage 7 — Bead Decomposition (TDD-First)
+### Stage 7 ,  Bead Decomposition (TDD-First)
 
 | | |
 |:--|:--|
@@ -298,7 +298,7 @@ bv --robot-alerts    # Drift signals, risky topology
 
 ---
 
-### Stage 8 — Execution Loops
+### Stage 8 ,  Execution Loops
 
 | | |
 |:--|:--|
@@ -306,7 +306,7 @@ bv --robot-alerts    # Drift signals, risky topology
 | **Gate** | No bead closes without all tests passing and `ubs --staged` clean |
 
 **Key rules:**
-- **Max 3 repair iterations** — Fail fast, escalate early
+- **Max 3 repair iterations** ,  Fail fast, escalate early
 - **If still failing after 3:** STOP, spawn sub-bead for failing part, notify operator
 
 ```bash
@@ -327,7 +327,7 @@ bd close <id> --reason "..."     # Then parent
 
 ---
 
-### Stage 9 — Calibration
+### Stage 9 ,  Calibration
 
 | | |
 |:--|:--|
@@ -342,7 +342,7 @@ bd close <id> --reason "..."     # Then parent
 
 ---
 
-### Stage 10 — Release Readiness
+### Stage 10 ,  Release Readiness
 
 | | |
 |:--|:--|

@@ -207,7 +207,7 @@ Return to orchestrator:
 ## Constraints
 - Do NOT implement fixes
 - Do NOT read files outside the phase scope
-- Do NOT debate findings—just report facts
+- Do NOT debate findings, just report facts
 ```
 
 ---
@@ -296,7 +296,7 @@ For maximum context savings, the orchestrator can be minimal:
 
 ## See Also
 
-- `research/056-multi-agent-orchestrator.md` — Research on orchestrator patterns
-- `research/004-context-length-hurts.md` — Context degradation evidence
-- `docs/guides/TOOL_STACK_AND_OPERATIONS.md` — Tool stack overview
-- `.claude/skills/calibrate/SKILL.md` — Example skill (can be refactored)
+- `research/056-multi-agent-orchestrator.md` ,  Research on orchestrator patterns
+- `research/004-context-length-hurts.md` ,  Context degradation evidence
+- `docs/guides/TOOL_STACK_AND_OPERATIONS.md` ,  Tool stack overview
+- `.claude/skills/calibrate/SKILL.md` ,  Example skill (can be refactored)

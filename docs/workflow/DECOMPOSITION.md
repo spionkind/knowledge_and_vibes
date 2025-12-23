@@ -85,7 +85,7 @@ The goal is **semantic coherence**: can an agent hold the full context without l
 
 | Artifact | Heuristic | Why |
 |----------|-----------|-----|
-| Phase docs | ~500–1000 lines | Coarse guardrail—adjust based on complexity |
+| Phase docs | ~500–1000 lines | Coarse guardrail, adjust based on complexity |
 | Phase/Epic beads | One per phase | Container for tracking phase work |
 | Task beads | One testable capability | Can be verified independently |
 | ADaPT sub-beads | Split from failing task bead | Decompose only when execution reveals uncertainty |
@@ -133,7 +133,7 @@ Slash command:
 
 ## Adaptive Decomposition (ADaPT Pattern)
 
-> **Key insight (ADaPT, 2025):** "Decompose only when execution fails." Don't over-decompose upfront—start coarse and split when reality demands it.
+> **Key insight (ADaPT, 2025):** "Decompose only when execution fails." Don't over-decompose upfront, start coarse and split when reality demands it.
 
 ### The ADaPT Flow
 
@@ -174,7 +174,7 @@ Templates:
 - ADaPT sub-beads: `.claude/templates/planning/sub-bead-structure.md`
 
 Each task bead should include:
-- **tests FIRST** (written before implementation—TDD)
+- **tests FIRST** (written before implementation, TDD)
 - **intent** (tie to `REQ-*` / `AC-*`)
 - **edit locus** (exact files/dirs)
 - **dependencies** (beads + external constraints)
@@ -182,7 +182,7 @@ Each task bead should include:
 - **grounding policy** (what must be verified vs what is an assumption)
 - **handoff safety** (another agent can finish this)
 
-If you can't write tests, you don't have a task bead yet — you have a guess.
+If you can't write tests, you don't have a task bead yet ,  you have a guess.
 
 ---
 
@@ -268,4 +268,4 @@ Before closing:
 
 ## NLU (No Longer Used)
 
-- NLU/DECOMPOSITION_LEGACY.md — legacy version kept for reference.
+- NLU/DECOMPOSITION_LEGACY.md ,  legacy version kept for reference.

@@ -6,7 +6,7 @@ AI-assisted software development has a fundamental problem that no amount of pro
 
 > **LLMs generate plausible text. They do not reliably generate truth.**
 
-This isn't a criticism—it's physics. Language models are trained to predict probable next tokens, not to verify facts against reality. When the model says "this code handles all edge cases," it's expressing what sounds right, not what it has verified.
+This isn't a criticism, it's physics. Language models are trained to predict probable next tokens, not to verify facts against reality. When the model says "this code handles all edge cases," it's expressing what sounds right, not what it has verified.
 
 ### The 2025 Reality
 
@@ -40,7 +40,7 @@ This is a different problem. Instead of trying to make AI output perfect (imposs
 - Limits damage through iteration caps
 - Ensures security through mandatory gates
 
-The model can be wrong 77% of the time and you still ship correct software—if your workflow catches the failures before they matter.
+The model can be wrong 77% of the time and you still ship correct software, if your workflow catches the failures before they matter.
 
 ---
 
@@ -60,7 +60,7 @@ The model can be wrong 77% of the time and you still ship correct software—if 
 
 ### 2. Tests Adjudicate Disagreements
 
-**What this means:** When agents disagree, the answer is not more debate. Research shows extended rhetorical debate actually **degrades** outcomes—voting alone beats unstructured debate.
+**What this means:** When agents disagree, the answer is not more debate. Research shows extended rhetorical debate actually **degrades** outcomes, voting alone beats unstructured debate.
 
 **What you do:**
 1. Write discriminating tests (tests that PASS for one approach, FAIL for another)
@@ -78,7 +78,7 @@ If tests can't discriminate, preserve both positions for human decision.
 **What you do (ADaPT Pattern):**
 1. Start with coarse-grained work (beads)
 2. Attempt execution
-3. If it fails after 3 iterations, decompose—only the failing part
+3. If it fails after 3 iterations, decompose, only the failing part
 4. Repeat
 
 This discovers what's *actually* hard, not what you guessed would be hard.
@@ -89,7 +89,7 @@ This discovers what's *actually* hard, not what you guessed would be hard.
 
 **What this means:** Plan size should match project complexity. A 200-line script doesn't need a 50-page plan.
 
-> "The smallest set of high-signal tokens that enables correct behavior." — Anthropic Context Engineering
+> "The smallest set of high-signal tokens that enables correct behavior." ,  Anthropic Context Engineering
 
 **What you do:**
 - Include only what reduces guessing

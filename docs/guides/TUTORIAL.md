@@ -7,14 +7,14 @@ This tutorial explains what each tool does, why it matters, and how to use it ef
 ## Table of Contents
 
 **Part 1: Understanding the Tools**
-- [Beads (bd) — Task Memory](#beads-bd---your-task-memory)
-- [Beads Viewer (bv) — Graph Intelligence](#beads-viewer-bv---graph-intelligence)
-- [Agent Mail — Multi-Agent Coordination](#agent-mail---multi-agent-coordination)
-- [CASS — Session Search](#cass---session-search)
-- [cass-memory (cm) — Cross-Agent Learning](#cass-memory-cm---cross-agent-learning)
-- [UBS — Bug Scanner](#ubs---bug-scanner)
-- [Warp-Grep — Fast Parallel Search](#warp-grep--fastapply---fast-parallel-search)
-- [Exa MCP — Web & Code Search](#exa-mcp---ai-powered-web--code-search)
+- [Beads (bd) ,  Task Memory](#beads-bd---your-task-memory)
+- [Beads Viewer (bv) ,  Graph Intelligence](#beads-viewer-bv---graph-intelligence)
+- [Agent Mail ,  Multi-Agent Coordination](#agent-mail---multi-agent-coordination)
+- [CASS ,  Session Search](#cass---session-search)
+- [cass-memory (cm) ,  Cross-Agent Learning](#cass-memory-cm---cross-agent-learning)
+- [UBS ,  Bug Scanner](#ubs---bug-scanner)
+- [Warp-Grep ,  Fast Parallel Search](#warp-grep--fastapply---fast-parallel-search)
+- [Exa MCP ,  Web & Code Search](#exa-mcp---ai-powered-web--code-search)
 
 **Part 2: The Complete Workflow**
 - [Phase 1: Starting Your Session](#phase-1-starting-your-session)
@@ -259,7 +259,7 @@ cm doctor
 }
 ```
 
-**Automation note**: You don't need to run separate reflection/learning steps — the system learns automatically from your sessions.
+**Automation note**: You don't need to run separate reflection/learning steps ,  the system learns automatically from your sessions.
 
 ### UBS - Bug Scanner
 
