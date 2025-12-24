@@ -276,14 +276,16 @@ bd create "<Task title>" --parent <phase-id> --priority 1 -d '<Full description>
 
 > **Note:** Task beads use suffixes `.1`, `.2`, etc. for organization. This is DIFFERENT from ADaPT sub-beads which are created when execution fails. See `templates/planning/sub-bead-structure.md` for ADaPT.
 
-### Critical Rules
+### Critical Rules — Bounded. Complete. Verified.
 
 | Rule | Why |
 |------|-----|
-| **LOSSLESS** | Every detail from phase must appear in a sub-bead |
+| **BOUNDED** | Scoped to what an agent can hold in working memory |
+| **COMPLETE** | Every detail from phase survives (no summarization) |
+| **VERIFIED** | A fresh agent could implement without clarifying questions |
 | **FULL CODE** | Complete code with all imports, not snippets |
 | **FULL TESTS** | Actual test code, not "4 tests for X" |
-| **NO SUMMARIZING** | Copy verbatim, don't paraphrase |
+| **NO SUMMARIZING** | Reorganize, don't paraphrase |
 | **STANDALONE** | Each sub-bead executable without referencing others |
 | **NORTH STAR** | Copy North Star Card into every sub-bead |
 
@@ -316,14 +318,16 @@ bv --robot-alerts    # Stale, cascades, drift signals
 
 ## Sizing Guidelines
 
-| Metric | Target |
-|--------|--------|
-| Sub-bead size | ~500 lines |
-| Work duration | 30-120 min |
-| Responsibility | Single thing done well |
-| Testability | Independently verifiable |
+The goal is **semantic coherence**, not fixed line counts. Can an agent hold the full context without losing track?
 
-If too large → decompose further.
+| Heuristic | Question |
+|-----------|----------|
+| **Bounded** | Can an agent hold this in working memory without degradation? |
+| **Complete** | Does every detail from the phase survive? |
+| **Verified** | Could a fresh agent implement this without clarifying questions? |
+| **Testable** | Is it independently verifiable? |
+
+If you'd have to guess → the bead isn't ready. If an agent would ask "what should I do here?" → keep decomposing.
 
 ---
 
@@ -388,6 +392,7 @@ Use decompose-output template. Include:
 
 ## See Also
 
+- `docs/workflow/DISCOVERY.md` — Pre-pipeline discovery (where plans come from)
+- `docs/workflow/DECOMPOSITION.md` — Full decomposition guide
 - `bead-workflow/` — Bead lifecycle
 - `.claude/templates/planning/` — Templates
-- `docs/workflow/DECOMPOSITION.md` — Full guide
