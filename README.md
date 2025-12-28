@@ -193,15 +193,22 @@ If any are missing, install them:
     fi
     chmod +x ~/.local/bin/cm
 
-## Step 2: Copy All Project Files
+## Step 2: Initialize Claude Code
+
+Run Claude Code's built-in init to create the base `.claude/` folder:
+
+    /init
+
+This creates `.claude/CLAUDE.md` with project-specific instructions.
+
+## Step 3: Copy K&V Configuration
 
 Clone K&V temporarily and copy everything needed:
 
     # Clone K&V repo
     git clone --depth 1 https://github.com/Mburdo/knowledge_and_vibes.git /tmp/kv-setup
 
-    # Create directory structure
-    mkdir -p .claude
+    # Create PLAN directory
     mkdir -p PLAN
 
     # Copy all agent configuration
@@ -224,11 +231,11 @@ Clone K&V temporarily and copy everything needed:
     # Clean up
     rm -rf /tmp/kv-setup
 
-## Step 3: Initialize Beads
+## Step 4: Initialize Beads
 
     bd init
 
-## Step 4: Analyze This Project
+## Step 5: Analyze This Project
 
 Now analyze the current project to understand:
 
@@ -240,7 +247,7 @@ Now analyze the current project to understand:
 
 Read any existing README, CONTRIBUTING, or architecture docs.
 
-## Step 5: Customize AGENTS.md
+## Step 6: Customize AGENTS.md
 
 Edit AGENTS.md with project-specific information based on your analysis:
 
@@ -251,7 +258,7 @@ Edit AGENTS.md with project-specific information based on your analysis:
 - Note any coding conventions you observed
 - Add project-specific restrictions (what NOT to do)
 
-## Step 6: Create Initial Codemap (If Existing Code)
+## Step 7: Create Initial Codemap (If Existing Code)
 
 If the project has existing code, create `CODEMAPS/overview.md` with:
 
@@ -261,7 +268,7 @@ If the project has existing code, create `CODEMAPS/overview.md` with:
 - Patterns to follow
 - Build/test/run commands
 
-## Step 7: Provide Recommendations
+## Step 8: Provide Recommendations
 
 Based on your analysis, give me specific recommendations:
 
@@ -280,22 +287,109 @@ Based on your analysis, give me specific recommendations:
 - `bd create "First task" -t task -p 2` - Create first task
 - `bv --robot-triage` - Analyze task graph
 
-## Step 8: Commit Setup
+## Step 9: Commit Setup
 
     git add .beads/ .claude/ AGENTS.md PLAN/
     git add CODEMAPS/ 2>/dev/null || true
     git commit -m "Initialize Knowledge & Vibes framework"
 
-## Step 9: Report What You Did
+## Step 10: Present System Overview to User
 
-Tell me:
-1. What tools were already installed vs newly installed
-2. What files were copied into the project (list all directories)
-3. What's in the PLAN directory (the planning templates ready to fill out)
-4. What you learned about this project (tech stack, structure, state)
-5. Your specific recommendations for how I should start using K&V with this project
-6. Which PLAN template I should fill out first based on this project's state
-7. Any issues you encountered
+Generate a personalized orientation for the human user. Use this structure:
+
+---
+
+# Knowledge & Vibes is Ready
+
+**Setup complete.** Here's what you now have and how to use it.
+
+## What Got Installed
+
+[List tools: what was already present vs newly installed, any issues]
+
+## Your New Toolchain
+
+```mermaid
+flowchart LR
+    subgraph TOOLS["Your Tools"]
+        BD["bd"]
+        BV["bv"]
+        UBS["ubs"]
+        CASS["cass"]
+        CM["cm"]
+    end
+
+    BD --> TASKS["Track tasks"]
+    BV --> GRAPH["See dependencies"]
+    UBS --> SCAN["Catch bugs"]
+    CASS --> HISTORY["Search past work"]
+    CM --> MEMORY["Remember patterns"]
+```
+
+**What each does:**
+- **bd** — Task tracking. Create tasks, mark them done, see what's ready.
+- **bv** — Task graph analysis. Shows blockers, suggests what to work on next.
+- **ubs** — Security scanner. Run before commits to catch vulnerabilities.
+- **cass** — Session search. Find how you solved something before.
+- **cm** — Pattern memory. Retrieves learned rules across sessions.
+
+## Your Project Structure
+
+```
+[Show actual structure created, annotated for this specific project]
+```
+
+## The Workflow
+
+```mermaid
+flowchart LR
+    PLAN["Plan it"] --> DECOMPOSE["Break it down"]
+    DECOMPOSE --> BUILD["Build it"]
+    BUILD --> VERIFY["Verify it"]
+    VERIFY --> SHIP["Ship it"]
+```
+
+**In practice:**
+1. **Plan** — Fill out the templates in `PLAN/`. Start with the North Star.
+2. **Decompose** — Break work into beads (tasks) with `bd create`.
+3. **Build** — Write tests first, then implement. Scan with `ubs` before commits.
+4. **Verify** — Run `/calibrate` to check for drift. `/release` when ready to ship.
+
+## This Project
+
+[Personalized analysis:]
+- **What I found:** [tech stack, existing code, current state]
+- **Key insight:** [most important thing about this codebase]
+- **Watch out for:** [anything notable - missing tests, unusual patterns, etc.]
+
+## What To Do Now
+
+**If starting fresh:**
+1. Open `PLAN/00_north_star.md` and define what success looks like
+2. Fill out requirements in `PLAN/01_requirements.md`
+3. Create your first task: `bd create "First task" -t task`
+
+**If existing codebase:**
+1. Run `ubs .` to see current issues
+2. Create beads for known TODOs or bugs
+3. Start a session with `/prime`
+
+## Quick Reference
+
+| You want to... | Run this |
+|----------------|----------|
+| Start working | `/prime` |
+| See available tasks | `bd ready` |
+| Create a task | `bd create "description"` |
+| Finish a task | `bd close <id>` |
+| Check for bugs | `ubs .` |
+| Find past solutions | `cass search "query"` |
+
+## Learn More
+
+- Full pipeline: `docs/workflow/IDEATION_TO_PRODUCTION.md`
+- All protocols: `docs/workflow/PROTOCOLS.md`
+- Research behind it: `research/README.md`
 
 ---
 
