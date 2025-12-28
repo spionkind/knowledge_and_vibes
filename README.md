@@ -198,8 +198,9 @@ Clone K&V temporarily and copy everything needed:
     # Clone K&V repo
     git clone --depth 1 https://github.com/Mburdo/knowledge_and_vibes.git /tmp/kv-setup
 
-    # Create .claude directory structure
+    # Create directory structure
     mkdir -p .claude
+    mkdir -p PLAN
 
     # Copy all agent configuration
     cp -r /tmp/kv-setup/.claude/commands .claude/
@@ -209,6 +210,14 @@ Clone K&V temporarily and copy everything needed:
 
     # Copy AGENTS.md template
     cp /tmp/kv-setup/templates/AGENTS_TEMPLATE.md ./AGENTS.md
+
+    # Copy planning templates into PLAN directory
+    cp /tmp/kv-setup/templates/NORTH_STAR_CARD_TEMPLATE.md ./PLAN/00_north_star.md
+    cp /tmp/kv-setup/templates/REQUIREMENTS_TEMPLATE.md ./PLAN/01_requirements.md
+    cp /tmp/kv-setup/templates/REQUIREMENTS_QA_TEMPLATE.md ./PLAN/02_requirements_qa.md
+    cp /tmp/kv-setup/templates/DECISIONS_ADRS_TEMPLATE.md ./PLAN/03_decisions.md
+    cp /tmp/kv-setup/templates/RISKS_AND_SPIKES_TEMPLATE.md ./PLAN/04_risks_and_spikes.md
+    cp /tmp/kv-setup/templates/TRACEABILITY_TEMPLATE.md ./PLAN/05_traceability.md
 
     # Clean up
     rm -rf /tmp/kv-setup
@@ -271,7 +280,7 @@ Based on your analysis, give me specific recommendations:
 
 ## Step 8: Commit Setup
 
-    git add .beads/ .claude/ AGENTS.md
+    git add .beads/ .claude/ AGENTS.md PLAN/
     git add CODEMAPS/ 2>/dev/null || true
     git commit -m "Initialize Knowledge & Vibes framework"
 
@@ -279,10 +288,12 @@ Based on your analysis, give me specific recommendations:
 
 Tell me:
 1. What tools were already installed vs newly installed
-2. What files were copied into the project
-3. What you learned about this project (tech stack, structure, state)
-4. Your specific recommendations for how I should start using K&V with this project
-5. Any issues you encountered
+2. What files were copied into the project (list all directories)
+3. What's in the PLAN directory (the planning templates ready to fill out)
+4. What you learned about this project (tech stack, structure, state)
+5. Your specific recommendations for how I should start using K&V with this project
+6. Which PLAN template I should fill out first based on this project's state
+7. Any issues you encountered
 
 ---
 
