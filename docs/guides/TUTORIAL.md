@@ -49,18 +49,18 @@ Skills are located in `.claude/skills/`. Each defines agent behavior for specifi
 | Skill | File | Triggers |
 |-------|------|----------|
 | **prime** | `.claude/skills/prime/SKILL.md` | `/prime`, "startup", new session |
-| **next-bead** | `.claude/skills/next-bead/SKILL.md` | `/next-bead`, "next task", "what's next" |
-| **execute** | `.claude/skills/execute/SKILL.md` | `/execute`, parallel execution |
-| **bead-workflow** | `.claude/skills/bead-workflow/SKILL.md` | Claiming, closing, bead lifecycle |
-| **decompose-task** | `.claude/skills/decompose-task/SKILL.md` | `/decompose-task`, phase breakdown |
+| **advance** | `.claude/skills/advance/SKILL.md` | `/advance`, "next task", bead lifecycle |
+| **decompose** | `.claude/skills/decompose/SKILL.md` | `/decompose`, phase breakdown |
 | **calibrate** | `.claude/skills/calibrate/SKILL.md` | `/calibrate`, phase boundaries |
-| **disagreement-resolution** | `.claude/skills/disagreement-resolution/SKILL.md` | Agent conflicts, test-based adjudication |
+| **resolve** | `.claude/skills/resolve/SKILL.md` | `/resolve`, agent conflicts, test-based adjudication |
 | **agent-mail** | `.claude/skills/agent-mail/SKILL.md` | Multi-agent messaging |
-| **ubs-scanner** | `.claude/skills/ubs-scanner/SKILL.md` | Security scanning |
-| **cass-memory** | `.claude/skills/cass-memory/SKILL.md` | Session history storage |
-| **cass-search** | `.claude/skills/cass-search/SKILL.md` | History retrieval |
-| **warp-grep** | `.claude/skills/warp-grep/SKILL.md` | Codebase search |
-| **exa-search** | `.claude/skills/exa-search/SKILL.md` | Web documentation |
+| **beads-cli** | `.claude/skills/beads-cli/SKILL.md` | Task tracking with bd |
+| **beads-viewer** | `.claude/skills/beads-viewer/SKILL.md` | Graph analysis with bv |
+| **verify** | `.claude/skills/verify/SKILL.md` | `/verify`, security scanning |
+| **recall** | `.claude/skills/recall/SKILL.md` | `/recall`, session history + cross-agent learning |
+| **ground** | `.claude/skills/ground/SKILL.md` | `/ground`, external docs verification |
+| **explore** | `.claude/skills/explore/SKILL.md` | `/explore`, parallel codebase search |
+| **release** | `.claude/skills/release/SKILL.md` | `/release`, pre-ship checklist |
 
 ---
 
@@ -1144,7 +1144,7 @@ Agent A (BlueLake)        Agent B (GreenCastle)      Agent C (RedStone)
         │                         │                         │
    [CLOSED] bd-1 ──────────► Inbox: bd-1 closed        Inbox: bd-1 closed
         │                         │                         │
-        │ /next-bead              │                         │
+        │ /advance                │                         │
         ▼                         │                         │
    Claim bd-4...                  │                         │
 ```
@@ -1157,7 +1157,7 @@ Agent A (BlueLake)        Agent B (GreenCastle)      Agent C (RedStone)
 | **[CLAIMED] messages** | All agents see what's been claimed |
 | **Task status** | `bd update --status in_progress` marks task as taken |
 | **Assignee tracking** | `--assignee BlueLake` records ownership |
-| **Inbox checking** | `/prime` and `/next-bead` check for conflicts first |
+| **Inbox checking** | `/prime` and `/advance` check for conflicts first |
 
 ---
 

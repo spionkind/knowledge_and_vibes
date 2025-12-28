@@ -294,5 +294,4 @@ reply_message(project_key, message_id, sender_name, body_md)
 ## See Also
 
 - `prime/` — Full startup protocol
-- `next-bead/` — Claiming with announcements
-- `bead-workflow/` — Multi-agent coordination rules
+- `advance/` — Bead lifecycle with announcements

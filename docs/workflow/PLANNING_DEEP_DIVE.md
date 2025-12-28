@@ -540,7 +540,7 @@ Fix until PASS.
 
 Once the plan is complete:
 - break into phases (small, lossless)
-- `/decompose-task` each phase into beads/sub‑beads
+- `/decompose` each phase into beads/sub‑beads
 - execute in dependency order with Agent Mail coordination
 - run `/calibrate` **after a phase is implemented** (between phases) to prevent drift
 

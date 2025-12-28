@@ -188,10 +188,10 @@ Located in `.claude/templates/beads/`:
 
 | Template | Used By | Purpose |
 |:---------|:--------|:--------|
-| `bead-structure.md` | `/decompose-task` | Structure for new beads |
-| `claimed.md` | `/next-bead` | [CLAIMED] message format |
+| `bead-structure.md` | `/decompose` | Structure for new beads |
+| `claimed.md` | `/advance` | [CLAIMED] message format |
 | `closed.md` | Bead close | [CLOSED] message format |
-| `next-bead-output.md` | `/next-bead` | Output format for task discovery |
+| `advance-output.md` | `/advance` | Output format for task discovery |
 | `verification.md` | Bead close | Evidence of completion |
 
 ### Planning Templates
@@ -204,7 +204,7 @@ Located in `.claude/templates/planning/`:
 | `sub-bead-structure.md` | ADaPT decomposition | When tasks need splitting |
 | `audit-report.md` | Plan audits | Gap and risk analysis |
 | `content-manifest.md` | Plan assembly | Track plan pack contents |
-| `decompose-output.md` | `/decompose-task` | Output format for decomposition |
+| `decompose-output.md` | `/decompose` | Output format for decomposition |
 
 ### Calibration Templates
 

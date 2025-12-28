@@ -142,4 +142,4 @@ bv --robot-blocker-chain ID  # Why is this blocked?
 ## See Also
 
 - `beads-cli/` — Task management with `bd`
-- `next-bead/` — Full claiming protocol
+- `advance/` — Full bead lifecycle (claiming, working, closing)

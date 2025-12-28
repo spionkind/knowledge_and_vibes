@@ -17,7 +17,7 @@
 | [Execution](#execution) | TDD, 3-Iteration Limit, ADaPT, Verification |
 | [Multi-Agent Coordination](#multi-agent-coordination) | Agent Mail, File Reservations, Claims, Orchestrator Pattern |
 | [Tools](#tools) | bd, bv, ubs, cass, cm, MCP, Warp-Grep, Exa |
-| [Slash Commands](#slash-commands) | /prime, /next-bead, /calibrate, /decompose-task, /ground |
+| [Slash Commands](#slash-commands) | /prime, /advance, /calibrate, /decompose, /ground |
 | [Phrases](#phrases) | Common expressions and their meaning |
 
 ---
@@ -400,11 +400,13 @@ MCP tool for web search. Use to verify documentation, find best practices, resea
 | Command | Purpose |
 |:--------|:--------|
 | `/prime` | Start a new session. Registers with Agent Mail, checks inbox, discovers tasks. |
-| `/next-bead` | Claim the next task. Handles: close current, discover, claim, reserve files, announce. |
-| `/execute` | Parallel execution. Spawns worker agents for each track, monitors progress, runs calibration at phase boundaries. |
+| `/advance` | Full bead lifecycle: close current, discover, claim, reserve files, work (TDD-first), announce. |
 | `/calibrate` | Run a calibration checkpoint. Checks coverage, detects drift, resolves disagreements with tests. |
-| `/decompose-task` | Break a phase into beads and sub-beads. Creates the task graph for execution. |
-| `/ground` | Verify claims against real sources before making decisions. |
+| `/decompose` | Break a phase into beads and sub-beads. Creates the task graph for execution. |
+| `/ground` | Verify external libraries and APIs against current documentation. |
+| `/recall` | Retrieve context from past sessions (CASS search + cross-agent learning). |
+| `/explore` | Parallel codebase search for understanding how things work. |
+| `/verify` | Security scanning with UBS before commits. |
 | `/resolve` | Resolve disagreements between agents or approaches using test-based adjudication. |
 | `/release` | Run pre-ship checklist for release readiness. Verifies tests, security, documentation. |
 

@@ -92,10 +92,14 @@ Available skills:
 Slash commands in `.claude/commands/*.md`:
 - Recommended defaults (copy from `knowledge_and_vibes`):
 - `/prime [task_focus]`: New agent startup checklist
-- `/next-bead [focus_area]`: Find/verify/claim next work safely
-- `/ground [question-or-task]`: Decide whether to use Warp-Grep vs Exa vs CASS/cm
-- `/decompose-task [phase]`: Turn a phase from your plan into beads and sub-beads
+- `/advance [bead_id_or_focus_area]`: Full bead lifecycle: close current, discover, claim, work (TDD-first), announce
+- `/ground [question-or-library]`: Verify external libraries against current documentation
+- `/decompose [phase]`: Turn a phase from your plan into beads and sub-beads
 - `/calibrate [phase_or_milestone]`: Pause all agents and realign plan via roundtable
+- `/recall [query]`: Search past sessions for patterns and context
+- `/explore [question]`: Parallel codebase search for understanding how things work
+- `/verify [--staged | path]`: Security scanning with UBS before commits
+- `/resolve [approach_A vs approach_B]`: Test-based disagreement resolution
 - [Add your commands here, e.g., `/audit-style <path>`: Check code style]
 
 ---
@@ -262,7 +266,7 @@ cass index --full                  # Rebuild index (if search returns nothing)
 
 ---
 
-## cass-memory: Cross-Agent Learning
+## Context Memory (cm): Cross-Agent Learning
 
 Before starting any non-trivial task:
 
@@ -567,7 +571,7 @@ crawling              # Extract content from specific URLs
 
 **When NOT to use**:
 - Information likely in codebase (use CASS or Warp-Grep)
-- Historical context (use cass-memory)
+- Historical context (use /recall)
 - Task information (use Beads)
 
 ---

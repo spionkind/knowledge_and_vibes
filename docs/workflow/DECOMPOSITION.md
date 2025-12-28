@@ -23,7 +23,7 @@ How to break a completed plan into phases and beads that AI agents can execute w
 - [Phase Breakdown](#phase-breakdown-operator-led)
 - [Scheduling Calibration Points](#scheduling-calibration-points-between-phases)
 - [Adaptive Decomposition (ADaPT)](#adaptive-decomposition-adapt-pattern)
-- [Decompose a Phase Into Beads](#decompose-a-phase-into-task-beads-decompose-task)
+- [Decompose a Phase Into Beads](#decompose-a-phase-into-task-beads-decompose)
 - [Validate the Graph](#validate-the-graph-bv)
 - [Parallel Execution](#parallel-execution-without-chaos)
 - [Traceability](#traceability-agent-native)
@@ -243,10 +243,10 @@ Evidence: `research/038-adapt.md`, `research/011-agentless.md` (simple pipelines
 
 ---
 
-## Decompose a Phase Into Task Beads (`/decompose-task`)
+## Decompose a Phase Into Task Beads (`/decompose`)
 
 Slash command:
-- `/decompose-task [phase]` → `.claude/commands/decompose-task.md`
+- `/decompose [phase]` → `.claude/commands/decompose.md`
 
 Templates:
 - Phase/Epic bead: `.claude/templates/beads/bead-structure.md`

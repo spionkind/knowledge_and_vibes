@@ -41,9 +41,9 @@ your-project/
 ├── .claude/
 │   ├── commands/              # Slash commands (/prime, /calibrate, etc.)
 │   │   ├── prime.md
-│   │   ├── next-bead.md
+│   │   ├── advance.md
 │   │   ├── calibrate.md
-│   │   ├── decompose-task.md
+│   │   ├── decompose.md
 │   │   └── ground.md
 │   ├── rules/                 # Agent behavior rules
 │   │   ├── safety.md          # File deletion protection
@@ -51,10 +51,10 @@ your-project/
 │   │   └── multi-agent.md     # Coordination protocol
 │   ├── skills/                # Skill definitions (agent capabilities)
 │   │   ├── prime/
-│   │   ├── next-bead/
+│   │   ├── advance/
 │   │   ├── calibrate/
-│   │   ├── execute/
-│   │   ├── bead-workflow/
+│   │   ├── decompose/
+│   │   ├── resolve/
 │   │   └── ... (13 skills total)
 │   └── templates/             # Runtime templates for agent output
 │       ├── beads/
@@ -302,7 +302,7 @@ curl -o AGENTS.md https://raw.githubusercontent.com/Mburdo/knowledge_and_vibes/m
 
 # Essential slash commands
 mkdir -p .claude/commands
-for cmd in prime next-bead calibrate decompose-task ground; do
+for cmd in prime advance calibrate decompose ground; do
   curl -fsSL -o .claude/commands/$cmd.md \
     https://raw.githubusercontent.com/Mburdo/knowledge_and_vibes/master/.claude/commands/$cmd.md
 done

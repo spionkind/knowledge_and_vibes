@@ -1,28 +1,29 @@
 ---
-description: Manually trigger grounding check before implementation
-argument-hint: [question-or-task]
+description: Verify external libraries against current documentation
+argument-hint: [question-or-library]
 ---
 
 # /ground
 
-Run the `external-docs` skill to verify external dependencies.
+Run the `ground` skill to verify external dependencies.
 
 **Query:** $ARGUMENTS
 
-Execute the grounding protocol from `.claude/skills/external-docs/SKILL.md`:
+Execute the direct protocol from `.claude/skills/ground/SKILL.md`:
 
-1. Determine where truth lives:
-   - Codebase → Warp-Grep
-   - Web → Exa (web_search_exa, get_code_context_exa)
-   - History → `cm context` → `cass search`
-   - Tasks → `bv --robot-*`
+1. Construct query: `{library} {feature} {version} 2024 2025`
 
-2. Run appropriate queries with recency signals (2024 2025)
+2. Run appropriate search:
+   - `web_search_exa("{query}")` — Documentation
+   - `get_code_context_exa("{query}")` — Code examples
 
-3. Record grounding status table:
+3. Verify: Source, Freshness, Version, Completeness, Status
+
+4. Record grounding status:
    ```markdown
-   ## Grounding Status
    | Pattern | Query | Source | Status |
    |---------|-------|--------|--------|
    | `{method}` | "{query}" | {url} | ✅/⚠️/❌/❓ |
    ```
+
+**Key principle:** Ground just-in-time as you encounter external deps.

@@ -146,5 +146,4 @@ bd doctor --fix          # Health check
 ## See Also
 
 - `beads-viewer/` — Graph analysis with `bv`
-- `next-bead/` — Full claiming protocol
-- `bead-workflow/` — Complete lifecycle
+- `advance/` — Full bead lifecycle (claiming, working, closing)

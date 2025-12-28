@@ -57,7 +57,7 @@ Copy this into your project as `PLAN/05_traceability.md`:
 
 | Trigger | Action |
 |---------|--------|
-| After `/decompose-task` | Add bead IDs to REQ rows |
+| After `/decompose` | Add bead IDs to REQ rows |
 | After creating tests | Add test paths to bead rows |
 | After closing a bead | Update Status + Evidence |
 | During `/calibrate` | Scan for gaps |

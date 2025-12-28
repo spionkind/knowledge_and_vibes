@@ -56,7 +56,7 @@ SUBAGENTS (ephemeral workers)
 
 ### Practical Implications
 
-1. **File reservations:** Orchestrator reserves `.beads/` before spawning `/decompose-task` subagents
+1. **File reservations:** Orchestrator reserves `.beads/` before spawning `/decompose` subagents
 2. **Announcements:** Orchestrator sends `[CLAIMED]` after deciding to work, not subagents
 3. **Inbox checks:** Orchestrator checks inbox before/after phases, not during subagent execution
 4. **Error handling:** If subagent fails, orchestrator decides retry/escalate — subagent doesn't coordinate
@@ -66,72 +66,78 @@ SUBAGENTS (ephemeral workers)
 | Type | Agent Mail | Communication | Use Case |
 |------|-----------|---------------|----------|
 | **Subagent** | No registration | Return to orchestrator only | Skill phases (decompose, calibrate) |
-| **Parallel worker** | Full registration | Agent Mail with peers | Long-running track execution (`/execute`) |
+| **Parallel worker** | Full registration | Agent Mail with peers | Long-running parallel execution |
 
 **Subagents** (this pattern): Spawned within a skill for phase work. Stateless. Return results and terminate.
 
-**Parallel workers** (`/execute`): Independent agents running in parallel. Register with Agent Mail. Communicate via [CLAIMED]/[CLOSED]. Run their own sessions with `/prime`.
+**Parallel workers**: Independent agents running in separate terminals. Each registers with Agent Mail via `/prime`. Communicate via [CLAIMED]/[CLOSED]. Each owns ONE bead at a time.
 
 Both use `Task tool`, but parallel workers run `/prime` to register as full agents.
 
 ---
 
-## Full Execution Model
+## Parallel Execution Model
 
-When running `/execute`, here's the complete agent hierarchy:
+Each parallel worker runs in its own terminal:
+
+```
+Terminal 1                Terminal 2               Terminal 3
+┌─────────────────┐      ┌─────────────────┐      ┌─────────────────┐
+│    Worker A     │      │    Worker B     │      │    Worker C     │
+│   "BlueLake"    │      │  "GreenCastle"  │      │   "RedStone"    │
+│                 │      │                 │      │                 │
+│   /prime        │      │   /prime        │      │   /prime        │
+│   /advance      │      │   /advance      │      │   /advance      │
+│   (owns bd-101) │      │   (owns bd-102) │      │   (owns bd-103) │
+└────────┬────────┘      └────────┬────────┘      └────────┬────────┘
+         │                        │                        │
+         └────────────────────────┼────────────────────────┘
+                                  │
+                         Agent Mail Coordination
+                    [CLAIMED]/[CLOSED] announcements
+                         File reservations
+```
+
+Each worker runs in its own terminal:
+
+1. **Start session:** `/prime` registers with Agent Mail
+2. **Claim work:** `/advance` finds and claims ONE bead
+3. **Work:** TDD-first implementation with `ubs --staged` before commit
+4. **Close:** Send `[CLOSED]` announcement, release reservations
+5. **Next:** Run `/advance` again to claim next bead
+
+**Key insight:** Each worker owns ONE bead at a time. No central coordinator.
+Workers coordinate via Agent Mail messages and file reservations.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│                        /EXECUTE COORDINATOR                              │
-│  (Registered: "Coordinator")                                             │
-│  - Discovers beads, computes parallel tracks                             │
-│  - Spawns one worker per track                                           │
-│  - Monitors via Agent Mail                                               │
-│  - Runs /calibrate at phase boundaries                                   │
-└─────────────────────────────────────────────────────────────────────────┘
-         │
-         │ spawns via Task tool (run_in_background=true)
-         │
-    ┌────┴────┬────────────┬────────────┐
-    ▼         ▼            ▼            ▼
-┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────┐
-│ Worker  │ │ Worker  │ │ Worker  │ │ Worker  │
-│ Track A │ │ Track B │ │ Track C │ │ Track D │
-│BlueLake │ │GreenCas │ │RedStone │ │PurpleBr │
-└────┬────┘ └────┬────┘ └────┬────┘ └────┬────┘
-     │           │           │           │
-     │ Each worker is a REGISTERED AGENT (runs /prime)
-     │ Each worker claims beads, sends [CLAIMED]/[CLOSED]
-     │
-     ▼
-┌─────────────────────────────────────────────────────────────────────────┐
-│                    WORKER EXECUTION LOOP                                 │
+│                    WORKER EXECUTION LOOP (/advance)                      │
 │                                                                          │
-│  For each bead in assigned track:                                        │
+│  1. CLOSE PREVIOUS (if any)                                              │
+│     - Run tests, ubs --staged, commit                                    │
+│     - bd close {id} --reason "..."                                       │
+│     - release_file_reservations(...)                                     │
+│     - send_message([CLOSED])                                             │
 │                                                                          │
-│  1. CLAIM (worker does this directly)                                    │
+│  2. DISCOVER                                                             │
+│     - Check inbox for conflicts                                          │
+│     - bd ready --json                                                    │
+│     - bv --robot-triage                                                  │
+│                                                                          │
+│  3. CLAIM                                                                │
 │     - bd update {id} --status in_progress --assignee {name}              │
 │     - file_reservation_paths(...)                                        │
 │     - send_message([CLAIMED])                                            │
 │                                                                          │
-│  2. IMPLEMENT (worker does this directly)                                │
+│  4. IMPLEMENT                                                            │
 │     - Read bead description                                              │
 │     - TDD-first: write tests                                             │
 │     - Implement to pass tests                                            │
 │     - Max 3 iterations (if fail → spike + escalate)                      │
 │     - ubs --staged before commit                                         │
 │                                                                          │
-│  3. CLOSE (worker does this directly)                                    │
-│     - bd close {id} --reason "..."                                       │
-│     - release_file_reservations(...)                                     │
-│     - send_message([CLOSED])                                             │
-│                                                                          │
-│  4. NEXT BEAD (if any remain in track)                                   │
-│     → Loop back to step 1                                                │
-│                                                                          │
-│  5. TRACK COMPLETE                                                       │
-│     - send_message([TRACK COMPLETE] Track A)                             │
-│     - STOP and wait                                                      │
+│  5. REPEAT                                                               │
+│     → Run /advance again for next bead                                   │
 │                                                                          │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
@@ -144,9 +150,9 @@ Workers execute beads **directly** for most implementation work. They only spawn
 |-----------|--------------|
 | **Simple implementation** | Worker implements directly (no subagents) |
 | **Complex multi-phase skill** | Worker invokes skill (e.g., `/calibrate`) which spawns subagents internally |
-| **Using `/next-bead`** | Skill spawns subagents for closeout/discover/verify/claim phases |
+| **Using `/advance`** | Skill spawns subagents for closeout/discover/verify/claim phases |
 
-**Key insight:** The worker is the registered agent. When it runs a skill like `/next-bead` or `/calibrate`, that skill may internally use subagents for its phases, but the worker remains the entity that:
+**Key insight:** The worker is the registered agent. When it runs a skill like `/advance` or `/calibrate`, that skill may internally use subagents for its phases, but the worker remains the entity that:
 - Owns the Agent Mail identity
 - Holds file reservations
 - Sends announcements
@@ -203,7 +209,7 @@ Coordinator marks Track A done, waits for other tracks...
 |-------|----------|------------|---------|
 | **Coordinator** | Registered | Yes | "Coordinator" |
 | **Workers** | Registered | Yes | "BlueLake", "GreenCastle" |
-| **Subagents** | None | No | Phases within /calibrate, /next-bead |
+| **Subagents** | None | No | Phases within /calibrate, /advance |
 
 - Coordinator → Workers: spawns via Task tool, monitors via Agent Mail
 - Workers → Subagents: spawns via Task tool within skills, receives return values
@@ -469,7 +475,7 @@ This pattern maps directly to our workflow:
 
 | Pipeline Stage | Orchestrator Use |
 |----------------|------------------|
-| `/decompose-task` | Subagents for: analyze, manifest, create beads, validate |
+| `/decompose` | Subagents for: analyze, manifest, create beads, validate |
 | `/calibrate` | Subagents for: coverage, drift, risk, adjudicate, synthesize |
 | `/prime` | Could use subagents for: register, orient, discover, claim |
 | Bead execution | Subagents for: TDD setup, implement, verify, close |

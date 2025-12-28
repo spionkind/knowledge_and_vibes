@@ -404,7 +404,7 @@ At minimum (folder or single master file):
 - Approve bead titles and ordering (you don’t need to judge code).
 
 **Artifacts**
-- Beads created via `bd` and `/decompose-task`:
+- Beads created via `bd` and `/decompose`:
   - each sub‑bead is implementable in a bounded time window
   - each bead includes North Star + REQ/AC references + verification plan
   - decompose **as-needed**: start coarse, then split when execution reveals uncertainty (don’t pre-split everything)

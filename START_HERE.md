@@ -78,7 +78,7 @@ Knowledge & Vibes gives you a structured system for building software with AI:
 |:---------|:-----|
 | [**Tutorial**](./docs/guides/TUTORIAL.md) | Complete tool guide with examples |
 
-*After this:* You can run `/prime`, `/next-bead`, `/calibrate`
+*After this:* You can run `/prime`, `/advance`, `/calibrate`
 
 </td>
 <td width="50%" valign="top">
@@ -165,7 +165,7 @@ A 200-line script doesn't need a 50-page plan. Match plan size to project comple
 /prime                      # Register, check inbox, discover tasks
 
 # Claim work
-/next-bead                  # Find task, reserve files, announce [CLAIMED]
+/advance                    # Find task, reserve files, announce [CLAIMED]
 
 # Implement (TDD-first)
 pytest                      # Run tests (expect red)

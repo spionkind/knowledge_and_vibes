@@ -7,7 +7,7 @@ description: Release readiness checklist for shipping. Use after execution compl
 
 Final verification before shipping. Maps to Protocol P12 (Release Readiness) and P13 (Security Gate).
 
-> **Pattern:** This skill runs after `/execute` completes. It verifies all work is done, security is clean, and the system is ready to ship.
+> **Pattern:** This skill runs after all beads are closed. It verifies all work is done, security is clean, and the system is ready to ship.
 
 ## When This Applies
 
@@ -15,9 +15,7 @@ Final verification before shipping. Maps to Protocol P12 (Release Readiness) and
 |--------|--------|
 | All beads closed | Run release checklist |
 | User says "/release" or "ship" | Run release checklist |
-| After `/execute` completes | Run release checklist |
 | Before production deployment | Run release checklist |
-| `[EXECUTION COMPLETE]` received | Run release checklist |
 
 ---
 
@@ -382,9 +380,8 @@ send_message(
 
 ## See Also
 
-- `/execute` — The stage before release
 - `/calibrate` — Run if drift detected before release
 - `/prime` — Worker startup (for re-verification)
 - `docs/workflow/PROTOCOLS.md` — P12: Release Readiness, P13: Security Gate
 - `docs/workflow/IDEATION_TO_PRODUCTION.md` — Stage 10
-- `bead-workflow/` — Bead lifecycle details
+- `advance/` — Bead lifecycle details
