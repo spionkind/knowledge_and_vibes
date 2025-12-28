@@ -154,6 +154,8 @@ Copy this entire block and give it to an AI agent to fully set up Knowledge & Vi
 
 # Knowledge & Vibes Setup Task
 
+**Repository:** https://github.com/Mburdo/knowledge_and_vibes
+
 Set up the complete Knowledge & Vibes framework in this project. Follow every step precisely.
 
 ## Step 1: Verify/Install Global Tools
