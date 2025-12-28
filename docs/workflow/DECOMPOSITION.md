@@ -1,9 +1,3 @@
----
-title: Decomposition
-description: Breaking plans into executable phases and beads. Addresses long-context degradation by chunking work into manageable units.
-category: workflow
----
-
 <div align="center">
 
 # Decomposition
@@ -49,7 +43,7 @@ This guide assumes you already have:
 If you're still in discovery/ideation/requirements, start here instead:
 - `DISCOVERY.md` — Pre-pipeline curiosity-driven architecture
 - `PLANNING_DEEP_DIVE.md` — Formalizing into artifacts
-- `EVIDENCE_BASED_GUIDE.md` — Full evidence-based workflow
+- `IDEATION_TO_PRODUCTION.md` — Complete pipeline reference
 - `PROTOCOLS.md` — Protocol cards
 
 New to the repo? Start with:
@@ -344,10 +338,10 @@ Before closing:
 ## Further Reading
 
 - `DISCOVERY.md` (pre-pipeline curiosity-driven architecture)
-- `EVIDENCE_BASED_GUIDE.md` (end-to-end gates + artifacts)
+- `IDEATION_TO_PRODUCTION.md` (complete pipeline reference)
 - `PROTOCOLS.md` (protocol cards)
 - `PLANNING_DEEP_DIVE.md` (nontechnical planning tutorial)
-- `docs/guides/TOOL_STACK_AND_OPERATIONS.md` (tool operations + multi-agent coordination)
+- `docs/guides/TUTORIAL.md` (tool operations + multi-agent coordination)
 - `.claude/templates/planning/phase-document.md` (phase template)
 - `.claude/templates/beads/bead-structure.md` (bead template)
 

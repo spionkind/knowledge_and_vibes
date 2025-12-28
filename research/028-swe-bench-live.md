@@ -1,9 +1,3 @@
----
-title: SWE-bench-Live - Continuously Updating SWE Benchmark
-tags: [benchmark, contamination, continuous-updates, temporal, live-evaluation, fresh-data]
-protocols: [P12]
----
-
 # SWE-bench-Live: Continuously Updating SWE Benchmark
 
 **Paper:** SWE-bench Goes Live!

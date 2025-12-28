@@ -1,9 +1,3 @@
----
-title: Setup Guide
-description: Install the Knowledge & Vibes toolchain and verify everything works.
-category: guides
----
-
 <div align="center">
 
 # Setup Guide
@@ -336,7 +330,7 @@ cm context "task" --json     # Get context for a task
 
 | Step | Resource |
 |:-----|:---------|
-| 1. Read the workflow | [START_HERE.md](../../START_HERE.md) → [Evidence-Based Guide](../workflow/EVIDENCE_BASED_GUIDE.md) |
+| 1. Read the workflow | [START_HERE.md](../../START_HERE.md) → [Pipeline Reference](../workflow/IDEATION_TO_PRODUCTION.md) |
 | 2. Try the tutorial | [Tutorial](./TUTORIAL.md) |
 | 3. Create your first plan | [North Star Template](../../templates/NORTH_STAR_CARD_TEMPLATE.md) |
 

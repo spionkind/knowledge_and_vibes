@@ -1,8 +1,3 @@
----
-title: Start Here
-description: The fastest path to understanding and using Knowledge & Vibes. Navigation hub for the entire framework.
----
-
 <div align="center">
 
 # Start Here
@@ -66,8 +61,8 @@ Knowledge & Vibes gives you a structured system for building software with AI:
 
 | Document | Goal |
 |:---------|:-----|
-| [**Evidence-Based Guide**](./docs/workflow/EVIDENCE_BASED_GUIDE.md) | See the complete 10-stage pipeline |
-| [**Protocols**](./docs/workflow/PROTOCOLS.md) | Learn the 18 procedures |
+| [**Pipeline Reference**](./docs/workflow/IDEATION_TO_PRODUCTION.md) | See the complete 11-stage pipeline |
+| [**Protocols**](./docs/workflow/PROTOCOLS.md) | Learn the 19 procedures |
 | [**Philosophy**](./docs/workflow/PHILOSOPHY.md) | Understand why verification matters |
 
 *After this:* You understand how the system works
@@ -81,8 +76,7 @@ Knowledge & Vibes gives you a structured system for building software with AI:
 
 | Document | Goal |
 |:---------|:-----|
-| [**Tool Stack & Operations**](./docs/guides/TOOL_STACK_AND_OPERATIONS.md) | What each tool and command does |
-| [**Tutorial**](./docs/guides/TUTORIAL.md) | Detailed walkthroughs with examples |
+| [**Tutorial**](./docs/guides/TUTORIAL.md) | Complete tool guide with examples |
 
 *After this:* You can run `/prime`, `/next-bead`, `/calibrate`
 
@@ -109,7 +103,7 @@ Knowledge & Vibes gives you a structured system for building software with AI:
 | Priority | Document | Why |
 |:--------:|:---------|:----|
 | 1 | [**Setup Guide**](./docs/guides/SETUP_GUIDE.md) | Get the tools working |
-| 2 | [**Evidence-Based Guide**](./docs/workflow/EVIDENCE_BASED_GUIDE.md) | The complete pipeline |
+| 2 | [**Pipeline Reference**](./docs/workflow/IDEATION_TO_PRODUCTION.md) | The complete pipeline |
 | 3 | [**Protocols**](./docs/workflow/PROTOCOLS.md) | The exact moves to make |
 
 Everything else is reference material.

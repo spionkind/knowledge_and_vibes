@@ -1,8 +1,3 @@
----
-title: Templates
-description: The artifacts that make plans explicit and verifiable. North Star, Requirements, ADRs, and more.
----
-
 <div align="center">
 
 # Templates
@@ -268,6 +263,6 @@ cp -r .claude/ your-project/.claude/
 
 | Document | What You'll Learn |
 |:---------|:------------------|
-| [**Evidence-Based Guide**](./docs/workflow/EVIDENCE_BASED_GUIDE.md) | How templates fit into the 10-stage pipeline |
+| [**Pipeline Reference**](./docs/workflow/IDEATION_TO_PRODUCTION.md) | How templates fit into the 11-stage pipeline |
 | [**Protocols**](./docs/workflow/PROTOCOLS.md) | When each template gets used |
 | [**Planning Deep Dive**](./docs/workflow/PLANNING_DEEP_DIVE.md) | Tutorial on planning with these templates |

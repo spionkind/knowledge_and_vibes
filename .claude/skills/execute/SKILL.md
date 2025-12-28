@@ -479,4 +479,4 @@ Spawning 5 workers...
 - `/next-bead` — Worker task loop (used by workers internally)
 - `/calibrate` — Phase boundary check
 - `/release` — Post-execution checklist
-- `docs/guides/TOOL_STACK_AND_OPERATIONS.md` — Full reference
+- `docs/guides/TUTORIAL.md` — Complete tool guide

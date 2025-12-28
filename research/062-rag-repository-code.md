@@ -1,9 +1,3 @@
----
-title: Retrieval-Augmented Code Generation 2025
-tags: [rag, retrieval, repository-level, embeddings, context, code-search]
-protocols: [P2, P5]
----
-
 # Retrieval-Augmented Code Generation 2025
 
 **Sources:**

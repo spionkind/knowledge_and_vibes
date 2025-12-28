@@ -1,9 +1,3 @@
----
-title: SWE-Bench Pro 2025 - Realistic Agent Evaluation
-tags: [benchmark, enterprise, complex-tasks, multi-file, realistic, verification]
-protocols: [P12, P14]
----
-
 # SWE-Bench Pro 2025: Realistic Agent Evaluation
 
 **Sources:**

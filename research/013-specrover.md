@@ -1,9 +1,3 @@
----
-title: SpecRover - Specification Inference
-tags: [specification, inference, reproducer, review, evidence, validation]
-protocols: [P2, P6]
----
-
 # SpecRover: Code Intent Extraction via LLMs
 
 **Paper:** SpecRover: Code Intent Extraction via LLMs

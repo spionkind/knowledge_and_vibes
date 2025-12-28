@@ -1,9 +1,3 @@
----
-title: Self-Correction via Reinforcement Learning 2025
-tags: [self-correction, rl, feedback, distribution-mismatch, score, repair]
-protocols: [P8, P11]
----
-
 # Self-Correction via Reinforcement Learning 2025
 
 **Sources:**

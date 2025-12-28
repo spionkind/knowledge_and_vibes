@@ -1,9 +1,3 @@
----
-title: Context Length Hurts Performance
-tags: [context, long-context, retrieval, degradation, chunking]
-protocols: [P5]
----
-
 # Context Length Alone Hurts Performance
 
 **Paper:** Context Length Alone Hurts LLM Performance Despite Perfect Retrieval

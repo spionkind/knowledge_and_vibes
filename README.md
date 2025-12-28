@@ -1,8 +1,3 @@
----
-title: Knowledge & Vibes
-description: A research-backed framework for building software with AI. Plans are explicit, work is tracked, and verification is mandatory.
----
-
 <div align="center">
 
 # Knowledge & Vibes
@@ -135,7 +130,7 @@ See the [Research summaries](./research/README.md) for the full collection.
 |:--------|:-----------------|
 | [**Discovery**](./docs/workflow/DISCOVERY.md) | Pre-pipeline: curiosity-driven architecture (start here for new projects) |
 | [**Setup Guide**](./docs/guides/SETUP_GUIDE.md) | How to install and configure the toolchain |
-| [**Evidence-Based Guide**](./docs/workflow/EVIDENCE_BASED_GUIDE.md) | The complete 10-stage pipeline |
+| [**Pipeline Reference**](./docs/workflow/IDEATION_TO_PRODUCTION.md) | The complete 11-stage pipeline |
 | [**Protocols**](./docs/workflow/PROTOCOLS.md) | 19 repeatable procedures for common situations |
 | [**Templates**](./TEMPLATES.md) | North Star cards, requirements, ADRs, and more |
 | [**Glossary**](./GLOSSARY.md) | Every term defined |

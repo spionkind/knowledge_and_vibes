@@ -1,9 +1,3 @@
----
-title: "Tutorial: The Complete Tool Guide"
-description: What each tool does, why it matters, and how to use it effectively. Covers Beads, Agent Mail, CASS, UBS, and more.
-category: guides
----
-
 # Tutorial: The Complete Tool Guide
 
 This tutorial explains what each tool does, why it matters, and how to use it effectively.
@@ -39,6 +33,34 @@ This tutorial explains what each tool does, why it matters, and how to use it ef
 **Part 5: Example Scenarios**
 - [Solo Developer](#scenario-1-solo-developer-single-task)
 - [Two Agents, Same Project](#scenario-2-two-agents-same-project)
+
+**Part 6: The Bead Lifecycle (Behind the Scenes)**
+- [Full Flow: CLAIM → WORK → CLOSE](#full-flow-claim--work--close)
+- [What /prime Does Behind the Scenes](#what-prime-does-behind-the-scenes)
+- [Multi-Agent Parallel Execution](#multi-agent-parallel-execution-what-happens)
+- [What Prevents Conflicts](#what-prevents-conflicts)
+
+---
+
+## Available Skills
+
+Skills are located in `.claude/skills/`. Each defines agent behavior for specific operations:
+
+| Skill | File | Triggers |
+|-------|------|----------|
+| **prime** | `.claude/skills/prime/SKILL.md` | `/prime`, "startup", new session |
+| **next-bead** | `.claude/skills/next-bead/SKILL.md` | `/next-bead`, "next task", "what's next" |
+| **execute** | `.claude/skills/execute/SKILL.md` | `/execute`, parallel execution |
+| **bead-workflow** | `.claude/skills/bead-workflow/SKILL.md` | Claiming, closing, bead lifecycle |
+| **decompose-task** | `.claude/skills/decompose-task/SKILL.md` | `/decompose-task`, phase breakdown |
+| **calibrate** | `.claude/skills/calibrate/SKILL.md` | `/calibrate`, phase boundaries |
+| **disagreement-resolution** | `.claude/skills/disagreement-resolution/SKILL.md` | Agent conflicts, test-based adjudication |
+| **agent-mail** | `.claude/skills/agent-mail/SKILL.md` | Multi-agent messaging |
+| **ubs-scanner** | `.claude/skills/ubs-scanner/SKILL.md` | Security scanning |
+| **cass-memory** | `.claude/skills/cass-memory/SKILL.md` | Session history storage |
+| **cass-search** | `.claude/skills/cass-search/SKILL.md` | History retrieval |
+| **warp-grep** | `.claude/skills/warp-grep/SKILL.md` | Codebase search |
+| **exa-search** | `.claude/skills/exa-search/SKILL.md` | Web documentation |
 
 ---
 
@@ -76,6 +98,36 @@ AI coding agents are powerful, but they have problems:
 | **Outdated knowledge** | Agent doesn't know current APIs/docs | **Exa MCP** - AI web & code search |
 
 These tools work together as a complete system. Let's learn how.
+
+### How They Work Together
+
+```
+                    ┌─────────────────────────────────────────────┐
+                    │              Agent Mail (MCP)               │
+                    │   Registration, Messaging, File Reservations│
+                    └─────────────────────────────────────────────┘
+                                         │
+        ┌────────────────────────────────┼────────────────────────────────┐
+        │                                │                                │
+        ▼                                ▼                                ▼
+┌───────────────┐              ┌───────────────┐              ┌───────────────┐
+│   Agent A     │              │   Agent B     │              │   Agent C     │
+│  (BlueLake)   │◄────────────►│  (GreenCastle)│◄────────────►│  (RedStone)   │
+└───────────────┘   Messages   └───────────────┘   Messages   └───────────────┘
+        │                                │                                │
+        │ Claim                          │ Claim                          │ Claim
+        ▼                                ▼                                ▼
+┌───────────────┐              ┌───────────────┐              ┌───────────────┐
+│  Beads (bd)   │              │  Beads (bd)   │              │  Beads (bd)   │
+│  Task Graph   │◄─────────────│  Task Graph   │─────────────►│  Task Graph   │
+└───────────────┘   Shared     └───────────────┘   Shared     └───────────────┘
+        │          via Git              │          via Git             │
+        ▼                                ▼                              ▼
+┌───────────────┐              ┌───────────────┐              ┌───────────────┐
+│   BV (bv)     │              │   BV (bv)     │              │   BV (bv)     │
+│ Graph Intel   │              │ Graph Intel   │              │ Graph Intel   │
+└───────────────┘              └───────────────┘              └───────────────┘
+```
 
 ---
 
@@ -958,6 +1010,154 @@ send_message(project_key, "BlueLake",
 ```
 
 **Both agents work without conflicts because they reserved different files.**
+
+---
+
+## Part 6: The Bead Lifecycle (Behind the Scenes)
+
+When you use slash commands, here's what the agent does automatically:
+
+### Full Flow: CLAIM → WORK → CLOSE
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                              CLAIM PHASE                                     │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  1. CHECK                    2. CLAIM                   3. RESERVE          │
+│  ─────────────               ──────────                 ─────────           │
+│  • Check inbox               • bd update <id>           • Reserve files     │
+│  • Check reservations          --status in_progress     • Set TTL           │
+│  • Check dependencies          --assignee NAME          • Exclusive lock    │
+│  • bv --robot-triage         • Claim ALL sub-beads                          │
+│                                                                              │
+│  4. ANNOUNCE                                                                 │
+│  ──────────────                                                              │
+│  • send_message [CLAIMED]                                                    │
+│  • thread_id = bead ID                                                       │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                     │
+                                     ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                              WORK PHASE                                      │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  1. READ TESTS               2. IMPLEMENT              3. RUN TESTS         │
+│  ──────────────              ─────────────             ──────────           │
+│  • Tests in bead desc        • Minimal code to         • pytest / npm test  │
+│  • TDD-first always            pass tests              • Expect pass        │
+│                                                                              │
+│  4. REPAIR (if needed)       5. SECURITY GATE                               │
+│  ─────────────────────       ────────────────                               │
+│  • Max 3 iterations          • ubs --staged                                 │
+│  • After 3: STOP             • Zero high/critical                           │
+│  • Spawn sub-bead or spike   • Medium needs justification                   │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                     │
+                                     ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                              CLOSE PHASE                                     │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  1. VERIFY                   2. COMMIT                  3. CLOSE            │
+│  ─────────                   ────────                   ───────             │
+│  • Tests passing             • git add -A               • Close sub-beads   │
+│  • ubs --staged clean        • Include .beads/            FIRST             │
+│                              • git commit               • Then close parent │
+│                                                                              │
+│  4. RELEASE                  5. ANNOUNCE                                     │
+│  ─────────                   ──────────                                      │
+│  • Release file              • send_message [CLOSED]                        │
+│    reservations              • thread_id = bead ID                          │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### What `/prime` Does Behind the Scenes
+
+```
+Step 1: ANNOUNCE
+├── Sets terminal title with agent identity
+└── Prints startup banner
+
+Step 2: REGISTER (Agent Mail MCP calls)
+├── ensure_project(human_key="/path/to/project")
+├── register_agent(program="claude-code", model="opus-4.5")
+│   └── Gets assigned name like "BlueLake"
+└── set_contact_policy(policy="open")
+
+Step 3: ORIENT
+├── Reads AGENTS.md for project context
+└── Runs: cass search "project" --days 7 --limit 5
+
+Step 4: COORDINATE (Agent Mail MCP calls)
+├── fetch_inbox(agent_name, limit=20)
+├── Reads resource://agents/{project} to discover other agents
+└── Sends greeting message to active agents
+
+Step 5: DISCOVER
+├── git status + git log --oneline -5
+├── bd ready --json
+└── bv --robot-triage
+
+Step 6: CLAIM (if you approve)
+├── bd update <id> --status in_progress --assignee BlueLake
+├── file_reservation_paths(paths=[...], exclusive=true)
+└── send_message(subject="[CLAIMED] <id>")
+
+Step 7: SUMMARIZE
+└── Outputs formatted startup summary
+```
+
+### Multi-Agent Parallel Execution (What Happens)
+
+```
+Time →
+
+Agent A (BlueLake)        Agent B (GreenCastle)      Agent C (RedStone)
+        │                         │                         │
+        │ /prime                  │ /prime                  │ /prime
+        ▼                         ▼                         ▼
+   Register ────────────────► Register ────────────────► Register
+        │                         │                         │
+        │ Check inbox             │ Check inbox             │ Check inbox
+        ▼                         ▼                         ▼
+   No messages               See A is active            See A, B active
+        │                         │                         │
+        │ bd ready                │ bd ready                │ bd ready
+        ▼                         ▼                         ▼
+   [bd-1, bd-2, bd-3]        [bd-1, bd-2, bd-3]        [bd-1, bd-2, bd-3]
+        │                         │                         │
+        │ Claim bd-1              │ See bd-1 claimed        │ See bd-1,2 claimed
+        ▼                         ▼                         ▼
+   Reserve src/auth/**       Claim bd-2                Claim bd-3
+        │                    Reserve src/users/**      Reserve src/api/**
+        │                         │                         │
+   [CLAIMED] bd-1 ─────────► Inbox: bd-1 claimed       Inbox: bd-1,2 claimed
+        │                         │                         │
+        │ Work...                 │ Work...                 │ Work...
+        ▼                         ▼                         ▼
+   Tests pass                Tests pass                Tests pass
+   ubs clean                 ubs clean                 ubs clean
+        │                         │                         │
+   [CLOSED] bd-1 ──────────► Inbox: bd-1 closed        Inbox: bd-1 closed
+        │                         │                         │
+        │ /next-bead              │                         │
+        ▼                         │                         │
+   Claim bd-4...                  │                         │
+```
+
+### What Prevents Conflicts
+
+| Mechanism | How It Works |
+|-----------|--------------|
+| **File reservations** | Agent must reserve files before editing; conflicts reported |
+| **[CLAIMED] messages** | All agents see what's been claimed |
+| **Task status** | `bd update --status in_progress` marks task as taken |
+| **Assignee tracking** | `--assignee BlueLake` records ownership |
+| **Inbox checking** | `/prime` and `/next-bead` check for conflicts first |
 
 ---
 

@@ -1,9 +1,3 @@
----
-title: Planning Deep Dive
-description: From vague idea to complete master plan that AI agents can execute without guessing.
-category: workflow
----
-
 <div align="center">
 
 # Planning Deep Dive
@@ -86,11 +80,10 @@ Before using this guide:
 
 Then read:
 - `START_HERE.md` — System overview
-- `EVIDENCE_BASED_GUIDE.md` — The full 10-stage pipeline
+- `IDEATION_TO_PRODUCTION.md` — The complete 11-stage pipeline
 - `PROTOCOLS.md` — Protocol cards
 
 For execution after planning, see:
-- `IDEATION_TO_PRODUCTION.md` — Full end-to-end pipeline
 - `DECOMPOSITION.md` — Breaking plans into executable phases
 
 ---

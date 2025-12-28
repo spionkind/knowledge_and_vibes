@@ -1,9 +1,3 @@
----
-title: Codemaps Template
-description: Token-aware architecture documentation for AI agents. Navigation aids, not comprehensive docs.
-category: templates
----
-
 # Codemaps Template
 
 **Token-aware architecture documentation for AI agents.**
@@ -398,7 +392,7 @@ pnpm db:studio → Open Prisma Studio
 ## Further Reading
 
 - [START_HERE.md](../START_HERE.md) - Newcomer reading order
-- [docs/workflow/EVIDENCE_BASED_GUIDE.md](../docs/workflow/EVIDENCE_BASED_GUIDE.md) - First-principles workflow (gates + artifacts)
+- [docs/workflow/IDEATION_TO_PRODUCTION.md](../docs/workflow/IDEATION_TO_PRODUCTION.md) - Complete pipeline reference (gates + artifacts)
 - [docs/workflow/PROTOCOLS.md](../docs/workflow/PROTOCOLS.md) - Protocol cards (repeatable moves)
 - [docs/workflow/PHILOSOPHY.md](../docs/workflow/PHILOSOPHY.md) - Mindset shift (evidence > confidence)
 - [docs/workflow/DECOMPOSITION.md](../docs/workflow/DECOMPOSITION.md) - Breaking plans into phases and beads

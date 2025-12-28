@@ -1,9 +1,3 @@
----
-title: AGENTS.md Template
-description: Project overview and workflow baseline for AI agents working in your codebase.
-category: templates
----
-
 # AGENTS.md
 
 <!-- CUSTOMIZE: Replace bracketed items with your project specifics -->
@@ -19,7 +13,7 @@ category: templates
 ## Workflow Baseline (Evidence-Backed)
 
 If this project is using the Knowledge & Vibes workflow, align to:
-- `docs/workflow/EVIDENCE_BASED_GUIDE.md` (end-to-end gates + artifacts)
+- `docs/workflow/IDEATION_TO_PRODUCTION.md` (complete pipeline reference)
 - `docs/workflow/PROTOCOLS.md` (protocol cards)
 - `/calibrate` between phases (hard stop; evidence-grounded plan control)
 

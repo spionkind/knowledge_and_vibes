@@ -1,9 +1,3 @@
----
-title: TDD for AI Code Generation
-tags: [tdd, testing, code-generation, verification]
-protocols: [P6]
----
-
 # TDD for AI Code Generation 2025
 
 **Paper:** Test-Driven Development for AI-Assisted Code Generation

@@ -1,9 +1,3 @@
----
-title: SWE-Gym - Training SE Agents
-tags: [training, agents, verifiers, rejection-sampling, swe-bench]
-protocols: [P6, P8]
----
-
 # SWE-Gym: Training Software Engineering Agents
 
 **Paper:** Training Software Engineering Agents and Verifiers with SWE-Gym

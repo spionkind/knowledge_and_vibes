@@ -1,9 +1,3 @@
----
-title: AutoCodeRover - Structure-Aware Navigation
-tags: [navigation, structure-aware, localization, sbfl, retrieval, ast]
-protocols: [P2, P8]
----
-
 # AutoCodeRover: Autonomous Program Improvement
 
 **Paper:** AutoCodeRover: Autonomous Program Improvement

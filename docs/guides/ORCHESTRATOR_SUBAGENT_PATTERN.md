@@ -1,9 +1,3 @@
----
-title: Orchestrator-Subagent Pattern
-description: Spawn specialized subagents for each phase instead of one agent holding everything in context. 90% improvement over single-agent approaches.
-category: guides
----
-
 # Orchestrator-Subagent Pattern
 
 Instead of one agent holding everything in context, spawn specialized subagents for each phase. Each gets fresh context. Pass only **summaries and file paths** between phases, not full content.
@@ -12,6 +6,208 @@ Instead of one agent holding everything in context, spawn specialized subagents 
 - Each subagent gets fresh context (no degradation)
 - Orchestrator coordinates without doing the work
 - 90% improvement over single-agent approaches
+
+---
+
+## Coordination Responsibilities
+
+**Critical design principle:** Subagents are stateless utilities. Only the orchestrator interacts with the broader agent ecosystem.
+
+### Orchestrator Owns All Coordination
+
+```
+ORCHESTRATOR (registered agent)
+├── Registers with Agent Mail (if multi-agent project)
+├── Owns file reservations before spawning subagents
+├── Sends all announcements ([CLAIMED], [CLOSED])
+├── Coordinates with other orchestrators
+├── Catches/filters errors from subagents
+└── Synthesizes results for upstream consumers
+```
+
+### Subagents Are Stateless Utilities
+
+```
+SUBAGENTS (ephemeral workers)
+├── Fresh isolated context window
+├── Scoped task + clear acceptance criteria
+├── NO Agent Mail registration
+├── NO direct peer communication
+├── Return filtered results only (not full context)
+└── Terminate after task completion
+```
+
+### Why This Design?
+
+| Concern | Orchestrator-Coordinated | Peer-to-Peer Subagents |
+|---------|-------------------------|------------------------|
+| **Scaling** | O(N) coordination | O(N²) message explosion |
+| **Error amplification** | 4.4× (filtered) | 17.2× (unfiltered) |
+| **Context pollution** | Orchestrator filters | Cross-contamination |
+| **Attribution** | Clear responsibility | "Which subagent failed?" |
+| **Complexity** | Hub-and-spoke | Mesh networking |
+
+### Research Backing
+
+- **Anthropic (June 2025):** "Subagents return findings to the LeadResearcher which then synthesizes" — no peer communication
+- **Claude Agent SDK:** "Subagents use their own isolated context windows, and only send relevant information back to the orchestrator"
+- **Google Scaling (Dec 2025):** Independent/peer architectures show 17.2× error amplification vs 4.4× for centralized
+- K&V: `research/059-multi-agent-orchestrator-2025.md`
+
+### Practical Implications
+
+1. **File reservations:** Orchestrator reserves `.beads/` before spawning `/decompose-task` subagents
+2. **Announcements:** Orchestrator sends `[CLAIMED]` after deciding to work, not subagents
+3. **Inbox checks:** Orchestrator checks inbox before/after phases, not during subagent execution
+4. **Error handling:** If subagent fails, orchestrator decides retry/escalate — subagent doesn't coordinate
+
+### Important: Subagents vs Parallel Workers
+
+| Type | Agent Mail | Communication | Use Case |
+|------|-----------|---------------|----------|
+| **Subagent** | No registration | Return to orchestrator only | Skill phases (decompose, calibrate) |
+| **Parallel worker** | Full registration | Agent Mail with peers | Long-running track execution (`/execute`) |
+
+**Subagents** (this pattern): Spawned within a skill for phase work. Stateless. Return results and terminate.
+
+**Parallel workers** (`/execute`): Independent agents running in parallel. Register with Agent Mail. Communicate via [CLAIMED]/[CLOSED]. Run their own sessions with `/prime`.
+
+Both use `Task tool`, but parallel workers run `/prime` to register as full agents.
+
+---
+
+## Full Execution Model
+
+When running `/execute`, here's the complete agent hierarchy:
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                        /EXECUTE COORDINATOR                              │
+│  (Registered: "Coordinator")                                             │
+│  - Discovers beads, computes parallel tracks                             │
+│  - Spawns one worker per track                                           │
+│  - Monitors via Agent Mail                                               │
+│  - Runs /calibrate at phase boundaries                                   │
+└─────────────────────────────────────────────────────────────────────────┘
+         │
+         │ spawns via Task tool (run_in_background=true)
+         │
+    ┌────┴────┬────────────┬────────────┐
+    ▼         ▼            ▼            ▼
+┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────┐
+│ Worker  │ │ Worker  │ │ Worker  │ │ Worker  │
+│ Track A │ │ Track B │ │ Track C │ │ Track D │
+│BlueLake │ │GreenCas │ │RedStone │ │PurpleBr │
+└────┬────┘ └────┬────┘ └────┬────┘ └────┬────┘
+     │           │           │           │
+     │ Each worker is a REGISTERED AGENT (runs /prime)
+     │ Each worker claims beads, sends [CLAIMED]/[CLOSED]
+     │
+     ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    WORKER EXECUTION LOOP                                 │
+│                                                                          │
+│  For each bead in assigned track:                                        │
+│                                                                          │
+│  1. CLAIM (worker does this directly)                                    │
+│     - bd update {id} --status in_progress --assignee {name}              │
+│     - file_reservation_paths(...)                                        │
+│     - send_message([CLAIMED])                                            │
+│                                                                          │
+│  2. IMPLEMENT (worker does this directly)                                │
+│     - Read bead description                                              │
+│     - TDD-first: write tests                                             │
+│     - Implement to pass tests                                            │
+│     - Max 3 iterations (if fail → spike + escalate)                      │
+│     - ubs --staged before commit                                         │
+│                                                                          │
+│  3. CLOSE (worker does this directly)                                    │
+│     - bd close {id} --reason "..."                                       │
+│     - release_file_reservations(...)                                     │
+│     - send_message([CLOSED])                                             │
+│                                                                          │
+│  4. NEXT BEAD (if any remain in track)                                   │
+│     → Loop back to step 1                                                │
+│                                                                          │
+│  5. TRACK COMPLETE                                                       │
+│     - send_message([TRACK COMPLETE] Track A)                             │
+│     - STOP and wait                                                      │
+│                                                                          │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+### When Do Workers Use Subagents?
+
+Workers execute beads **directly** for most implementation work. They only spawn subagents when:
+
+| Situation | Worker Action |
+|-----------|--------------|
+| **Simple implementation** | Worker implements directly (no subagents) |
+| **Complex multi-phase skill** | Worker invokes skill (e.g., `/calibrate`) which spawns subagents internally |
+| **Using `/next-bead`** | Skill spawns subagents for closeout/discover/verify/claim phases |
+
+**Key insight:** The worker is the registered agent. When it runs a skill like `/next-bead` or `/calibrate`, that skill may internally use subagents for its phases, but the worker remains the entity that:
+- Owns the Agent Mail identity
+- Holds file reservations
+- Sends announcements
+- Reports to the Coordinator
+
+### Worked Example: Worker Executes bd-125
+
+```
+Worker "BlueLake" assigned Track A with beads [bd-125, bd-126]
+
+1. BlueLake claims bd-125:
+   - bd update bd-125 --status in_progress --assignee BlueLake
+   - file_reservation_paths(["src/auth/**"], agent_name="BlueLake")
+   - send_message(subject="[CLAIMED] bd-125 - JWT validation")
+
+2. BlueLake implements bd-125:
+   - Reads bead description (contains test requirements)
+   - Writes tests first (TDD)
+   - Implements JWT validation
+   - pytest passes
+   - ubs --staged clean
+   - git commit -m "Implement JWT validation\n\nCloses bd-125"
+
+3. BlueLake closes bd-125:
+   - bd close bd-125 --reason "Completed: JWT validation with tests"
+   - release_file_reservations(agent_name="BlueLake")
+   - send_message(subject="[CLOSED] bd-125 - JWT validation")
+
+4. BlueLake moves to bd-126:
+   → Repeats claim/implement/close cycle
+
+5. Track A complete:
+   - send_message(subject="[TRACK COMPLETE] Track A", to=["Coordinator"])
+   - BlueLake stops and waits
+```
+
+### What the Coordinator Sees
+
+```
+Coordinator monitors via Agent Mail:
+
+[10:05] BlueLake: [CLAIMED] bd-125 - JWT validation
+[10:12] BlueLake: [CLOSED] bd-125 - JWT validation
+[10:13] BlueLake: [CLAIMED] bd-126 - Session management
+[10:22] BlueLake: [CLOSED] bd-126 - Session management
+[10:22] BlueLake: [TRACK COMPLETE] Track A
+
+Coordinator marks Track A done, waits for other tracks...
+```
+
+### Summary: Three-Level Hierarchy
+
+| Level | Identity | Agent Mail | Example |
+|-------|----------|------------|---------|
+| **Coordinator** | Registered | Yes | "Coordinator" |
+| **Workers** | Registered | Yes | "BlueLake", "GreenCastle" |
+| **Subagents** | None | No | Phases within /calibrate, /next-bead |
+
+- Coordinator → Workers: spawns via Task tool, monitors via Agent Mail
+- Workers → Subagents: spawns via Task tool within skills, receives return values
+- Subagents → Nobody: stateless, just return results and terminate
 
 ---
 
@@ -304,5 +500,5 @@ For maximum context savings, the orchestrator can be minimal:
 
 - `research/056-multi-agent-orchestrator.md` ,  Research on orchestrator patterns
 - `research/004-context-length-hurts.md` ,  Context degradation evidence
-- `docs/guides/TOOL_STACK_AND_OPERATIONS.md` ,  Tool stack overview
+- `docs/guides/TUTORIAL.md` ,  Complete tool guide
 - `.claude/skills/calibrate/SKILL.md` ,  Example skill (can be refactored)

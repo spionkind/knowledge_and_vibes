@@ -1,9 +1,3 @@
----
-title: Ideation to Shipped Product
-description: Complete end-to-end pipeline from idea to shipped product. Single-page reference for the full 10-stage lifecycle.
-category: workflow
----
-
 <div align="center">
 
 # Ideation → Shipped Product
@@ -21,6 +15,9 @@ The complete end-to-end pipeline from idea to shipped product. This is the singl
 - [How This Relates to Other Docs](#how-this-document-relates-to-others)
 - [Why This Pipeline Exists](#why-this-pipeline-exists)
 - [First Principles](#first-principles-what-were-optimizing-for)
+- [The Six Principles](#the-six-principles)
+- [Roles: Who Does What](#roles-who-does-what)
+- [The Tool Stack](#the-tool-stack)
 - [The Pipeline](#the-pipeline-operatorled-stages--gates)
   - [Stage -1: Discovery](#stage-1--discovery-before-the-pipeline)
   - [Stage 0: Rigor Mode](#stage-0--set-the-rigor-mode-context-drives-process)
@@ -43,14 +40,14 @@ The complete end-to-end pipeline from idea to shipped product. This is the singl
 
 | Document | Focus |
 |----------|-------|
+| `PHILOSOPHY.md` | Why this approach works (principles, rationale) |
 | `DISCOVERY.md` | Pre-pipeline: curiosity-driven architecture |
-| `EVIDENCE_BASED_GUIDE.md` | Same pipeline, more philosophy |
-| `PROTOCOLS.md` | Individual protocol cards |
-| `PLANNING_DEEP_DIVE.md` | Deep dive on planning |
-| `DECOMPOSITION.md` | Decomposition mechanics |
+| `PROTOCOLS.md` | Individual protocol cards (19 protocols) |
+| `PLANNING_DEEP_DIVE.md` | Deep dive on planning mechanics |
+| `DECOMPOSITION.md` | Decomposition mechanics (Three Rules, ADaPT) |
 | This document | **Complete lifecycle overview** |
 
-All of these are consistent. This one shows the full picture. Start with `DISCOVERY.md` for new projects.
+This is the authoritative pipeline reference. Start with `DISCOVERY.md` for new projects.
 
 ---
 
@@ -90,6 +87,133 @@ Diversity + search improves outcomes: `research/019-plansearch.md`, `research/02
 Adaptive decomposition helps when reality shifts: `research/038-adapt.md`, `research/039-tdag.md`  
 Multi-stage “human loop” pipelines work: `research/040-mapcoder.md`  
 Requirements quality is leverage: `research/033-requirements-to-code.md`, `research/036-requirements-qa-iso-29148.md`, `research/037-requirements-to-code-practices.md`
+
+---
+
+## The Six Principles
+
+<table>
+<tr><td>
+
+### 0. Give AI Few Decisions
+
+**Plan as much as appropriate. Give the AI as few decisions as possible.**
+
+Any decision you don't claim, you implicitly delegate. Gaps become assumptions. Assumptions become architecture. Bad architecture becomes a rewrite.
+
+**Implication:** The plan is complete when there's nothing left to interpret. See `DISCOVERY.md`.
+
+</td></tr>
+<tr><td>
+
+### 1. Truth Lives Outside the Model
+
+The AI's confident output is not truth. Truth is:
+- Tests that pass or fail
+- Code that compiles or doesn't
+- Documentation that exists or doesn't
+- Measurements you can observe
+
+**Implication:** Every claim that matters must be verified, not trusted.
+
+</td></tr>
+<tr><td>
+
+### 2. Planning is Search + Selection
+
+Don't bet on one plan. Generate multiple candidates, then select using evidence.
+
+**Implication:** Stages 3-5 produce options before committing.
+
+</td></tr>
+<tr><td>
+
+### 3. Tests Adjudicate Disagreements
+
+When agents disagree, the answer is not more debate.
+
+**Implication:** Write discriminating tests, run them, let results decide.
+
+</td></tr>
+<tr><td>
+
+### 4. Minimal Plans Beat Massive Plans
+
+> "The smallest set of high-signal tokens that enables correct behavior." — Anthropic
+
+**Implication:** Plan size matches project complexity. "Lossless" = no guessing, not "huge."
+
+</td></tr>
+<tr><td>
+
+### 5. Decompose When Reality Demands It
+
+Don't pre-decompose "just in case." Start coarse, split only when execution fails.
+
+**Implication:** ADaPT pattern in Stage 7-8.
+
+</td></tr>
+</table>
+
+---
+
+## Roles: Who Does What
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### Operator (You)
+
+You do **value decisions** and **gate enforcement**:
+
+| Responsibility | Why It's Yours |
+|:---------------|:---------------|
+| Define goals, stakes, priorities | Only you know what success means |
+| Answer clarifying questions | Only you know what you actually want |
+| Choose between options | Only you can make value tradeoffs |
+| Enforce "no tests = not done" | Core quality gate |
+| Approve plan changes | Drift must be intentional |
+
+You do NOT need to: validate code, review implementations, debug technical problems, or decide architecture.
+
+</td>
+<td width="50%" valign="top">
+
+### Agents
+
+Agents do **technical work + evidence production**:
+
+| Responsibility | Why Agents |
+|:---------------|:-----------|
+| Convert intent to `REQ-*` / `AC-*` | Technical translation |
+| Ground claims (Warp-Grep, Exa) | Access to verification tools |
+| Implement in verifiable beads | Technical execution |
+| Run verification loops | Automated checking |
+| Coordinate via Agent Mail | Multi-agent orchestration |
+| Maintain traceability | Coverage tracking |
+
+</td>
+</tr>
+</table>
+
+---
+
+## The Tool Stack
+
+Each tool addresses a specific failure mode:
+
+| Tool | Command | Addresses |
+|:-----|:--------|:----------|
+| **Beads** | `bd` | Work tracking, dependency management |
+| **BV** | `bv --robot-*` | Execution ordering, blocker detection |
+| **Agent Mail** | MCP tools | Multi-agent coordination, file reservations |
+| **Warp-Grep** | MCP tool | Codebase truth (prevents hallucinated references) |
+| **Exa** | MCP tool | Web truth (current docs, APIs) |
+| **UBS** | `ubs --staged` | Security scanning (mandatory before commit) |
+| **CASS/cm** | `cass`, `cm` | History, learned patterns |
+
+📖 **For detailed usage:** See [Tutorial](../guides/TUTORIAL.md)
 
 ---
 

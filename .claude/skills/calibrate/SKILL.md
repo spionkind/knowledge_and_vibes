@@ -343,5 +343,5 @@ Located in `.claude/templates/calibration/`:
 
 - `agents/` — Subagent definitions
 - `docs/guides/ORCHESTRATOR_SUBAGENT_PATTERN.md` — Pattern documentation
-- `docs/workflow/EVIDENCE_BASED_GUIDE.md` — Full philosophy
+- `docs/workflow/IDEATION_TO_PRODUCTION.md` — Complete pipeline
 - `docs/workflow/PROTOCOLS.md` — Protocol cards

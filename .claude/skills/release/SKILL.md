@@ -386,5 +386,5 @@ send_message(
 - `/calibrate` — Run if drift detected before release
 - `/prime` — Worker startup (for re-verification)
 - `docs/workflow/PROTOCOLS.md` — P12: Release Readiness, P13: Security Gate
-- `docs/workflow/EVIDENCE_BASED_GUIDE.md` — Stage 10
+- `docs/workflow/IDEATION_TO_PRODUCTION.md` — Stage 10
 - `bead-workflow/` — Bead lifecycle details

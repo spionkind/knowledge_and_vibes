@@ -1,5 +1,22 @@
 # Multi-Agent Rules
 
+## Scope: Who These Rules Apply To
+
+These rules apply to **orchestrators and top-level worker agents** — agents with persistent identity in the Agent Mail ecosystem.
+
+**These rules do NOT apply to subagents** spawned via the Task tool. Subagents are stateless utilities:
+- No Agent Mail registration
+- No file reservations
+- No announcements
+- No inbox checks
+- Return results to orchestrator only
+
+**Orchestrator responsibility:** If your subagent needs to edit files, reserve them BEFORE spawning the subagent. The orchestrator sends all `[CLAIMED]`/`[CLOSED]` announcements.
+
+See: `docs/guides/ORCHESTRATOR_SUBAGENT_PATTERN.md`
+
+---
+
 ## Before Claiming Work
 - Check inbox for recent `[CLAIMED]` messages
 - Check file reservations before editing

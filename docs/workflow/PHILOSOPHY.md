@@ -1,9 +1,3 @@
----
-title: Philosophy
-description: Make it hard to be wrong. The principles behind Knowledge & Vibes and why workflow beats prompting.
-category: workflow
----
-
 <div align="center">
 
 # Philosophy
@@ -281,7 +275,7 @@ The tools will keep changing. These principles won't.
 ## Next
 
 - **Discovery (start here for new projects):** `docs/workflow/DISCOVERY.md`
-- **Lifecycle and gates:** `docs/workflow/EVIDENCE_BASED_GUIDE.md`
+- **Lifecycle and gates:** `docs/workflow/IDEATION_TO_PRODUCTION.md`
 - **Protocols:** `docs/workflow/PROTOCOLS.md`
 - **Decomposition mechanics:** `docs/workflow/DECOMPOSITION.md`
 - **Planning deep dive:** `docs/workflow/PLANNING_DEEP_DIVE.md`

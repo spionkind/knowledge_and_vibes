@@ -1,8 +1,3 @@
----
-title: Glossary
-description: Every term used in Knowledge & Vibes, defined. Core concepts, tools, commands, and phrases.
----
-
 <div align="center">
 
 # Glossary
@@ -80,6 +75,8 @@ Verifying claims against real sources before acting on them. Three types:
 | **Web truth** | What do current docs say? | Exa |
 | **History truth** | What worked before? | CASS, cm |
 
+*Research: `research/008-api-hallucination.md`, `research/017-context-retrieval-repo-editing.md`*
+
 </td></tr>
 <tr><td>
 
@@ -89,6 +86,8 @@ A hard stop between phases to check alignment. Detects drift, resolves disagreem
 
 Triggered by `/calibrate`. Disagreements are resolved by tests, not debate.
 
+*Research: `research/003-debate-or-vote.md`, `research/041-debatecoder.md`*
+
 </td></tr>
 <tr><td>
 
@@ -97,6 +96,8 @@ Triggered by `/calibrate`. Disagreements are resolved by tests, not debate.
 When implementation gradually diverges from the original plan. Causes: long context, forgotten requirements, accumulated decisions.
 
 Calibration catches drift before it compounds.
+
+*Research: `research/004-context-length-hurts.md`*
 
 </td></tr>
 </table>
@@ -198,12 +199,16 @@ A checkpoint that must pass before proceeding:
 
 Writing tests before implementation. In this system, TDD is mandatory. Tests go in the bead description before code is written.
 
+*Research: `research/054-tdd-ai-code-gen.md`*
+
 </td></tr>
 <tr><td>
 
 ### 3-Iteration Limit
 
 Never attempt more than 3 repair cycles on failing code. After 3 failures: stop, decompose, or escalate.
+
+*Research: `research/060-debugging-decay-index.md` (DDI shows 60-80% effectiveness loss by attempt 3)*
 
 </td></tr>
 <tr><td>
@@ -213,6 +218,8 @@ Never attempt more than 3 repair cycles on failing code. After 3 failures: stop,
 Only break tasks into smaller pieces when execution fails. Don't pre-decompose based on guesses.
 
 **Flow:** Start coarse → Attempt execution → If fails after 3 tries → Decompose only the failing part
+
+*Research: `research/038-adapt.md`*
 
 </td></tr>
 <tr><td>
@@ -283,6 +290,8 @@ All agents see these to avoid stepping on each other.
 ### Orchestrator-Worker Pattern
 
 A coordination pattern where one agent (orchestrator) assigns work to others (workers) and synthesizes results.
+
+*Research: `research/056-multi-agent-orchestrator.md`, `research/059-multi-agent-orchestrator-2025.md`*
 
 </td></tr>
 </table>
@@ -396,6 +405,8 @@ MCP tool for web search. Use to verify documentation, find best practices, resea
 | `/calibrate` | Run a calibration checkpoint. Checks coverage, detects drift, resolves disagreements with tests. |
 | `/decompose-task` | Break a phase into beads and sub-beads. Creates the task graph for execution. |
 | `/ground` | Verify claims against real sources before making decisions. |
+| `/resolve` | Resolve disagreements between agents or approaches using test-based adjudication. |
+| `/release` | Run pre-ship checklist for release readiness. Verifies tests, security, documentation. |
 
 ---
 

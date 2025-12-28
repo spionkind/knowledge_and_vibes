@@ -1,9 +1,3 @@
----
-title: Discovery
-description: The pre-pipeline phase where you surface every decision hiding in your idea through curiosity-driven interrogation of frontier models.
-category: workflow
----
-
 <div align="center">
 
 # Discovery
@@ -43,6 +37,8 @@ The phase before planning. Where you surface every decision hiding in your idea 
 Any decision you don't claim, you implicitly delegate. When you prompt, you're delegating the choices you didn't lock down and hoping the model makes them correctly. When you plan, you're making those decisions yourself and handing off only the execution.
 
 This is the difference between hoping and knowing.
+
+> For the complete philosophy and research evidence behind this approach, see [PHILOSOPHY.md](./PHILOSOPHY.md).
 
 There are two ways to work with coding agents:
 
@@ -280,43 +276,13 @@ Your fresh eyes are an asset, not a liability.
 
 Once you have a Master Plan, you need to break it into pieces agents can execute. This is where most plans die—through lossy summarization.
 
-### Rule 1: Size Your Chunks
+The complete rules are documented in [DECOMPOSITION.md](./DECOMPOSITION.md#the-three-rules-of-lossless-decomposition). In brief:
 
-Agents perform poorly on large documents. Give them a 5,000-line markdown file and they'll start summarizing, paraphrasing, losing details. Give them 500-1,500 lines and they can hold every specification in working memory.
+1. **Size Your Chunks** — Keep each phase document at a manageable size (~500-1500 lines)
+2. **Decompose Losslessly** — Reorganize, don't summarize. Every detail must survive.
+3. **Verify With Fresh Eyes** — A different agent audits for gaps
 
-Keep each phase document at a manageable size. That's the secret.
-
-### Rule 2: Decompose Losslessly
-
-When you split a large plan into smaller pieces, you do not summarize. You *reorganize*. Every decision survives. Every edge case lives somewhere.
-
-Think of it like Russian nesting dolls. Your master plan is the biggest doll. You open it, and inside are your phases—smaller, but each one complete and fully formed. You open a phase, and inside are your tasks. Open a task, and inside are your sub-tasks.
-
-The key: each layer is whole. Not a summary of the layer above it. Not a simplified version. A complete specification at a smaller scale.
-
-**If a detail doesn't appear in a sub-task, that detail is gone forever.**
-
-There's one word that makes or breaks this: **LOSSLESS.**
-
-### Rule 3: Verify With Fresh Eyes
-
-The agent that created the breakdown can't audit its own work. Bring in a different agent. Have it check:
-
-- Does every section from the original appear somewhere?
-- Can each task stand alone?
-- Could someone implement any piece without asking a single question?
-
-If the answer is no, you're not done.
-
-### The Mantra
-
-**Bounded. Complete. Verified.**
-
-- **Bounded** = scoped to what an agent can hold in working memory
-- **Complete** = every detail survives the decomposition
-- **Verified** = audited by someone who wasn't there
-
-Master these three, and your plans survive execution.
+**The Mantra:** Bounded. Complete. Verified.
 
 ---
 

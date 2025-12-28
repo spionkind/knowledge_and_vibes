@@ -1,9 +1,3 @@
----
-title: Evidence-Backed Protocols
-description: 19 repeatable procedures for verifiable progress. Each protocol has Why, Inputs, Outputs, Gate, and Evidence.
-category: workflow
----
-
 <div align="center">
 
 # Evidence-Backed Protocols
