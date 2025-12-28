@@ -5,7 +5,7 @@ description: File-by-file walkthrough of Knowledge & Vibes: purpose, workflow, t
 
 # Knowledge & Vibes — Repo Tour (Generated)
 
-_Generated at 2025-12-28 01:39:34Z by `scripts/generate_repo_tour.py`._
+_Generated at 2025-12-28 01:46:43Z by `scripts/generate_repo_tour.py`._
 
 ## What This Project Is
 
@@ -58,7 +58,7 @@ Knowledge & Vibes is a research-backed framework for building software with AI. 
 - `docs/guides/CLAUDE_CONFIG_GUIDE.md` — Claude Code Configuration Guide: How to organize agent instructions using Claude Code's official configuration system: rules, skills, and commands.
 - `docs/guides/MIGRATION_GUIDE.md` — Migration Guide: Bring an existing project into the Knowledge & Vibes stack. This guide covers restructuring Claude Code configuration, installing tools, and setting up proper documentation.
 - `docs/guides/ORCHESTRATOR_SUBAGENT_PATTERN.md` — Orchestrator-Subagent Pattern: Instead of one agent holding everything in context, spawn specialized subagents for each phase. Each gets fresh context. Pass only **summaries and file paths** between phases, not full content.
-- `docs/guides/SETUP_GUIDE.md` — Setup Guide: Knowledge & Vibes is a system for building software with AI assistance. Instead of chatting with AI and hoping for the best, this system gives you:
+- `docs/guides/SETUP_GUIDE.md` — Setup Guide: Knowledge & Vibes has three types of components. Understanding this prevents confusion:
 - `docs/guides/TUTORIAL.md` — Tutorial: The Complete Tool Guide: This tutorial explains what each tool does, why it matters, and how to use it effectively.
 
 ### Templates (Operator-Facing)
@@ -253,6 +253,9 @@ Knowledge & Vibes is a research-backed framework for building software with AI. 
 - `.claude/hooks/on-file-write.sh` — on-file-write.sh: Shell script.
 - `.claude/settings.local.json` — settings.local.json: JSON configuration.
 - `.gitignore` — .gitignore: Ignore rules: cloned tool repos, local AI configs, editor/temp artifacts.
+- `.ruff_cache/.gitignore` — Automatically created by ruff.: *
+- `.ruff_cache/0.14.10/17149909471076343058`: Binary/unreadable as UTF-8; excluded from content summary.
+- `.ruff_cache/CACHEDIR.TAG` — CACHEDIR.TAG
 - `LICENSE` — License: MIT license for this repository.
 - `scripts/generate_repo_tour.py` — generate_repo_tour.py
 

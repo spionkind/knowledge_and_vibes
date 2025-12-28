@@ -8,6 +8,77 @@
 
 ---
 
+## 🗂️ What Goes Where (Read This First)
+
+Knowledge & Vibes has three types of components. Understanding this prevents confusion:
+
+### 1. Global Tools (Install Once, Use Everywhere)
+
+These CLI tools install to `~/.local/bin/` and work across all your projects:
+
+| Tool | What It Is | Install Location |
+|:-----|:-----------|:-----------------|
+| `bd` | Task tracker CLI | `~/.local/bin/bd` |
+| `bv` | Task graph analyzer | `~/.local/bin/bv` |
+| `ubs` | Security scanner | `~/.local/bin/ubs` |
+| `cass` | Session search | `~/.local/bin/cass` |
+| `cm` | Context memory | `~/.local/bin/cm` |
+| `ntm` | Terminal manager | `~/.local/bin/ntm` |
+
+**MCP servers** also install globally (user-level):
+- `exa` — Web and code search
+- `morph-fast-tools` — Parallel codebase search
+- `mcp-agent-mail` — Multi-agent coordination
+
+### 2. Per-Project Files (Copy Into Each Project)
+
+These files go into YOUR project's repository:
+
+```
+your-project/
+├── .beads/                    # Task database (created by `bd init`)
+│   └── issues.jsonl           # Your tasks live here
+├── .claude/
+│   ├── commands/              # Slash commands (/prime, /calibrate, etc.)
+│   │   ├── prime.md
+│   │   ├── next-bead.md
+│   │   ├── calibrate.md
+│   │   ├── decompose-task.md
+│   │   └── ground.md
+│   ├── rules/                 # Agent behavior rules
+│   │   ├── safety.md          # File deletion protection
+│   │   ├── beads.md           # Task claiming protocol
+│   │   └── multi-agent.md     # Coordination protocol
+│   ├── skills/                # Skill definitions (agent capabilities)
+│   │   ├── prime/
+│   │   ├── next-bead/
+│   │   ├── calibrate/
+│   │   ├── execute/
+│   │   ├── bead-workflow/
+│   │   └── ... (13 skills total)
+│   └── templates/             # Runtime templates for agent output
+│       ├── beads/
+│       ├── planning/
+│       └── calibration/
+├── AGENTS.md                  # Project-specific agent instructions
+└── PLAN/                      # Your planning artifacts (optional)
+    ├── 00_north_star.md
+    └── 01_requirements.md
+```
+
+### 3. Reference Material (Stays in K&V Repo)
+
+The `knowledge_and_vibes` repository itself contains documentation you READ but don't copy:
+
+- `docs/workflow/*` — How the system works (philosophy, pipeline, protocols)
+- `docs/guides/*` — Tutorials and setup guides
+- `research/*` — Evidence base (73 research summaries)
+- `templates/*` — Templates to ADAPT (not copy verbatim)
+
+**You don't copy these into your project.** You reference them when needed.
+
+---
+
 ## 🎯 What Is This?
 
 Knowledge & Vibes is a system for building software with AI assistance. Instead of chatting with AI and hoping for the best, this system gives you:
@@ -186,7 +257,7 @@ You should see `exa` and `morph-fast-tools` listed.
 
 ---
 
-## Step 4: Initialize Your First Project
+## Step 4: Initialize Your Project
 
 <table>
 <tr>
@@ -215,22 +286,92 @@ bd init
 </tr>
 </table>
 
-### Add Agent Instructions
+This creates `.beads/` with an empty task database.
+
+---
+
+## Step 5: Copy Project Files
+
+Now copy the files your agents need. Choose your setup level:
+
+### Minimal Setup (Solo Agent, Simple Projects)
 
 ```bash
+# Agent instructions
 curl -o AGENTS.md https://raw.githubusercontent.com/Mburdo/knowledge_and_vibes/master/templates/AGENTS_TEMPLATE.md
+
+# Essential slash commands
+mkdir -p .claude/commands
+for cmd in prime next-bead calibrate decompose-task ground; do
+  curl -fsSL -o .claude/commands/$cmd.md \
+    https://raw.githubusercontent.com/Mburdo/knowledge_and_vibes/master/.claude/commands/$cmd.md
+done
+
+# Safety rules (prevents accidental file deletion)
+mkdir -p .claude/rules
+curl -fsSL -o .claude/rules/safety.md \
+  https://raw.githubusercontent.com/Mburdo/knowledge_and_vibes/master/.claude/rules/safety.md
+```
+
+### Full Setup (Multi-Agent, Complex Projects)
+
+```bash
+# Clone the K&V repo temporarily to copy files
+git clone --depth 1 https://github.com/Mburdo/knowledge_and_vibes.git /tmp/kv-setup
+
+# Copy agent instructions
+cp /tmp/kv-setup/templates/AGENTS_TEMPLATE.md ./AGENTS.md
+
+# Copy all commands, rules, skills, and templates
+cp -r /tmp/kv-setup/.claude/commands .claude/
+cp -r /tmp/kv-setup/.claude/rules .claude/
+cp -r /tmp/kv-setup/.claude/skills .claude/
+cp -r /tmp/kv-setup/.claude/templates .claude/
+
+# Clean up
+rm -rf /tmp/kv-setup
+```
+
+### What You Just Copied
+
+| Directory | Files | Purpose |
+|:----------|:------|:--------|
+| `.claude/commands/` | 6 files | Slash commands like `/prime`, `/calibrate` |
+| `.claude/rules/` | 3 files | Safety rules, bead protocol, multi-agent protocol |
+| `.claude/skills/` | 13 dirs | Full skill definitions for each capability |
+| `.claude/templates/` | 3 dirs | Output templates for beads, planning, calibration |
+| `AGENTS.md` | 1 file | Project-specific agent instructions (EDIT THIS) |
+
+### Customize AGENTS.md
+
+Open `AGENTS.md` and update it for YOUR project:
+
+```markdown
+# Project: [YOUR PROJECT NAME]
+
+## Tech Stack
+- [Your languages, frameworks, tools]
+
+## Architecture
+- [Key directories and their purpose]
+
+## Conventions
+- [Your coding standards, naming conventions]
+
+## What NOT To Do
+- [Project-specific restrictions]
 ```
 
 ### Commit
 
 ```bash
-git add .beads/ AGENTS.md
+git add .beads/ .claude/ AGENTS.md
 git commit -m "Initialize Knowledge & Vibes"
 ```
 
 ---
 
-## Step 5: Test Everything
+## Step 6: Test Everything
 
 ### Test Task Tracking
 
@@ -263,49 +404,28 @@ cass index --full
 cass search "test" --robot --limit 3
 ```
 
----
-
-## Step 6: Add Slash Commands
-
-Shortcuts like `/prime` and `/calibrate`:
-
-```bash
-mkdir -p .claude/commands
-
-for cmd in prime next-bead ground decompose-task calibrate; do
-  curl -fsSL -o .claude/commands/$cmd.md \
-    https://raw.githubusercontent.com/Mburdo/knowledge_and_vibes/master/.claude/commands/$cmd.md
-done
-
-git add .claude/commands
-git commit -m "Add slash commands"
-```
-
-### Test
+### Test Slash Commands
 
 Start Claude Code and type `/prime`. The agent should run a startup checklist.
 
 ---
 
-## Step 7: Add Safety Rules
-
-Prevent AI from accidentally deleting files or running dangerous commands:
-
-```bash
-mkdir -p .claude/rules
-
-curl -fsSL -o .claude/rules/safety.md \
-  https://raw.githubusercontent.com/Mburdo/knowledge_and_vibes/master/.claude/rules/safety.md
-
-git add .claude/rules
-git commit -m "Add safety rules"
-```
-
----
-
 ## ✅ You're Done!
 
-### What You Installed
+### What's Now In Your Project
+
+```
+your-project/
+├── .beads/                    ← Task database
+├── .claude/
+│   ├── commands/              ← Slash commands (/prime, /calibrate, etc.)
+│   ├── rules/                 ← Safety and coordination rules
+│   ├── skills/                ← Agent capabilities (full setup only)
+│   └── templates/             ← Output templates (full setup only)
+└── AGENTS.md                  ← YOUR project instructions (edit this!)
+```
+
+### Global Tools You Installed
 
 | Tool | Command | Purpose |
 |:-----|:--------|:--------|
@@ -318,10 +438,20 @@ git commit -m "Add safety rules"
 ### Quick Reference
 
 ```bash
-bd ready --json              # See available tasks
+# Task management
+bd create "Task name" -t task -p 2   # Create a task
+bd ready --json                       # See available tasks
+bd update bd-XXX --status in_progress # Claim a task
+bd close bd-XXX --reason "Done"       # Close a task
+
+# Analysis
 bv --robot-next              # Get recommended next task
 bv --robot-triage            # Get full analysis
+
+# Security
 ubs --staged                 # Scan before committing
+
+# History
 cass search "query" --robot  # Search past sessions
 cm context "task" --json     # Get context for a task
 ```
@@ -333,6 +463,13 @@ cm context "task" --json     # Get context for a task
 | 1. Read the workflow | [START_HERE.md](../../START_HERE.md) → [Pipeline Reference](../workflow/IDEATION_TO_PRODUCTION.md) |
 | 2. Try the tutorial | [Tutorial](./TUTORIAL.md) |
 | 3. Create your first plan | [North Star Template](../../templates/NORTH_STAR_CARD_TEMPLATE.md) |
+
+### First Session Checklist
+
+1. Open Claude Code in your project directory
+2. Type `/prime` to start a session
+3. The agent will register, check for tasks, and orient itself
+4. Ask the agent to help you create your first North Star card
 
 ---
 
